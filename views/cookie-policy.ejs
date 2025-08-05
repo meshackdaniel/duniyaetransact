@@ -1,0 +1,1110 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= name %> - Mobile Recharge & Payment Platform</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+      :root {
+        --primary: #4f46e5;
+        --primary-dark: #4338ca;
+        --secondary: #0ea5e9;
+        --accent: #8b5cf6;
+      }
+
+      body {
+        font-family: "Inter", sans-serif;
+        background-color: #f9fafb;
+      }
+
+      .primary-gradient {
+        background: linear-gradient(
+          135deg,
+          var(--primary) 0%,
+          var(--secondary) 100%
+        );
+      }
+
+      .secondary-gradient {
+        background: linear-gradient(
+          135deg,
+          var(--accent) 0%,
+          var(--secondary) 100%
+        );
+      }
+
+      .card-hover {
+        transition: all 0.3s ease;
+      }
+
+      .card-hover:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+          0 10px 10px -5px rgba(0, 0, 0, 0.04);
+      }
+
+      .app-mockup {
+        position: relative;
+        width: 280px;
+        height: 560px;
+        border-radius: 40px;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        overflow: hidden;
+      }
+
+      .app-screen {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: #fff;
+        overflow: hidden;
+      }
+
+      .app-notch {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 150px;
+        height: 30px;
+        background: #000;
+        border-bottom-left-radius: 15px;
+        border-bottom-right-radius: 15px;
+        z-index: 10;
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-10px);
+        }
+      }
+
+      .float-animation {
+        animation: float 6s ease-in-out infinite;
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.7;
+        }
+      }
+
+      .pulse-animation {
+        animation: pulse 2s infinite;
+      }
+
+      .service-icon {
+        transition: all 0.3s ease;
+      }
+
+      .card-hover:hover .service-icon {
+        transform: scale(1.1);
+      }
+
+      .custom-scrollbar::-webkit-scrollbar {
+        width: 6px;
+      }
+
+      .custom-scrollbar::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 10px;
+      }
+
+      .custom-scrollbar::-webkit-scrollbar-thumb {
+        background: #c7d2fe;
+        border-radius: 10px;
+      }
+
+      .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+        background: #a5b4fc;
+      }
+
+      .feature-card {
+        transition: all 0.3s ease;
+      }
+
+      .feature-card:hover {
+        transform: translateY(-5px);
+      }
+
+      .feature-icon {
+        transition: all 0.3s ease;
+      }
+
+      .feature-card:hover .feature-icon {
+        transform: scale(1.1) rotate(10deg);
+      }
+
+      /* About */
+      .gradient-bg {
+        background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+      }
+      .gradient-text {
+        background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+      .team-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+          0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      }
+      .stat-card {
+        transition: all 0.3s ease;
+      }
+      .stat-card:hover {
+        transform: translateY(-5px);
+      }
+      .timeline-dot {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+        position: absolute;
+        left: -10px;
+        top: 0;
+      }
+      .timeline-line {
+        position: absolute;
+        left: 0;
+        top: 20px;
+        bottom: 0;
+        width: 1px;
+        background-color: #e5e7eb;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Hero Section -->
+    <section class="relative">
+      <div class="gradient-bg h-48 md:h-64"></div>
+      <div class="container mx-auto px-4">
+        <div
+          class="bg-white rounded-xl shadow-lg p-8 md:p-12 -mt-20 relative z-10"
+        >
+          <div class="flex flex-col md:flex-row items-center justify-between">
+            <div class="md:w-2/3 mb-8 md:mb-0 md:pr-8">
+              <h1 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
+                Cookie Policy
+              </h1>
+              <p class="text-gray-600">
+                This Cookie Policy explains how QuickTopup uses cookies and
+                similar technologies to recognize you when you visit our
+                website. It explains what these technologies are and why we use
+                them, as well as your rights to control our use of them.
+              </p>
+            </div>
+            <div class="md:w-1/3 flex justify-center">
+              <div class="w-32 h-32 relative">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-full w-full text-indigo-600 cookie-icon"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path
+                    d="M15.5 2A1.5 1.5 0 0014 3.5v13a1.5 1.5 0 001.5 1.5h1a1.5 1.5 0 001.5-1.5v-13A1.5 1.5 0 0016.5 2h-1zM9.5 6A1.5 1.5 0 008 7.5v9A1.5 1.5 0 009.5 18h1a1.5 1.5 0 001.5-1.5v-9A1.5 1.5 0 0010.5 6h-1zM3.5 10A1.5 1.5 0 002 11.5v5A1.5 1.5 0 003.5 18h1A1.5 1.5 0 006 16.5v-5A1.5 1.5 0 004.5 10h-1z"
+                  />
+                </svg>
+                <div
+                  class="absolute inset-0 bg-indigo-600 rounded-full opacity-10 animate-pulse"
+                ></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Last Updated -->
+    <section class="py-6">
+      <div class="container mx-auto px-4">
+        <div
+          class="bg-indigo-50 rounded-lg p-4 flex items-center justify-between"
+        >
+          <div class="flex items-center">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-5 w-5 text-indigo-600 mr-2"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+              />
+            </svg>
+            <p class="text-indigo-800 font-medium">
+              Last Updated: <span class="font-normal">May 15, 2023</span>
+            </p>
+          </div>
+          <a
+            href="#cookie-settings"
+            class="bg-indigo-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-indigo-700 transition-colors text-sm"
+          >
+            Manage Cookie Preferences
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- What Are Cookies -->
+    <section class="py-8">
+      <div class="container mx-auto px-4">
+        <div class="bg-white rounded-xl p-8 shadow-sm">
+          <h2 class="text-2xl font-bold text-gray-800 mb-6">
+            What Are Cookies?
+          </h2>
+          <div class="space-y-4 text-gray-600">
+            <p>
+              Cookies are small data files that are placed on your computer or
+              mobile device when you visit a website. Cookies are widely used by
+              website owners to make their websites work, or to work more
+              efficiently, as well as to provide reporting information.
+            </p>
+
+            <p>
+              Cookies set by the website owner (in this case, QuickTopup) are
+              called "first-party cookies". Cookies set by parties other than
+              the website owner are called "third-party cookies". Third-party
+              cookies enable third-party features or functionality to be
+              provided on or through the website (e.g., advertising, interactive
+              content, and analytics). The parties that set these third-party
+              cookies can recognize your computer both when it visits the
+              website in question and also when it visits certain other
+              websites.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Why We Use Cookies -->
+    <section class="py-8">
+      <div class="container mx-auto px-4">
+        <div class="bg-white rounded-xl p-8 shadow-sm">
+          <h2 class="text-2xl font-bold text-gray-800 mb-6">
+            Why Do We Use Cookies?
+          </h2>
+          <div class="space-y-4 text-gray-600">
+            <p>
+              We use first-party and third-party cookies for several reasons.
+              Some cookies are required for technical reasons in order for our
+              website to operate, and we refer to these as "essential" or
+              "strictly necessary" cookies. Other cookies also enable us to
+              track and target the interests of our users to enhance the
+              experience on our website. Third parties serve cookies through our
+              website for advertising, analytics, and other purposes.
+            </p>
+
+            <p>
+              The specific types of first and third-party cookies served through
+              our website and the purposes they perform are described in the
+              table below:
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Types of Cookies -->
+    <section class="py-8">
+      <div class="container mx-auto px-4">
+        <div class="bg-white rounded-xl p-8 shadow-sm overflow-hidden">
+          <h2 class="text-2xl font-bold text-gray-800 mb-6">
+            Types of Cookies We Use
+          </h2>
+
+          <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-gray-200">
+              <thead class="bg-gray-50">
+                <tr>
+                  <th
+                    scope="col"
+                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                  >
+                    Type of Cookie
+                  </th>
+                  <th
+                    scope="col"
+                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                  >
+                    Purpose
+                  </th>
+                  <th
+                    scope="col"
+                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                  >
+                    Duration
+                  </th>
+                  <th
+                    scope="col"
+                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                  >
+                    Who Serves
+                  </th>
+                </tr>
+              </thead>
+              <tbody class="bg-white divide-y divide-gray-200">
+                <tr class="table-row">
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <div class="flex items-center">
+                      <div class="bg-green-100 p-1 rounded-full mr-2">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          class="h-4 w-4 text-green-600"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M5 13l4 4L19 7"
+                          />
+                        </svg>
+                      </div>
+                      <div class="text-sm font-medium text-gray-900">
+                        Essential Cookies
+                      </div>
+                    </div>
+                  </td>
+                  <td class="px-6 py-4">
+                    <div class="text-sm text-gray-600">
+                      These cookies are strictly necessary to provide you with
+                      services available through our website and to use some of
+                      its features, such as access to secure areas.
+                    </div>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <div class="text-sm text-gray-600">
+                      Session / Persistent
+                    </div>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <div class="text-sm text-gray-600">QuickTopup</div>
+                  </td>
+                </tr>
+                <tr class="table-row">
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <div class="flex items-center">
+                      <div class="bg-blue-100 p-1 rounded-full mr-2">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          class="h-4 w-4 text-blue-600"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                          />
+                        </svg>
+                      </div>
+                      <div class="text-sm font-medium text-gray-900">
+                        Performance Cookies
+                      </div>
+                    </div>
+                  </td>
+                  <td class="px-6 py-4">
+                    <div class="text-sm text-gray-600">
+                      These cookies allow us to count visits and traffic sources
+                      so we can measure and improve the performance of our site.
+                      They help us to know which pages are the most and least
+                      popular and see how visitors move around the site.
+                    </div>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <div class="text-sm text-gray-600">2 years</div>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <div class="text-sm text-gray-600">Google Analytics</div>
+                  </td>
+                </tr>
+                <tr class="table-row">
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <div class="flex items-center">
+                      <div class="bg-purple-100 p-1 rounded-full mr-2">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          class="h-4 w-4 text-purple-600"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z"
+                          />
+                        </svg>
+                      </div>
+                      <div class="text-sm font-medium text-gray-900">
+                        Functional Cookies
+                      </div>
+                    </div>
+                  </td>
+                  <td class="px-6 py-4">
+                    <div class="text-sm text-gray-600">
+                      These cookies enable the website to provide enhanced
+                      functionality and personalization. They may be set by us
+                      or by third-party providers whose services we have added
+                      to our pages.
+                    </div>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <div class="text-sm text-gray-600">1 year</div>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <div class="text-sm text-gray-600">QuickTopup, Zendesk</div>
+                  </td>
+                </tr>
+                <tr class="table-row">
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <div class="flex items-center">
+                      <div class="bg-yellow-100 p-1 rounded-full mr-2">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          class="h-4 w-4 text-yellow-600"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"
+                          />
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"
+                          />
+                        </svg>
+                      </div>
+                      <div class="text-sm font-medium text-gray-900">
+                        Targeting Cookies
+                      </div>
+                    </div>
+                  </td>
+                  <td class="px-6 py-4">
+                    <div class="text-sm text-gray-600">
+                      These cookies may be set through our site by our
+                      advertising partners. They may be used by those companies
+                      to build a profile of your interests and show you relevant
+                      advertisements on other sites.
+                    </div>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <div class="text-sm text-gray-600">90 days</div>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <div class="text-sm text-gray-600">
+                      Google Ads, Facebook
+                    </div>
+                  </td>
+                </tr>
+                <tr class="table-row">
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <div class="flex items-center">
+                      <div class="bg-red-100 p-1 rounded-full mr-2">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          class="h-4 w-4 text-red-600"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+                          />
+                        </svg>
+                      </div>
+                      <div class="text-sm font-medium text-gray-900">
+                        Social Media Cookies
+                      </div>
+                    </div>
+                  </td>
+                  <td class="px-6 py-4">
+                    <div class="text-sm text-gray-600">
+                      These cookies are set by a range of social media services
+                      that we have added to the site to enable you to share our
+                      content with your friends and networks.
+                    </div>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <div class="text-sm text-gray-600">Until cleared</div>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <div class="text-sm text-gray-600">
+                      Facebook, Twitter, LinkedIn
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Cookie Categories -->
+    <section class="py-8">
+      <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div class="cookie-card bg-white rounded-xl p-8 shadow-sm">
+            <div class="flex items-center mb-6">
+              <div class="bg-indigo-100 p-3 rounded-full mr-4">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-6 w-6 text-indigo-600"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+                  />
+                </svg>
+              </div>
+              <h3 class="text-xl font-semibold text-gray-800">
+                Essential Cookies
+              </h3>
+            </div>
+            <p class="text-gray-600 mb-4">
+              These cookies are necessary for the website to function and cannot
+              be switched off in our systems. They are usually only set in
+              response to actions made by you which amount to a request for
+              services, such as setting your privacy preferences, logging in, or
+              filling in forms.
+            </p>
+            <p class="text-gray-600">
+              You can set your browser to block or alert you about these
+              cookies, but some parts of the site will not then work. These
+              cookies do not store any personally identifiable information.
+            </p>
+          </div>
+
+          <div class="cookie-card bg-white rounded-xl p-8 shadow-sm">
+            <div class="flex items-center mb-6">
+              <div class="bg-indigo-100 p-3 rounded-full mr-4">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-6 w-6 text-indigo-600"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
+                  />
+                </svg>
+              </div>
+              <h3 class="text-xl font-semibold text-gray-800">
+                Performance Cookies
+              </h3>
+            </div>
+            <p class="text-gray-600 mb-4">
+              These cookies allow us to count visits and traffic sources so we
+              can measure and improve the performance of our site. They help us
+              to know which pages are the most and least popular and see how
+              visitors move around the site.
+            </p>
+            <p class="text-gray-600">
+              All information these cookies collect is aggregated and therefore
+              anonymous. If you do not allow these cookies we will not know when
+              you have visited our site, and will not be able to monitor its
+              performance.
+            </p>
+          </div>
+
+          <div class="cookie-card bg-white rounded-xl p-8 shadow-sm">
+            <div class="flex items-center mb-6">
+              <div class="bg-indigo-100 p-3 rounded-full mr-4">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-6 w-6 text-indigo-600"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"
+                  />
+                </svg>
+              </div>
+              <h3 class="text-xl font-semibold text-gray-800">
+                Functional Cookies
+              </h3>
+            </div>
+            <p class="text-gray-600 mb-4">
+              These cookies enable the website to provide enhanced functionality
+              and personalization. They may be set by us or by third-party
+              providers whose services we have added to our pages.
+            </p>
+            <p class="text-gray-600">
+              If you do not allow these cookies then some or all of these
+              services may not function properly.
+            </p>
+          </div>
+
+          <div class="cookie-card bg-white rounded-xl p-8 shadow-sm">
+            <div class="flex items-center mb-6">
+              <div class="bg-indigo-100 p-3 rounded-full mr-4">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-6 w-6 text-indigo-600"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"
+                  />
+                </svg>
+              </div>
+              <h3 class="text-xl font-semibold text-gray-800">
+                Targeting Cookies
+              </h3>
+            </div>
+            <p class="text-gray-600 mb-4">
+              These cookies may be set through our site by our advertising
+              partners. They may be used by those companies to build a profile
+              of your interests and show you relevant advertisements on other
+              sites.
+            </p>
+            <p class="text-gray-600">
+              They do not store directly personal information, but are based on
+              uniquely identifying your browser and internet device. If you do
+              not allow these cookies, you will experience less targeted
+              advertising.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- How to Control Cookies -->
+    <section class="py-8">
+      <div class="container mx-auto px-4">
+        <div class="bg-white rounded-xl p-8 shadow-sm">
+          <h2 class="text-2xl font-bold text-gray-800 mb-6">
+            How Can You Control Cookies?
+          </h2>
+          <div class="space-y-6 text-gray-600">
+            <p>
+              You have the right to decide whether to accept or reject cookies.
+              You can exercise your cookie rights by setting your preferences in
+              the Cookie Consent Manager. The Cookie Consent Manager allows you
+              to select which categories of cookies you accept or reject.
+              Essential cookies cannot be rejected as they are strictly
+              necessary to provide you with services.
+            </p>
+
+            <p>
+              The Cookie Consent Manager can be found in the notification banner
+              and on our website. If you choose to reject cookies, you may still
+              use our website though your access to some functionality and areas
+              of our website may be restricted. You may also set or amend your
+              web browser controls to accept or refuse cookies.
+            </p>
+
+            <h3 class="text-xl font-semibold text-gray-800 mt-8 mb-4">
+              Browser Controls
+            </h3>
+            <p>
+              Most web browsers allow you to control most cookies through their
+              browser settings. To find out more about cookies, including how to
+              see what cookies have been set, visit
+              <a
+                href="https://www.aboutcookies.org"
+                class="text-indigo-600 hover:text-indigo-800 underline"
+                >www.aboutcookies.org</a
+              >
+              or
+              <a
+                href="https://www.allaboutcookies.org"
+                class="text-indigo-600 hover:text-indigo-800 underline"
+                >www.allaboutcookies.org</a
+              >.
+            </p>
+
+            <p>Find out how to manage cookies on popular browsers:</p>
+            <ul class="list-disc pl-6 space-y-2 mt-2">
+              <li>
+                <a
+                  href="https://support.google.com/accounts/answer/61416"
+                  class="text-indigo-600 hover:text-indigo-800 underline"
+                  >Google Chrome</a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://support.mozilla.org/en-US/kb/enhanced-tracking-protection-firefox-desktop"
+                  class="text-indigo-600 hover:text-indigo-800 underline"
+                  >Mozilla Firefox</a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://support.microsoft.com/en-us/microsoft-edge/delete-cookies-in-microsoft-edge-63947406-40ac-c3b8-57b9-2a946a29ae09"
+                  class="text-indigo-600 hover:text-indigo-800 underline"
+                  >Microsoft Edge</a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://support.apple.com/en-us/HT201265"
+                  class="text-indigo-600 hover:text-indigo-800 underline"
+                  >Safari (Desktop)</a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://support.apple.com/en-us/HT201265"
+                  class="text-indigo-600 hover:text-indigo-800 underline"
+                  >Safari (Mobile)</a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://support.google.com/chrome/answer/95647?co=GENIE.Platform%3DAndroid"
+                  class="text-indigo-600 hover:text-indigo-800 underline"
+                  >Android Browser</a
+                >
+              </li>
+            </ul>
+
+            <p>
+              To find information relating to other browsers, visit the browser
+              developer's website.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Cookie Settings -->
+    <section id="cookie-settings" class="py-8">
+      <div class="container mx-auto px-4">
+        <div class="bg-white rounded-xl p-8 shadow-sm">
+          <h2 class="text-2xl font-bold text-gray-800 mb-6">
+            Cookie Preferences
+          </h2>
+          <p class="text-gray-600 mb-8">
+            You can set your cookie preferences using the options below. Please
+            note that essential cookies cannot be disabled as they are necessary
+            for the website to function properly.
+          </p>
+
+          <div class="space-y-6">
+            <div
+              class="flex items-center justify-between p-4 border border-gray-200 rounded-lg"
+            >
+              <div>
+                <h3 class="text-lg font-semibold text-gray-800">
+                  Essential Cookies
+                </h3>
+                <p class="text-gray-600 text-sm">
+                  These cookies are necessary for the website to function and
+                  cannot be switched off.
+                </p>
+              </div>
+              <div class="flex items-center">
+                <span class="mr-2 text-sm text-gray-500">Always active</span>
+                <div
+                  class="relative inline-block w-12 h-6 bg-indigo-600 rounded-full"
+                >
+                  <span
+                    class="absolute inset-y-1 right-1 w-4 h-4 bg-white rounded-full"
+                  ></span>
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="flex items-center justify-between p-4 border border-gray-200 rounded-lg"
+            >
+              <div>
+                <h3 class="text-lg font-semibold text-gray-800">
+                  Performance Cookies
+                </h3>
+                <p class="text-gray-600 text-sm">
+                  These cookies allow us to count visits and traffic sources so
+                  we can measure and improve the performance of our site.
+                </p>
+              </div>
+              <div class="flex items-center">
+                <label class="flex items-center cursor-pointer">
+                  <div class="relative">
+                    <input
+                      type="checkbox"
+                      id="performance"
+                      class="sr-only"
+                      checked
+                    />
+                    <div class="block bg-gray-300 w-12 h-6 rounded-full"></div>
+                    <div
+                      class="dot absolute left-1 top-1 bg-white w-4 h-4 rounded-full transition"
+                    ></div>
+                  </div>
+                </label>
+              </div>
+            </div>
+
+            <div
+              class="flex items-center justify-between p-4 border border-gray-200 rounded-lg"
+            >
+              <div>
+                <h3 class="text-lg font-semibold text-gray-800">
+                  Functional Cookies
+                </h3>
+                <p class="text-gray-600 text-sm">
+                  These cookies enable the website to provide enhanced
+                  functionality and personalization.
+                </p>
+              </div>
+              <div class="flex items-center">
+                <label class="flex items-center cursor-pointer">
+                  <div class="relative">
+                    <input
+                      type="checkbox"
+                      id="functional"
+                      class="sr-only"
+                      checked
+                    />
+                    <div class="block bg-gray-300 w-12 h-6 rounded-full"></div>
+                    <div
+                      class="dot absolute left-1 top-1 bg-white w-4 h-4 rounded-full transition"
+                    ></div>
+                  </div>
+                </label>
+              </div>
+            </div>
+
+            <div
+              class="flex items-center justify-between p-4 border border-gray-200 rounded-lg"
+            >
+              <div>
+                <h3 class="text-lg font-semibold text-gray-800">
+                  Targeting Cookies
+                </h3>
+                <p class="text-gray-600 text-sm">
+                  These cookies may be set through our site by our advertising
+                  partners to build a profile of your interests.
+                </p>
+              </div>
+              <div class="flex items-center">
+                <label class="flex items-center cursor-pointer">
+                  <div class="relative">
+                    <input type="checkbox" id="targeting" class="sr-only" />
+                    <div class="block bg-gray-300 w-12 h-6 rounded-full"></div>
+                    <div
+                      class="dot absolute left-1 top-1 bg-white w-4 h-4 rounded-full transition"
+                    ></div>
+                  </div>
+                </label>
+              </div>
+            </div>
+
+            <div
+              class="flex items-center justify-between p-4 border border-gray-200 rounded-lg"
+            >
+              <div>
+                <h3 class="text-lg font-semibold text-gray-800">
+                  Social Media Cookies
+                </h3>
+                <p class="text-gray-600 text-sm">
+                  These cookies are set by social media services that we have
+                  added to the site to enable you to share our content.
+                </p>
+              </div>
+              <div class="flex items-center">
+                <label class="flex items-center cursor-pointer">
+                  <div class="relative">
+                    <input type="checkbox" id="social" class="sr-only" />
+                    <div class="block bg-gray-300 w-12 h-6 rounded-full"></div>
+                    <div
+                      class="dot absolute left-1 top-1 bg-white w-4 h-4 rounded-full transition"
+                    ></div>
+                  </div>
+                </label>
+              </div>
+            </div>
+
+            <div class="flex justify-between mt-8">
+              <button
+                id="reject-all"
+                class="px-6 py-2 border border-gray-300 rounded-lg text-gray-700 font-medium hover:bg-gray-50 transition-colors"
+              >
+                Reject All
+              </button>
+              <button
+                id="accept-all"
+                class="px-6 py-2 bg-indigo-600 text-white rounded-lg font-medium hover:bg-indigo-700 transition-colors"
+              >
+                Accept All
+              </button>
+            </div>
+
+            <div class="pt-4 mt-4 border-t border-gray-200 text-center">
+              <button
+                id="save-preferences"
+                class="px-8 py-2 bg-indigo-600 text-white rounded-lg font-medium hover:bg-indigo-700 transition-colors"
+              >
+                Save Preferences
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Changes to Cookie Policy -->
+    <section class="py-8">
+      <div class="container mx-auto px-4">
+        <div class="bg-white rounded-xl p-8 shadow-sm">
+          <h2 class="text-2xl font-bold text-gray-800 mb-6">
+            Changes to This Cookie Policy
+          </h2>
+          <div class="space-y-4 text-gray-600">
+            <p>
+              We may update this Cookie Policy from time to time in order to
+              reflect, for example, changes to the cookies we use or for other
+              operational, legal, or regulatory reasons. Please therefore
+              revisit this Cookie Policy regularly to stay informed about our
+              use of cookies and related technologies.
+            </p>
+
+            <p>
+              The date at the top of this Cookie Policy indicates when it was
+              last updated.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Us -->
+    <section class="py-8">
+      <div class="container mx-auto px-4">
+        <div class="bg-white rounded-xl p-8 shadow-sm">
+          <h2 class="text-2xl font-bold text-gray-800 mb-6">Contact Us</h2>
+          <div class="space-y-4 text-gray-600">
+            <p>
+              If you have any questions about our use of cookies or other
+              technologies, please contact us at:
+            </p>
+
+            <div class="bg-gray-50 p-6 rounded-lg mt-4">
+              <div class="space-y-3">
+                <div class="flex items-start">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-5 w-5 text-indigo-600 mt-1 mr-3"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                    />
+                  </svg>
+                  <span><strong>Email:</strong> privacy@quicktopup.com</span>
+                </div>
+                <div class="flex items-start">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-5 w-5 text-indigo-600 mt-1 mr-3"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
+                    />
+                  </svg>
+                  <span><strong>Phone:</strong> +234 800 123 4567</span>
+                </div>
+                <div class="flex items-start">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-5 w-5 text-indigo-600 mt-1 mr-3"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                    />
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                    />
+                  </svg>
+                  <span
+                    ><strong>Address:</strong> 123 Business Avenue, Lagos,
+                    Nigeria</span
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+  </body>
+</html>

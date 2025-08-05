@@ -1,0 +1,1569 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= name %> - Mobile Recharge & Payment Platform</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+      :root {
+        --primary: #4f46e5;
+        --primary-dark: #4338ca;
+        --secondary: #0ea5e9;
+        --accent: #8b5cf6;
+      }
+
+      body {
+        font-family: "Inter", sans-serif;
+        background-color: #f9fafb;
+      }
+
+      .primary-gradient {
+        background: linear-gradient(
+          135deg,
+          var(--primary) 0%,
+          var(--secondary) 100%
+        );
+      }
+
+      .secondary-gradient {
+        background: linear-gradient(
+          135deg,
+          var(--accent) 0%,
+          var(--secondary) 100%
+        );
+      }
+
+      .card-hover {
+        transition: all 0.3s ease;
+      }
+
+      .card-hover:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+          0 10px 10px -5px rgba(0, 0, 0, 0.04);
+      }
+
+      .app-mockup {
+        position: relative;
+        width: 280px;
+        height: 560px;
+        border-radius: 40px;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        overflow: hidden;
+      }
+
+      .app-screen {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: #fff;
+        overflow: hidden;
+      }
+
+      .app-notch {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 150px;
+        height: 30px;
+        background: #000;
+        border-bottom-left-radius: 15px;
+        border-bottom-right-radius: 15px;
+        z-index: 10;
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-10px);
+        }
+      }
+
+      .float-animation {
+        animation: float 6s ease-in-out infinite;
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.7;
+        }
+      }
+
+      .pulse-animation {
+        animation: pulse 2s infinite;
+      }
+
+      .service-icon {
+        transition: all 0.3s ease;
+      }
+
+      .card-hover:hover .service-icon {
+        transform: scale(1.1);
+      }
+
+      .custom-scrollbar::-webkit-scrollbar {
+        width: 6px;
+      }
+
+      .custom-scrollbar::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 10px;
+      }
+
+      .custom-scrollbar::-webkit-scrollbar-thumb {
+        background: #c7d2fe;
+        border-radius: 10px;
+      }
+
+      .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+        background: #a5b4fc;
+      }
+
+      .feature-card {
+        transition: all 0.3s ease;
+      }
+
+      .feature-card:hover {
+        transform: translateY(-5px);
+      }
+
+      .feature-icon {
+        transition: all 0.3s ease;
+      }
+
+      .feature-card:hover .feature-icon {
+        transform: scale(1.1) rotate(10deg);
+      }
+
+      /* About */
+      .gradient-bg {
+        background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+      }
+      .gradient-text {
+        background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+      .team-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+          0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      }
+      .stat-card {
+        transition: all 0.3s ease;
+      }
+      .stat-card:hover {
+        transform: translateY(-5px);
+      }
+      .timeline-dot {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+        position: absolute;
+        left: -10px;
+        top: 0;
+      }
+      .timeline-line {
+        position: absolute;
+        left: 0;
+        top: 20px;
+        bottom: 0;
+        width: 1px;
+        background-color: #e5e7eb;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="flex min-h-screen mt-8">
+                  <!-- Sidebar -->
+      <aside
+        id="sidebar"
+        class="sidebar fixed inset-y-0 left-0 z-40 w-64 bg-white shadow-lg pt-5 hidden pb-4 md:flex flex-col"
+      >
+        
+
+        <nav class="flex-grow px-2 mt-20">
+          <div class="space-y-1">
+            <a
+              href="/dashboard"
+              class="sidebar-link flex items-center px-4 py-3 text-gray-700 rounded-lg"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5 mr-3 text-gray-500"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+                />
+              </svg>
+              Dashboard
+            </a>
+            <a
+              href="/transactions"
+              class="sidebar-link flex items-center px-4 py-3 text-gray-700 rounded-lg"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5 mr-3 text-gray-500"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
+              </svg>
+              Transactions
+            </a>
+            <a
+              href="/my-account"
+              class="sidebar-link active flex items-center px-4 py-3 text-gray-700 rounded-lg"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5 mr-3 text-indigo-600"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                />
+              </svg>
+              My Account
+            </a>
+            <a
+              href="/help-and-support"
+              class="sidebar-link flex items-center px-4 py-3 text-gray-700 rounded-lg"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5 mr-3 text-gray-500"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
+              </svg>
+              Help & Support
+            </a>
+          </div>
+
+          <div class="mt-8 pt-4 border-t border-gray-200">
+            <h3
+              class="px-4 text-xs font-semibold text-gray-500 uppercase tracking-wider"
+            >
+              Quick Links
+            </h3>
+            <div class="mt-2 space-y-1">
+              <a
+                href="#"
+                class="sidebar-link flex items-center px-4 py-2 text-sm text-gray-700 rounded-lg"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-4 w-4 mr-3 text-gray-500"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"
+                  />
+                </svg>
+                Add Payment Method
+              </a>
+              <a
+                href="/transactions"
+                class="sidebar-link flex items-center px-4 py-2 text-sm text-gray-700 rounded-lg"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-4 w-4 mr-3 text-gray-500"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                  />
+                </svg>
+                Transaction History
+              </a>
+              <a
+                href="/logout"
+                class="sidebar-link flex items-center px-4 py-2 text-sm text-gray-700 rounded-lg"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-4 w-4 mr-3 text-gray-500"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
+                  />
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                  />
+                </svg>
+                Settings
+              </a>
+              <a
+                href="/logout"
+                class="sidebar-link flex items-center px-4 py-2 text-sm text-red-700 rounded-lg"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="currentColor"
+                  class="bi bi-box-arrow-left h-4 w-4 mr-3 text-red-700"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M6 12.5a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v2a.5.5 0 0 1-1 0v-2A1.5 1.5 0 0 1 6.5 2h8A1.5 1.5 0 0 1 16 3.5v9a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 5 12.5v-2a.5.5 0 0 1 1 0z"
+                  />
+                  <path
+                    fill-rule="evenodd"
+                    d="M.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L1.707 7.5H10.5a.5.5 0 0 1 0 1H1.707l2.147 2.146a.5.5 0 0 1-.708.708z"
+                  />
+                </svg>
+                Logout
+              </a>
+              
+            </div>
+          </div>
+        </nav>
+
+        <div class="px-4 mt-6">
+          <div class="flex items-center p-4 bg-indigo-50 rounded-lg">
+            <img
+              src=<%= user.profile %>
+              alt="User"
+              class="h-10 w-10 rounded-full border-2 border-indigo-200"
+            />
+            <div class="ml-3">
+              <p class="text-sm font-medium text-gray-800"><%= user.name %></p>
+              <p class="text-xs text-gray-500"><%= user.email %></p>
+            </div>
+            <button class="ml-auto text-gray-500 hover:text-gray-700">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
+                />
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Main Content -->
+      <div class="flex-1 ml-64 pt-20 pb-4" id="mainContent">
+        <!-- Top Navigation -->
+        <header
+          class="fixed top-0 right-0 left-0 z-50 bg-white shadow-sm z-30"
+        >
+          <div
+            class="px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between"
+          >
+          
+            <button
+              id="menuToggle"
+              class="md:hidden p-2 rounded-md text-gray-500 hover:text-gray-700 hover:bg-gray-100 focus:outline-none"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
+              </svg>
+            </button>
+
+            <div class="flex px-4 md:px-0 items-center">
+              <div class="flex items-center" id="logoContainer">
+          <div class="gradient-bg rounded-lg p-2 mr-2">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-6 w-6 text-white"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M13 10V3L4 14h7v7l9-11h-7z"
+              />
+            </svg>
+          </div>
+          <h1 class="text-xl font-bold text-gray-800"><%= name %></h1>
+        </div>
+              <svg xmlns="http://www.w3.org/2000/svg" onclick="hideSideNav()" id="sidemenu" fill="currentColor" class="bi bi-list ms-16 w-10 h-10 text-blue-600" viewBox="0 0 16 16">
+  <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/>
+</svg>
+              <h1 class="text-2xl ms-4 font-bold text-gray-800">
+              Account
+            </h1>
+            </div>
+
+            <div class="flex items-center space-x-4">
+              <div class="relative">
+                <button
+                  id="notificationButton"
+                  class="p-1 rounded-full text-gray-500 hover:text-gray-700 hover:bg-gray-100 focus:outline-none"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-6 w-6"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
+                    />
+                  </svg>
+                  <span
+                    class="notification-badge flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-xs font-medium text-white"
+                    >3</span
+                  >
+                </button>
+
+                <!-- Notification Dropdown -->
+                <div
+                  id="notificationDropdown"
+                  class="notification-dropdown hidden absolute right-0 mt-2 bg-white rounded-lg shadow-lg overflow-hidden z-50"
+                >
+                  <div class="px-4 py-3 border-b border-gray-200">
+                    <h3 class="text-sm font-semibold text-gray-800">
+                      Notifications
+                    </h3>
+                  </div>
+                  <div class="divide-y divide-gray-200">
+                    <a href="#" class="block px-4 py-3 hover:bg-gray-50">
+                      <div class="flex items-start">
+                        <div
+                          class="flex-shrink-0 bg-green-100 rounded-full p-1"
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            class="h-5 w-5 text-green-500"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                          >
+                            <path
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="2"
+                              d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                            />
+                          </svg>
+                        </div>
+                        <div class="ml-3">
+                          <p class="text-sm font-medium text-gray-800">
+                            Payment Successful
+                          </p>
+                          <p class="text-xs text-gray-500 mt-1">
+                            Your payment of ₦5,000 for MTN airtime was
+                            successful.
+                          </p>
+                          <p class="text-xs text-gray-400 mt-1">
+                            10 minutes ago
+                          </p>
+                        </div>
+                      </div>
+                    </a>
+                    <a href="#" class="block px-4 py-3 hover:bg-gray-50">
+                      <div class="flex items-start">
+                        <div class="flex-shrink-0 bg-blue-100 rounded-full p-1">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            class="h-5 w-5 text-blue-500"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                          >
+                            <path
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="2"
+                              d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                            />
+                          </svg>
+                        </div>
+                        <div class="ml-3">
+                          <p class="text-sm font-medium text-gray-800">
+                            Profile Updated
+                          </p>
+                          <p class="text-xs text-gray-500 mt-1">
+                            Your profile information has been updated
+                            successfully.
+                          </p>
+                          <p class="text-xs text-gray-400 mt-1">1 hour ago</p>
+                        </div>
+                      </div>
+                    </a>
+                    <a href="#" class="block px-4 py-3 hover:bg-gray-50">
+                      <div class="flex items-start">
+                        <div
+                          class="flex-shrink-0 bg-yellow-100 rounded-full p-1"
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            class="h-5 w-5 text-yellow-500"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                          >
+                            <path
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="2"
+                              d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                            />
+                          </svg>
+                        </div>
+                        <div class="ml-3">
+                          <p class="text-sm font-medium text-gray-800">
+                            Account Verification
+                          </p>
+                          <p class="text-xs text-gray-500 mt-1">
+                            Please verify your email address to unlock all
+                            features.
+                          </p>
+                          <p class="text-xs text-gray-400 mt-1">1 day ago</p>
+                        </div>
+                      </div>
+                    </a>
+                  </div>
+                  <div class="px-4 py-2 border-t border-gray-200 text-center">
+                    <a
+                      href="#"
+                      class="text-sm font-medium text-indigo-600 hover:text-indigo-800"
+                      >View all notifications</a
+                    >
+                  </div>
+                </div>
+              </div>
+
+              <div class="hidden md:flex items-center">
+                <img
+                  src=<%= user.profile %>
+                  alt="User"
+                  class="h-8 w-8 rounded-full"
+                />
+                <span class="ml-2 text-sm font-medium text-gray-700"
+                  ><%= user.name %></span
+                >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-4 w-4 ml-1 text-gray-500"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M19 9l-7 7-7-7"
+                  />
+                </svg>
+              </div>
+            </div>
+          </div>
+        </header>
+
+
+            <!-- Account Content -->
+            <main class="px-4 sm:px-6 lg:px-8 py-8">
+                <!-- Account Overview -->
+                <div class="mb-8">
+                    <div class="bg-white rounded-xl shadow-sm overflow-hidden">
+                        <div class="md:flex">
+                            <div class="p-6 md:p-8 md:w-1/3 bg-gradient-to-br from-indigo-600 to-purple-600 text-white">
+                                <div class="flex flex-col items-center md:items-start">
+                                    <div class="relative mb-4">
+                                        <img src=<%= user.profile %> alt="Profile" class="h-24 w-24 rounded-full border-4 border-white">
+                                        <button class="absolute bottom-0 right-0 bg-white rounded-full p-1 shadow-md">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" />
+                                            </svg>
+                                        </button>
+                                    </div>
+                                    <h3 class="text-xl font-semibold mb-1"><%= user.name %></h3>
+                                    <p class="text-indigo-100 mb-4"><%= user.email %></p>
+                                    <div class="flex items-center mb-6">
+                                        <span class="bg-green-500 h-2.5 w-2.5 rounded-full mr-2"></span>
+                                        <span class="text-sm text-indigo-100">Verified Account</span>
+                                    </div>
+                                    <div class="w-full">
+                                        <div class="flex justify-between mb-1">
+                                            <span class="text-sm text-indigo-100">Profile Completion</span>
+                                            <span class="text-sm text-indigo-100">85%</span>
+                                        </div>
+                                        <div class="w-full bg-indigo-800 rounded-full h-2">
+                                            <div class="bg-white h-2 rounded-full" style="width: 85%"></div>
+                                        </div>
+                                        <p class="text-xs text-indigo-200 mt-2">Complete your profile to unlock all features</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="p-6 md:p-8 md:w-2/3">
+                                <div class="flex flex-col md:flex-row md:justify-between md:items-center mb-6">
+                                    <h3 class="text-lg font-semibold text-gray-800 mb-4 md:mb-0">Account Overview</h3>
+                                    <div class="flex space-x-3">
+                                        <button class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors flex items-center">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                                            </svg>
+                                            Fund Wallet
+                                        </button>
+                                        <button class="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors flex items-center">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                                            </svg>
+                                            Withdraw
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div class="bg-gray-50 rounded-lg p-4">
+                                        <div class="flex justify-between items-center mb-3">
+                                            <h4 class="text-sm font-medium text-gray-500">Wallet Balance</h4>
+                                            <div class="bg-indigo-100 p-1 rounded-full">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+                                                </svg>
+                                            </div>
+                                        </div>
+                                        <div class="flex items-baseline">
+                                            <span class="text-2xl font-bold text-gray-800">₦25,750.00</span>
+                                            <span class="ml-2 text-xs text-green-600 font-medium">+₦10,000 today</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="bg-gray-50 rounded-lg p-4">
+                                        <div class="flex justify-between items-center mb-3">
+                                            <h4 class="text-sm font-medium text-gray-500">Total Transactions</h4>
+                                            <div class="bg-purple-100 p-1 rounded-full">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
+                                                </svg>
+                                            </div>
+                                        </div>
+                                        <div class="flex items-baseline">
+                                            <span class="text-2xl font-bold text-gray-800">124</span>
+                                            <span class="ml-2 text-xs text-gray-500 font-medium">Last 30 days</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="bg-gray-50 rounded-lg p-4">
+                                        <div class="flex justify-between items-center mb-3">
+                                            <h4 class="text-sm font-medium text-gray-500">Referral Bonus</h4>
+                                            <div class="bg-green-100 p-1 rounded-full">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                                                </svg>
+                                            </div>
+                                        </div>
+                                        <div class="flex items-baseline">
+                                            <span class="text-2xl font-bold text-gray-800">₦1,500.00</span>
+                                            <span class="ml-2 text-xs text-gray-500 font-medium">3 referrals</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="bg-gray-50 rounded-lg p-4">
+                                        <div class="flex justify-between items-center mb-3">
+                                            <h4 class="text-sm font-medium text-gray-500">Saved Payment Methods</h4>
+                                            <div class="bg-blue-100 p-1 rounded-full">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+                                                </svg>
+                                            </div>
+                                        </div>
+                                        <div class="flex items-baseline">
+                                            <span class="text-2xl font-bold text-gray-800">2</span>
+                                            <button class="ml-2 text-xs text-indigo-600 font-medium">Manage</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Account Settings Tabs -->
+                <div class="bg-white rounded-xl shadow-sm overflow-hidden">
+                    <div class="border-b border-gray-200">
+                        <nav class="flex overflow-x-auto">
+                            <button class="tab-button text-gray-600 py-4 px-6 block hover:text-indigo-600 focus:outline-none whitespace-nowrap border-b-2 border-indigo-600 font-medium text-indigo-600 active">
+                                Personal Information
+                            </button>
+                            <button class="tab-button text-gray-600 py-4 px-6 block hover:text-indigo-600 focus:outline-none whitespace-nowrap font-medium">
+                                Security
+                            </button>
+                            <button class="tab-button text-gray-600 py-4 px-6 block hover:text-indigo-600 focus:outline-none whitespace-nowrap font-medium">
+                                Payment Methods
+                            </button>
+                            <button class="tab-button text-gray-600 py-4 px-6 block hover:text-indigo-600 focus:outline-none whitespace-nowrap font-medium">
+                                Notifications
+                            </button>
+                            <button class="tab-button text-gray-600 py-4 px-6 block hover:text-indigo-600 focus:outline-none whitespace-nowrap font-medium">
+                                Referrals
+                            </button>
+                        </nav>
+                    </div>
+                    
+                    <!-- Personal Information Tab Content -->
+                    <div id="personal-info" class="tab-content active p-6">
+                        <form>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <label for="firstName" class="block text-sm font-medium text-gray-700 mb-1">First Name</label>
+                                    <input type="text" id="firstName" name="firstName" value="John" class="form-input w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                                </div>
+                                <div>
+                                    <label for="lastName" class="block text-sm font-medium text-gray-700 mb-1">Last Name</label>
+                                    <input type="text" id="lastName" name="lastName" value="Doe" class="form-input w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                                </div>
+                                <div>
+                                    <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
+                                    <input type="email" id="email" name="email" value="<%= user.email %>" class="form-input w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                                </div>
+                                <div>
+                                    <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
+                                    <input type="tel" id="phone" name="phone" value="08012345678" class="form-input w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                                </div>
+                                <div>
+                                    <label for="dob" class="block text-sm font-medium text-gray-700 mb-1">Date of Birth</label>
+                                    <input type="date" id="dob" name="dob" value="1990-05-15" class="form-input w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                                </div>
+                                <div>
+                                    <label for="gender" class="block text-sm font-medium text-gray-700 mb-1">Gender</label>
+                                    <select id="gender" name="gender" class="form-input w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                                        <option value="male" selected>Male</option>
+                                        <option value="female">Female</option>
+                                        <option value="other">Other</option>
+                                        <option value="prefer-not-to-say">Prefer not to say</option>
+                                    </select>
+                                </div>
+                                <div class="md:col-span-2">
+                                    <label for="address" class="block text-sm font-medium text-gray-700 mb-1">Address</label>
+                                    <input type="text" id="address" name="address" value="123 Main Street, Lekki" class="form-input w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                                </div>
+                                <div>
+                                    <label for="city" class="block text-sm font-medium text-gray-700 mb-1">City</label>
+                                    <input type="text" id="city" name="city" value="Lagos" class="form-input w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                                </div>
+                                <div>
+                                    <label for="state" class="block text-sm font-medium text-gray-700 mb-1">State</label>
+                                    <input type="text" id="state" name="state" value="Lagos State" class="form-input w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                                </div>
+                            </div>
+                            
+                            <div class="mt-8 flex justify-end">
+                                <button type="button" class="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors mr-3">
+                                    Cancel
+                                </button>
+                                <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors">
+                                    Save Changes
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    
+                    <!-- Security Tab Content -->
+                    <div id="security" class="tab-content p-6">
+                        <div class="mb-8">
+                            <h3 class="text-lg font-semibold text-gray-800 mb-4">Change Password</h3>
+                            <form>
+                                <div class="space-y-4">
+                                    <div>
+                                        <label for="currentPassword" class="block text-sm font-medium text-gray-700 mb-1">Current Password</label>
+                                        <input type="password" id="currentPassword" name="currentPassword" class="form-input w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                                    </div>
+                                    <div>
+                                        <label for="newPassword" class="block text-sm font-medium text-gray-700 mb-1">New Password</label>
+                                        <input type="password" id="newPassword" name="newPassword" class="form-input w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                                    </div>
+                                    <div>
+                                        <label for="confirmPassword" class="block text-sm font-medium text-gray-700 mb-1">Confirm New Password</label>
+                                        <input type="password" id="confirmPassword" name="confirmPassword" class="form-input w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                                    </div>
+                                    <div class="pt-2">
+                                        <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors">
+                                            Update Password
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        
+                        <div class="border-t border-gray-200 pt-6">
+                            <h3 class="text-lg font-semibold text-gray-800 mb-4">Two-Factor Authentication</h3>
+                            <div class="flex items-center justify-between mb-6">
+                                <div>
+                                    <p class="text-gray-700">Add an extra layer of security to your account</p>
+                                    <p class="text-sm text-gray-500 mt-1">We'll send a verification code to your phone each time you sign in.</p>
+                                </div>
+                                <div class="flex items-center">
+                                    <span class="mr-3 text-sm font-medium text-gray-700">Off</span>
+                                    <label class="relative inline-flex items-center cursor-pointer">
+                                        <input type="checkbox" value="" class="sr-only peer">
+                                        <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-indigo-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600"></div>
+                                    </label>
+                                </div>
+                            </div>
+                            <button class="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors">
+                                Set Up Two-Factor Authentication
+                            </button>
+                        </div>
+                        
+                        <div class="border-t border-gray-200 pt-6 mt-6">
+                            <h3 class="text-lg font-semibold text-gray-800 mb-4">Login Sessions</h3>
+                            <div class="space-y-4">
+                                <div class="bg-gray-50 p-4 rounded-lg">
+                                    <div class="flex items-center justify-between">
+                                        <div class="flex items-center">
+                                            <div class="bg-green-100 p-2 rounded-full">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                                                </svg>
+                                            </div>
+                                            <div class="ml-3">
+                                                <p class="text-sm font-medium text-gray-800">Current Session</p>
+                                                <p class="text-xs text-gray-500">Lagos, Nigeria • Chrome on Windows</p>
+                                                <p class="text-xs text-gray-400 mt-1">Started: May 16, 2023 at 10:30 AM</p>
+                                            </div>
+                                        </div>
+                                        <button class="text-indigo-600 hover:text-indigo-800 text-sm font-medium">
+                                            This Device
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="bg-gray-50 p-4 rounded-lg">
+                                    <div class="flex items-center justify-between">
+                                        <div class="flex items-center">
+                                            <div class="bg-gray-200 p-2 rounded-full">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                                                </svg>
+                                            </div>
+                                            <div class="ml-3">
+                                                <p class="text-sm font-medium text-gray-800">Mobile Session</p>
+                                                <p class="text-xs text-gray-500">Lagos, Nigeria • QuickTopup App on iPhone</p>
+                                                <p class="text-xs text-gray-400 mt-1">Last active: May 15, 2023 at 6:45 PM</p>
+                                            </div>
+                                        </div>
+                                        <button class="text-red-600 hover:text-red-800 text-sm font-medium">
+                                            Log Out
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Payment Methods Tab Content -->
+                    <div id="payment-methods" class="tab-content p-6">
+                        <div class="flex justify-between items-center mb-6">
+                            <h3 class="text-lg font-semibold text-gray-800">Saved Payment Methods</h3>
+                            <button class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                                </svg>
+                                Add Payment Method
+                            </button>
+                        </div>
+                        
+                        <div class="space-y-4">
+                            <div class="bg-gray-50 p-4 rounded-lg">
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center">
+                                        <div class="bg-blue-100 p-2 rounded-full">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+                                            </svg>
+                                        </div>
+                                        <div class="ml-3">
+                                            <p class="text-sm font-medium text-gray-800">Visa ending in 4242</p>
+                                            <p class="text-xs text-gray-500">Expires 05/25</p>
+                                            <div class="flex items-center mt-1">
+                                                <span class="bg-green-100 text-green-800 text-xs font-medium px-2 py-0.5 rounded">Default</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="flex space-x-2">
+                                        <button class="text-gray-600 hover:text-gray-800">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                                            </svg>
+                                        </button>
+                                        <button class="text-red-600 hover:text-red-800">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="bg-gray-50 p-4 rounded-lg">
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center">
+                                        <div class="bg-red-100 p-2 rounded-full">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+                                            </svg>
+                                        </div>
+                                        <div class="ml-3">
+                                            <p class="text-sm font-medium text-gray-800">Mastercard ending in 5678</p>
+                                            <p class="text-xs text-gray-500">Expires 08/24</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex space-x-2">
+                                        <button class="text-gray-600 hover:text-gray-800">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                                            </svg>
+                                        </button>
+                                        <button class="text-red-600 hover:text-red-800">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-8">
+                            <h3 class="text-lg font-semibold text-gray-800 mb-4">Bank Accounts</h3>
+                            <div class="bg-gray-50 p-4 rounded-lg">
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center">
+                                        <div class="bg-green-100 p-2 rounded-full">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z" />
+                                            </svg>
+                                        </div>
+                                        <div class="ml-3">
+                                            <p class="text-sm font-medium text-gray-800">First Bank</p>
+                                            <p class="text-xs text-gray-500">Account ending in 1234</p>
+                                            <div class="flex items-center mt-1">
+                                                <span class="bg-green-100 text-green-800 text-xs font-medium px-2 py-0.5 rounded">Default for Withdrawals</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="flex space-x-2">
+                                        <button class="text-gray-600 hover:text-gray-800">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                                            </svg>
+                                        </button>
+                                        <button class="text-red-600 hover:text-red-800">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <button class="mt-4 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                                </svg>
+                                Add Bank Account
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Notifications Tab Content -->
+                    <div id="notifications" class="tab-content p-6">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-6">Notification Preferences</h3>
+                        
+                        <div class="space-y-6">
+                            <div class="border-b border-gray-200 pb-6">
+                                <h4 class="text-base font-medium text-gray-800 mb-4">Email Notifications</h4>
+                                <div class="space-y-4">
+                                    <div class="flex items-center justify-between">
+                                        <div>
+                                            <p class="text-sm font-medium text-gray-700">Transaction Confirmations</p>
+                                            <p class="text-xs text-gray-500">Receive emails for all transaction confirmations</p>
+                                        </div>
+                                        <label class="relative inline-flex items-center cursor-pointer">
+                                            <input type="checkbox" value="" class="sr-only peer" checked>
+                                            <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-indigo-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600"></div>
+                                        </label>
+                                    </div>
+                                    <div class="flex items-center justify-between">
+                                        <div>
+                                            <p class="text-sm font-medium text-gray-700">Account Updates</p>
+                                            <p class="text-xs text-gray-500">Receive emails about your account activity and security</p>
+                                        </div>
+                                        <label class="relative inline-flex items-center cursor-pointer">
+                                            <input type="checkbox" value="" class="sr-only peer" checked>
+                                            <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-indigo-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600"></div>
+                                        </label>
+                                    </div>
+                                    <div class="flex items-center justify-between">
+                                        <div>
+                                            <p class="text-sm font-medium text-gray-700">Promotional Emails</p>
+                                            <p class="text-xs text-gray-500">Receive emails about new features and special offers</p>
+                                        </div>
+                                        <label class="relative inline-flex items-center cursor-pointer">
+                                            <input type="checkbox" value="" class="sr-only peer">
+                                            <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-indigo-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600"></div>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="border-b border-gray-200 pb-6">
+                                <h4 class="text-base font-medium text-gray-800 mb-4">Push Notifications</h4>
+                                <div class="space-y-4">
+                                    <div class="flex items-center justify-between">
+                                        <div>
+                                            <p class="text-sm font-medium text-gray-700">Transaction Alerts</p>
+                                            <p class="text-xs text-gray-500">Receive push notifications for all transactions</p>
+                                        </div>
+                                        <label class="relative inline-flex items-center cursor-pointer">
+                                            <input type="checkbox" value="" class="sr-only peer" checked>
+                                            <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-indigo-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600"></div>
+                                        </label>
+                                    </div>
+                                    <div class="flex items-center justify-between">
+                                        <div>
+                                            <p class="text-sm font-medium text-gray-700">Security Alerts</p>
+                                            <p class="text-xs text-gray-500">Receive push notifications for security-related activities</p>
+                                        </div>
+                                        <label class="relative inline-flex items-center cursor-pointer">
+                                            <input type="checkbox" value="" class="sr-only peer" checked>
+                                            <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-indigo-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600"></div>
+                                        </label>
+                                    </div>
+                                    <div class="flex items-center justify-between">
+                                        <div>
+                                            <p class="text-sm font-medium text-gray-700">Promotional Notifications</p>
+                                            <p class="text-xs text-gray-500">Receive push notifications about offers and updates</p>
+                                        </div>
+                                        <label class="relative inline-flex items-center cursor-pointer">
+                                            <input type="checkbox" value="" class="sr-only peer">
+                                            <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-indigo-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600"></div>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <h4 class="text-base font-medium text-gray-800 mb-4">SMS Notifications</h4>
+                                <div class="space-y-4">
+                                    <div class="flex items-center justify-between">
+                                        <div>
+                                            <p class="text-sm font-medium text-gray-700">Transaction Alerts</p>
+                                            <p class="text-xs text-gray-500">Receive SMS alerts for transactions above ₦5,000</p>
+                                        </div>
+                                        <label class="relative inline-flex items-center cursor-pointer">
+                                            <input type="checkbox" value="" class="sr-only peer" checked>
+                                            <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-indigo-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600"></div>
+                                        </label>
+                                    </div>
+                                    <div class="flex items-center justify-between">
+                                        <div>
+                                            <p class="text-sm font-medium text-gray-700">Account Security</p>
+                                            <p class="text-xs text-gray-500">Receive SMS alerts for login attempts and security updates</p>
+                                        </div>
+                                        <label class="relative inline-flex items-center cursor-pointer">
+                                            <input type="checkbox" value="" class="sr-only peer" checked>
+                                            <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-indigo-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600"></div>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Account Section -->
+                    <div class="bg-white overflow-hidden">
+                        <div class="p-6 border-b border-gray-200">
+                            <h2 class="text-lg font-medium text-gray-900">Account Settings</h2>
+                            <p class="mt-1 text-sm text-gray-500">Manage your account preferences and settings.</p>
+                        </div>
+                        <div class="p-6">
+                            <div class="space-y-6">
+                                <div class="flex flex-col md:flex-row md:items-center">
+                                    <div class="md:w-1/3 mb-2 md:mb-0">
+                                        <span class="text-sm font-medium text-gray-700">Username</span>
+                                    </div>
+                                    <div class="md:w-2/3">
+                                        <div class="flex items-center">
+                                            <span class="text-gray-900 mr-2">johndoe123</span>
+                                            <button class="text-indigo-600 hover:text-indigo-800 text-sm font-medium">
+                                                Change
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="flex flex-col md:flex-row md:items-center">
+                                    <div class="md:w-1/3 mb-2 md:mb-0">
+                                        <span class="text-sm font-medium text-gray-700">Language</span>
+                                    </div>
+                                    <div class="md:w-2/3">
+                                        <select class="form-select w-full md:w-1/2 px-4 py-2 border border-gray-300 rounded-md focus:outline-none">
+                                            <option value="en">English (US)</option>
+                                            <option value="en-gb">English (UK)</option>
+                                            <option value="es">Spanish</option>
+                                            <option value="fr">French</option>
+                                            <option value="de">German</option>
+                                            <option value="ja">Japanese</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="flex flex-col md:flex-row md:items-center">
+                                    <div class="md:w-1/3 mb-2 md:mb-0">
+                                        <span class="text-sm font-medium text-gray-700">Time Zone</span>
+                                    </div>
+                                    <div class="md:w-2/3">
+                                        <select class="form-select w-full md:w-1/2 px-4 py-2 border border-gray-300 rounded-md focus:outline-none">
+                                            <option value="pacific">(GMT-08:00) Pacific Time</option>
+                                            <option value="mountain">(GMT-07:00) Mountain Time</option>
+                                            <option value="central">(GMT-06:00) Central Time</option>
+                                            <option value="eastern">(GMT-05:00) Eastern Time</option>
+                                            <option value="utc">(GMT+00:00) UTC</option>
+                                            <option value="london">(GMT+00:00) London</option>
+                                            <option value="paris">(GMT+01:00) Paris</option>
+                                            <option value="tokyo">(GMT+09:00) Tokyo</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="flex flex-col md:flex-row md:items-center">
+                                    <div class="md:w-1/3 mb-2 md:mb-0">
+                                        <span class="text-sm font-medium text-gray-700">Date Format</span>
+                                    </div>
+                                    <div class="md:w-2/3">
+                                        <select class="form-select w-full md:w-1/2 px-4 py-2 border border-gray-300 rounded-md focus:outline-none">
+                                            <option value="mdy">MM/DD/YYYY</option>
+                                            <option value="dmy">DD/MM/YYYY</option>
+                                            <option value="ymd">YYYY/MM/DD</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="flex flex-col md:flex-row md:items-center">
+                                    <div class="md:w-1/3 mb-2 md:mb-0">
+                                        <span class="text-sm font-medium text-gray-700">Dark Mode</span>
+                                    </div>
+                                    <div class="md:w-2/3">
+                                        <label class="flex items-center cursor-pointer">
+                                            <input type="checkbox" class="sr-only">
+                                            <div class="toggle-bg bg-gray-200 border-2 border-gray-200 h-6 w-11 rounded-full">
+                                                <div class="toggle-dot bg-white h-5 w-5 rounded-full shadow transform translate-x-0"></div>
+                                            </div>
+                                            <span class="ml-3 text-sm text-gray-700">Enable dark mode</span>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="border-t border-gray-200 pt-6">
+                                    <h3 class="text-base font-medium text-gray-900 mb-4">Danger Zone</h3>
+                                    <div class="flex flex-col md:flex-row md:items-center">
+                                        <div class="md:w-1/3 mb-2 md:mb-0">
+                                            <span class="text-sm font-medium text-gray-700">Deactivate Account</span>
+                                        </div>
+                                        <div class="md:w-2/3">
+                                            <p class="text-sm text-gray-500 mb-2">Temporarily disable your account. You can reactivate it anytime.</p>
+                                            <button class="px-3 py-1.5 bg-white text-gray-700 text-sm font-medium rounded border border-gray-300 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                                Deactivate Account
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <div class="flex flex-col md:flex-row md:items-center mt-6">
+                                        <div class="md:w-1/3 mb-2 md:mb-0">
+                                            <span class="text-sm font-medium text-gray-700">Delete Account</span>
+                                        </div>
+                                        <div class="md:w-2/3">
+                                            <p class="text-sm text-gray-500 mb-2">Permanently delete your account and all of your data. This action cannot be undone.</p>
+                                            <button class="px-3 py-1.5 bg-red-600 text-white text-sm font-medium rounded hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
+                                                Delete Account
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                
+                        <div class="mt-8 flex justify-end">
+                            <button type="button" class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors">
+                                Save Preferences
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Referrals Tab Content -->
+                    <div id="referrals" class="tab-content p-6">
+                        <div class="bg-gradient-to-r from-indigo-600 to-purple-600 rounded-xl p-6 text-white mb-8">
+                            <div class="md:flex items-center justify-between">
+                                <div class="mb-6 md:mb-0">
+                                    <h3 class="text-xl font-semibold mb-2">Invite Friends & Earn</h3>
+                                    <p class="text-indigo-100">Earn ₦500 for each friend who signs up and completes a transaction</p>
+                                </div>
+                                <div class="flex flex-col md:items-end">
+                                    <p class="text-sm text-indigo-100 mb-2">Your Referral Code</p>
+                                    <div class="flex items-center bg-white bg-opacity-20 rounded-lg p-2">
+                                        <span class="text-lg font-semibold mr-2">JOHN500</span>
+                                        <button class="p-1 hover:bg-white hover:bg-opacity-10 rounded">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-6">
+                                <p class="text-sm text-indigo-100 mb-2">Share your referral link</p>
+                                <div class="flex items-center bg-white bg-opacity-20 rounded-lg p-2">
+                                    <span class="text-sm truncate mr-2">https://quicktopup.com/ref/JOHN500</span>
+                                    <button class="p-1 hover:bg-white hover:bg-opacity-10 rounded">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                                        </svg>
+                                    </button>
+                                </div>
+                                <div class="flex space-x-3 mt-4">
+                                    <button class="flex items-center justify-center bg-white bg-opacity-20 hover:bg-opacity-30 rounded-lg px-4 py-2 transition-colors">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                                            <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/>
+                                        </svg>
+                                        Twitter
+                                    </button>
+                                    <button class="flex items-center justify-center bg-white bg-opacity-20 hover:bg-opacity-30 rounded-lg px-4 py-2 transition-colors">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                                            <path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"/>
+                                        </svg>
+                                        Facebook
+                                    </button>
+                                    <button class="flex items-center justify-center bg-white bg-opacity-20 hover:bg-opacity-30 rounded-lg px-4 py-2 transition-colors">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                                            <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
+                                        </svg>
+                                        WhatsApp
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-8">
+                            <h3 class="text-lg font-semibold text-gray-800 mb-4">Referral Statistics</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                <div class="bg-gray-50 p-4 rounded-lg">
+                                    <div class="flex justify-between items-center mb-2">
+                                        <h4 class="text-sm font-medium text-gray-500">Total Referrals</h4>
+                                        <div class="bg-indigo-100 p-1 rounded-full">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <div class="text-2xl font-bold text-gray-800">3</div>
+                                </div>
+                                
+                                <div class="bg-gray-50 p-4 rounded-lg">
+                                    <div class="flex justify-between items-center mb-2">
+                                        <h4 class="text-sm font-medium text-gray-500">Successful Referrals</h4>
+                                        <div class="bg-green-100 p-1 rounded-full">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <div class="text-2xl font-bold text-gray-800">3</div>
+                                </div>
+                                
+                                <div class="bg-gray-50 p-4 rounded-lg">
+                                    <div class="flex justify-between items-center mb-2">
+                                        <h4 class="text-sm font-medium text-gray-500">Total Earnings</h4>
+                                        <div class="bg-purple-100 p-1 rounded-full">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <div class="text-2xl font-bold text-gray-800">₦1,500.00</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-800 mb-4">Referral History</h3>
+                            <div class="bg-white border border-gray-200 rounded-lg overflow-hidden">
+                                <table class="min-w-full divide-y divide-gray-200">
+                                    <thead class="bg-gray-50">
+                                        <tr>
+                                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                Name
+                                            </th>
+                                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                Date Joined
+                                            </th>
+                                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                Status
+                                            </th>
+                                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                Bonus
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="bg-white divide-y divide-gray-200">
+                                        <tr>
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                <div class="flex items-center">
+                                                    <div class="flex-shrink-0 h-8 w-8">
+                                                        <img class="h-8 w-8 rounded-full" src="https://randomuser.me/api/portraits/women/42.jpg" alt="">
+                                                    </div>
+                                                    <div class="ml-4">
+                                                        <div class="text-sm font-medium text-gray-900">
+                                                            Sarah Johnson
+                                                        </div>
+                                                        <div class="text-sm text-gray-500">
+                                                            sarah.j@example.com
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                <div class="text-sm text-gray-900">May 10, 2023</div>
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                                                    Completed
+                                                </span>
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                                ₦500.00
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                <div class="flex items-center">
+                                                    <div class="flex-shrink-0 h-8 w-8">
+                                                        <img class="h-8 w-8 rounded-full" src="https://randomuser.me/api/portraits/men/86.jpg" alt="">
+                                                    </div>
+                                                    <div class="ml-4">
+                                                        <div class="text-sm font-medium text-gray-900">
+                                                            Michael Brown
+                                                        </div>
+                                                        <div class="text-sm text-gray-500">
+                                                            michael.b@example.com
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                <div class="text-sm text-gray-900">April 28, 2023</div>
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                                                    Completed
+                                                </span>
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                                ₦500.00
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                <div class="flex items-center">
+                                                    <div class="flex-shrink-0 h-8 w-8">
+                                                        <img class="h-8 w-8 rounded-full" src="https://randomuser.me/api/portraits/women/65.jpg" alt="">
+                                                    </div>
+                                                    <div class="ml-4">
+                                                        <div class="text-sm font-medium text-gray-900">
+                                                            Jessica Williams
+                                                        </div>
+                                                        <div class="text-sm text-gray-500">
+                                                            jessica.w@example.com
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                <div class="text-sm text-gray-900">April 15, 2023</div>
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                                                    Completed
+                                                </span>
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                                ₦500.00
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script>
+        // Toggle sidebar on larger screens
+      const sidebarLarge = document.getElementById("sidemenu");
+      sidebarLarge.addEventListener("click", function (event) {
+          document.getElementById("sidebar").classList.toggle("md:hidden");
+          document.getElementById("logoContainer").classList.toggle("hidden");
+          document.getElementById("mainContent").classList.toggle("ml-0");
+          document.getElementById("sidemenu").classList.toggle("ms-0");
+      });
+        // Toggle sidebar on mobile
+        const menuToggle = document.getElementById('menuToggle');
+        const sidebar = document.getElementById('sidebar');
+        
+        menuToggle.addEventListener('click', function() {
+            sidebar.classList.toggle('open');
+        });
+        
+        // Close sidebar when clicking outside on mobile
+        document.addEventListener('click', function(event) {
+            const isClickInsideSidebar = sidebar.contains(event.target);
+            const isClickInsideToggle = menuToggle.contains(event.target);
+            
+            if (!isClickInsideSidebar && !isClickInsideToggle && window.innerWidth < 768) {
+                sidebar.classList.remove('open');
+            }
+        });
+        
+        // Toggle notification dropdown
+        const notificationButton = document.getElementById('notificationButton');
+        const notificationDropdown = document.getElementById('notificationDropdown');
+        
+        notificationButton.addEventListener('click', function(event) {
+            event.stopPropagation();
+            notificationDropdown.classList.toggle('hidden');
+        });
+        
+        // Close notification dropdown when clicking outside
+        document.addEventListener('click', function(event) {
+            const isClickInsideNotification = notificationButton.contains(event.target) || notificationDropdown.contains(event.target);
+            
+            if (!isClickInsideNotification) {
+                notificationDropdown.classList.add('hidden');
+            }
+        });
+        
+        // Tab functionality
+        const tabButtons = document.querySelectorAll('.tab-button');
+        const tabContents = document.querySelectorAll('.tab-content');
+        
+        tabButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class from all buttons and contents
+                tabButtons.forEach(btn => {
+                    btn.classList.remove('active', 'border-indigo-600', 'text-indigo-600');
+                    btn.classList.add('text-gray-600');
+                });
+                
+                tabContents.forEach(content => {
+                    content.classList.remove('active');
+                });
+                
+                // Add active class to clicked button and corresponding content
+                button.classList.add('active', 'border-indigo-600', 'text-indigo-600');
+                button.classList.remove('text-gray-600');
+                
+                const tabId = button.textContent.trim().toLowerCase().replace(/\s+/g, '-');
+                const tabContent = document.getElementById(tabId);
+                
+                if (tabContent) {
+                    tabContent.classList.add('active');
+                }
+            });
+        });
+    </script>
+  </body>
+</html>

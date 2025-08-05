@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= name %> - Mobile Recharge & Payment Platform</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+      :root {
+        --primary: #4f46e5;
+        --primary-dark: #4338ca;
+        --secondary: #0ea5e9;
+        --accent: #8b5cf6;
+      }
+
+      body {
+        font-family: "Inter", sans-serif;
+        background-color: #f9fafb;
+      }
+
+      .primary-gradient {
+        background: linear-gradient(
+          135deg,
+          var(--primary) 0%,
+          var(--secondary) 100%
+        );
+      }
+
+      .secondary-gradient {
+        background: linear-gradient(
+          135deg,
+          var(--accent) 0%,
+          var(--secondary) 100%
+        );
+      }
+
+      .card-hover {
+        transition: all 0.3s ease;
+      }
+
+      .card-hover:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+          0 10px 10px -5px rgba(0, 0, 0, 0.04);
+      }
+
+      .app-mockup {
+        position: relative;
+        width: 280px;
+        height: 560px;
+        border-radius: 40px;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        overflow: hidden;
+      }
+
+      .app-screen {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: #fff;
+        overflow: hidden;
+      }
+
+      .app-notch {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 150px;
+        height: 30px;
+        background: #000;
+        border-bottom-left-radius: 15px;
+        border-bottom-right-radius: 15px;
+        z-index: 10;
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-10px);
+        }
+      }
+
+      .float-animation {
+        animation: float 6s ease-in-out infinite;
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.7;
+        }
+      }
+
+      .pulse-animation {
+        animation: pulse 2s infinite;
+      }
+
+      .service-icon {
+        transition: all 0.3s ease;
+      }
+
+      .card-hover:hover .service-icon {
+        transform: scale(1.1);
+      }
+
+      .custom-scrollbar::-webkit-scrollbar {
+        width: 6px;
+      }
+
+      .custom-scrollbar::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 10px;
+      }
+
+      .custom-scrollbar::-webkit-scrollbar-thumb {
+        background: #c7d2fe;
+        border-radius: 10px;
+      }
+
+      .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+        background: #a5b4fc;
+      }
+
+      .feature-card {
+        transition: all 0.3s ease;
+      }
+
+      .feature-card:hover {
+        transform: translateY(-5px);
+      }
+
+      .feature-icon {
+        transition: all 0.3s ease;
+      }
+
+      .feature-card:hover .feature-icon {
+        transform: scale(1.1) rotate(10deg);
+      }
+
+      /* About */
+      .gradient-bg {
+        background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+      }
+      .gradient-text {
+        background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+      .team-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+          0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      }
+      .stat-card {
+        transition: all 0.3s ease;
+      }
+      .stat-card:hover {
+        transform: translateY(-5px);
+      }
+      .timeline-dot {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+        position: absolute;
+        left: -10px;
+        top: 0;
+      }
+      .timeline-line {
+        position: absolute;
+        left: 0;
+        top: 20px;
+        bottom: 0;
+        width: 1px;
+        background-color: #e5e7eb;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Hero Section -->
+        <section class="relative">
+            <div class="gradient-bg h-48 md:h-64"></div>
+            <div class="container mx-auto px-4">
+                <div class="bg-white rounded-xl shadow-lg p-8 md:p-12 -mt-20 relative z-10">
+                    <div class="text-center mb-8">
+                        <h1 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Terms of Service</h1>
+                        <p class="text-gray-600 max-w-3xl mx-auto">Please read these terms and conditions carefully before using our services. By accessing or using QuickTopup, you agree to be bound by these Terms of Service.</p>
+                        <p class="text-gray-500 mt-4">Last Updated: November 15, 2023</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Terms Content -->
+        <section class="py-12">
+            <div class="container mx-auto px-4">
+                <div class="flex flex-col lg:flex-row gap-8">
+                    <!-- Table of Contents Sidebar -->
+                    <div class="lg:w-1/4">
+                        <div class="bg-white rounded-xl p-6 shadow-sm sticky top-8">
+                            <h2 class="text-xl font-semibold text-gray-800 mb-4">Table of Contents</h2>
+                            <ul class="space-y-3">
+                                <li>
+                                    <a href="#agreement" class="toc-link block text-gray-600 hover:text-indigo-600 transition-colors">1. Agreement to Terms</a>
+                                </li>
+                                <li>
+                                    <a href="#accounts" class="toc-link block text-gray-600 hover:text-indigo-600 transition-colors">2. User Accounts</a>
+                                </li>
+                                <li>
+                                    <a href="#services" class="toc-link block text-gray-600 hover:text-indigo-600 transition-colors">3. Services and Usage</a>
+                                </li>
+                                <li>
+                                    <a href="#payments" class="toc-link block text-gray-600 hover:text-indigo-600 transition-colors">4. Payments and Refunds</a>
+                                </li>
+                                <li>
+                                    <a href="#intellectual" class="toc-link block text-gray-600 hover:text-indigo-600 transition-colors">5. Intellectual Property</a>
+                                </li>
+                                <li>
+                                    <a href="#liability" class="toc-link block text-gray-600 hover:text-indigo-600 transition-colors">6. Limitation of Liability</a>
+                                </li>
+                                <li>
+                                    <a href="#privacy" class="toc-link block text-gray-600 hover:text-indigo-600 transition-colors">7. Privacy Policy</a>
+                                </li>
+                                <li>
+                                    <a href="#termination" class="toc-link block text-gray-600 hover:text-indigo-600 transition-colors">8. Termination</a>
+                                </li>
+                                <li>
+                                    <a href="#modifications" class="toc-link block text-gray-600 hover:text-indigo-600 transition-colors">9. Modifications to Terms</a>
+                                </li>
+                                <li>
+                                    <a href="#governing" class="toc-link block text-gray-600 hover:text-indigo-600 transition-colors">10. Governing Law</a>
+                                </li>
+                                <li>
+                                    <a href="#contact" class="toc-link block text-gray-600 hover:text-indigo-600 transition-colors">11. Contact Us</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <!-- Terms Content -->
+                    <div class="lg:w-3/4">
+                        <div class="bg-white rounded-xl p-6 md:p-8 shadow-sm">
+                            <!-- Agreement to Terms -->
+                            <div id="agreement" class="mb-12 scroll-mt-8">
+                                <h2 class="text-2xl font-bold text-gray-800 mb-4">1. Agreement to Terms</h2>
+                                <div class="prose text-gray-600 max-w-none">
+                                    <p class="mb-4">These Terms of Service constitute a legally binding agreement made between you, whether personally or on behalf of an entity ("you") and QuickTopup ("we," "us" or "our"), concerning your access to and use of the QuickTopup website as well as any other media form, media channel, mobile website or mobile application related, linked, or otherwise connected thereto (collectively, the "Site").</p>
+                                    
+                                    <p class="mb-4">You agree that by accessing the Site, you have read, understood, and agree to be bound by all of these Terms of Service. If you do not agree with all of these Terms of Service, then you are expressly prohibited from using the Site and you must discontinue use immediately.</p>
+                                    
+                                    <p>Supplemental terms and conditions or documents that may be posted on the Site from time to time are hereby expressly incorporated herein by reference. We reserve the right, in our sole discretion, to make changes or modifications to these Terms of Service at any time and for any reason.</p>
+                                </div>
+                            </div>
+                            
+                            <!-- User Accounts -->
+                            <div id="accounts" class="mb-12 scroll-mt-8">
+                                <h2 class="text-2xl font-bold text-gray-800 mb-4">2. User Accounts</h2>
+                                <div class="prose text-gray-600 max-w-none">
+                                    <h3 class="text-xl font-semibold text-gray-800 mt-6 mb-3">2.1 Account Creation</h3>
+                                    <p class="mb-4">In order to use certain features of the Site, you must register for an account with us and provide certain information about yourself. You represent and warrant that: (1) all required registration information you submit is truthful and accurate; (2) you will maintain the accuracy of such information; and (3) you are at least 18 years of age or have the legal consent of a parent or guardian.</p>
+                                    
+                                    <h3 class="text-xl font-semibold text-gray-800 mt-6 mb-3">2.2 Account Responsibilities</h3>
+                                    <p class="mb-4">You are responsible for maintaining the confidentiality of your account and password, including but not limited to restricting access to your computer and/or account. You agree to accept responsibility for any and all activities or actions that occur under your account and/or password.</p>
+                                    
+                                    <p class="mb-4">You must notify us immediately upon becoming aware of any breach of security or unauthorized use of your account. We reserve the right to refuse service, terminate accounts, remove or edit content, or cancel orders in our sole discretion.</p>
+                                    
+                                    <h3 class="text-xl font-semibold text-gray-800 mt-6 mb-3">2.3 Account Security</h3>
+                                    <p>We implement various security measures to maintain the safety of your personal information. However, we cannot guarantee that unauthorized third parties will never be able to defeat these measures or use your personal information for improper purposes. You acknowledge that you provide your personal information at your own risk.</p>
+                                </div>
+                            </div>
+                            
+                            <!-- Services and Usage -->
+                            <div id="services" class="mb-12 scroll-mt-8">
+                                <h2 class="text-2xl font-bold text-gray-800 mb-4">3. Services and Usage</h2>
+                                <div class="prose text-gray-600 max-w-none">
+                                    <h3 class="text-xl font-semibold text-gray-800 mt-6 mb-3">3.1 Service Description</h3>
+                                    <p class="mb-4">QuickTopup provides electronic topup services for airtime, data bundles, bill payments, and other digital services. We act as an intermediary between you and service providers. We do not guarantee the quality or availability of the services provided by third-party service providers.</p>
+                                    
+                                    <h3 class="text-xl font-semibold text-gray-800 mt-6 mb-3">3.2 Service Availability</h3>
+                                    <p class="mb-4">We strive to ensure that our services are available 24/7. However, we do not guarantee that the Site will always be available, uninterrupted, timely, secure, or error-free. We reserve the right to suspend or restrict access to some features to users. We will not be liable if, for any reason, all or any part of the Site is unavailable at any time or for any period.</p>
+                                    
+                                    <h3 class="text-xl font-semibold text-gray-800 mt-6 mb-3">3.3 Prohibited Uses</h3>
+                                    <p class="mb-4">You may use our services only for lawful purposes and in accordance with these Terms of Service. You agree not to use the Site:</p>
+                                    <ul class="list-disc pl-6 mb-4">
+                                        <li>In any way that violates any applicable federal, state, local, or international law or regulation.</li>
+                                        <li>To engage in any conduct that restricts or inhibits anyone's use or enjoyment of the Site.</li>
+                                        <li>To impersonate or attempt to impersonate the Company, a Company employee, another user, or any other person or entity.</li>
+                                        <li>To engage in any other conduct that restricts or inhibits anyone's use or enjoyment of the Site, or which, as determined by us, may harm the Company or users of the Site or expose them to liability.</li>
+                                    </ul>
+                                    
+                                    <h3 class="text-xl font-semibold text-gray-800 mt-6 mb-3">3.4 Service Modifications</h3>
+                                    <p>We reserve the right to withdraw or modify our services, and any service or material we provide on the Site, in our sole discretion without notice. We will not be liable if, for any reason, all or any part of the Site is unavailable at any time or for any period.</p>
+                                </div>
+                            </div>
+                            
+                            <!-- Payments and Refunds -->
+                            <div id="payments" class="mb-12 scroll-mt-8">
+                                <h2 class="text-2xl font-bold text-gray-800 mb-4">4. Payments and Refunds</h2>
+                                <div class="prose text-gray-600 max-w-none">
+                                    <h3 class="text-xl font-semibold text-gray-800 mt-6 mb-3">4.1 Payment Methods</h3>
+                                    <p class="mb-4">We accept various payment methods as indicated on our Site. By providing a payment method, you represent and warrant that you are authorized to use the designated payment method and that you authorize us to charge your payment method for the total amount of your transaction (including any applicable taxes and other charges).</p>
+                                    
+                                    <h3 class="text-xl font-semibold text-gray-800 mt-6 mb-3">4.2 Pricing and Fees</h3>
+                                    <p class="mb-4">All prices displayed on the Site are in Nigerian Naira (NGN) unless otherwise specified. We reserve the right to change our prices at any time without notice. Service fees may apply to certain transactions and will be clearly indicated before you complete your purchase.</p>
+                                    
+                                    <h3 class="text-xl font-semibold text-gray-800 mt-6 mb-3">4.3 Failed Transactions</h3>
+                                    <p class="mb-4">In the event of a failed transaction where your account has been debited but the service was not delivered, we will investigate and resolve the issue within 24-48 hours. You may be required to provide transaction details to facilitate the resolution process.</p>
+                                    
+                                    <h3 class="text-xl font-semibold text-gray-800 mt-6 mb-3">4.4 Refund Policy</h3>
+                                    <p class="mb-4">Due to the nature of digital services, all sales are final and non-refundable once the service has been successfully delivered. In cases where the service was not delivered due to technical issues on our part, we will either complete the service delivery or provide a refund at our discretion.</p>
+                                    
+                                    <p>Refund requests must be submitted within 7 days of the transaction date. Approved refunds will be processed back to the original payment method within 7-14 business days, depending on your payment provider's policies.</p>
+                                </div>
+                            </div>
+                            
+                            <!-- Intellectual Property -->
+                            <div id="intellectual" class="mb-12 scroll-mt-8">
+                                <h2 class="text-2xl font-bold text-gray-800 mb-4">5. Intellectual Property</h2>
+                                <div class="prose text-gray-600 max-w-none">
+                                    <p class="mb-4">The Site and its entire contents, features, and functionality (including but not limited to all information, software, text, displays, images, video, and audio, and the design, selection, and arrangement thereof) are owned by QuickTopup, its licensors, or other providers of such material and are protected by Nigerian and international copyright, trademark, patent, trade secret, and other intellectual property or proprietary rights laws.</p>
+                                    
+                                    <p class="mb-4">These Terms of Service permit you to use the Site for your personal, non-commercial use only. You must not reproduce, distribute, modify, create derivative works of, publicly display, publicly perform, republish, download, store, or transmit any of the material on our Site, except as follows:</p>
+                                    
+                                    <ul class="list-disc pl-6 mb-4">
+                                        <li>Your computer may temporarily store copies of such materials in RAM incidental to your accessing and viewing those materials.</li>
+                                        <li>You may store files that are automatically cached by your Web browser for display enhancement purposes.</li>
+                                        <li>You may print or download one copy of a reasonable number of pages of the Site for your own personal, non-commercial use and not for further reproduction, publication, or distribution.</li>
+                                    </ul>
+                                    
+                                    <p>You must not modify copies of any materials from this Site or delete or alter any copyright, trademark, or other proprietary rights notices from copies of materials from this site. If you print, copy, modify, download, or otherwise use or provide any other person with access to any part of the Site in breach of the Terms of Service, your right to use the Site will stop immediately and you must, at our option, return or destroy any copies of the materials you have made.</p>
+                                </div>
+                            </div>
+                            
+                            <!-- Limitation of Liability -->
+                            <div id="liability" class="mb-12 scroll-mt-8">
+                                <h2 class="text-2xl font-bold text-gray-800 mb-4">6. Limitation of Liability</h2>
+                                <div class="prose text-gray-600 max-w-none">
+                                    <p class="mb-4">IN NO EVENT WILL THE COMPANY, ITS AFFILIATES, OR THEIR LICENSORS, SERVICE PROVIDERS, EMPLOYEES, AGENTS, OFFICERS, OR DIRECTORS BE LIABLE FOR DAMAGES OF ANY KIND, UNDER ANY LEGAL THEORY, ARISING OUT OF OR IN CONNECTION WITH YOUR USE, OR INABILITY TO USE, THE SITE, ANY WEBSITES LINKED TO IT, ANY CONTENT ON THE SITE OR SUCH OTHER WEBSITES, INCLUDING ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES, INCLUDING BUT NOT LIMITED TO, PERSONAL INJURY, PAIN AND SUFFERING, EMOTIONAL DISTRESS, LOSS OF REVENUE, LOSS OF PROFITS, LOSS OF BUSINESS OR ANTICIPATED SAVINGS, LOSS OF USE, LOSS OF GOODWILL, LOSS OF DATA, AND WHETHER CAUSED BY TORT (INCLUDING NEGLIGENCE), BREACH OF CONTRACT, OR OTHERWISE, EVEN IF FORESEEABLE.</p>
+                                    
+                                    <p>THE FOREGOING DOES NOT AFFECT ANY LIABILITY WHICH CANNOT BE EXCLUDED OR LIMITED UNDER APPLICABLE LAW.</p>
+                                </div>
+                            </div>
+                            
+                            <!-- Privacy Policy -->
+                            <div id="privacy" class="mb-12 scroll-mt-8">
+                                <h2 class="text-2xl font-bold text-gray-800 mb-4">7. Privacy Policy</h2>
+                                <div class="prose text-gray-600 max-w-none">
+                                    <p class="mb-4">Your use of the Site is also governed by our Privacy Policy, which is incorporated into these Terms of Service by reference. Our Privacy Policy outlines how we collect, use, and protect your personal information when you use our services.</p>
+                                    
+                                    <p>By using the Site, you consent to all actions we take with respect to your information consistent with our Privacy Policy.</p>
+                                </div>
+                            </div>
+                            
+                            <!-- Termination -->
+                            <div id="termination" class="mb-12 scroll-mt-8">
+                                <h2 class="text-2xl font-bold text-gray-800 mb-4">8. Termination</h2>
+                                <div class="prose text-gray-600 max-w-none">
+                                    <p class="mb-4">We may terminate or suspend your account and bar access to the Site immediately, without prior notice or liability, under our sole discretion, for any reason whatsoever and without limitation, including but not limited to a breach of the Terms of Service.</p>
+                                    
+                                    <p class="mb-4">If you wish to terminate your account, you may simply discontinue using the Site, or contact us to request account deletion.</p>
+                                    
+                                    <p>All provisions of the Terms of Service which by their nature should survive termination shall survive termination, including, without limitation, ownership provisions, warranty disclaimers, indemnity, and limitations of liability.</p>
+                                </div>
+                            </div>
+                            
+                            <!-- Modifications to Terms -->
+                            <div id="modifications" class="mb-12 scroll-mt-8">
+                                <h2 class="text-2xl font-bold text-gray-800 mb-4">9. Modifications to Terms</h2>
+                                <div class="prose text-gray-600 max-w-none">
+                                    <p class="mb-4">We reserve the right, at our sole discretion, to modify or replace these Terms at any time. If a revision is material, we will provide at least 30 days' notice prior to any new terms taking effect. What constitutes a material change will be determined at our sole discretion.</p>
+                                    
+                                    <p>By continuing to access or use our Site after any revisions become effective, you agree to be bound by the revised terms. If you do not agree to the new terms, you are no longer authorized to use the Site.</p>
+                                </div>
+                            </div>
+                            
+                            <!-- Governing Law -->
+                            <div id="governing" class="mb-12 scroll-mt-8">
+                                <h2 class="text-2xl font-bold text-gray-800 mb-4">10. Governing Law</h2>
+                                <div class="prose text-gray-600 max-w-none">
+                                    <p class="mb-4">These Terms shall be governed and construed in accordance with the laws of Nigeria, without regard to its conflict of law provisions.</p>
+                                    
+                                    <p>Our failure to enforce any right or provision of these Terms will not be considered a waiver of those rights. If any provision of these Terms is held to be invalid or unenforceable by a court, the remaining provisions of these Terms will remain in effect.</p>
+                                </div>
+                            </div>
+                            
+                            <!-- Contact Us -->
+                            <div id="contact" class="scroll-mt-8">
+                                <h2 class="text-2xl font-bold text-gray-800 mb-4">11. Contact Us</h2>
+                                <div class="prose text-gray-600 max-w-none">
+                                    <p class="mb-4">If you have any questions about these Terms of Service, please contact us:</p>
+                                    
+                                    <ul class="list-none pl-0 mb-4">
+                                        <li class="mb-2"><strong>Email:</strong> legal@quicktopup.com</li>
+                                        <li class="mb-2"><strong>Phone:</strong> +234 800 QUICKTOPUP</li>
+                                        <li><strong>Address:</strong> 123 Tech Avenue, Victoria Island, Lagos, Nigeria</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="py-12 gradient-bg">
+            <div class="container mx-auto px-4 text-center">
+                <h2 class="text-2xl font-bold text-white mb-6">Have Questions About Our Terms?</h2>
+                <p class="text-indigo-100 max-w-2xl mx-auto mb-8">Our customer support team is available to help clarify any part of our Terms of Service.</p>
+                <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
+                    <a href="#" class="bg-white text-indigo-600 px-8 py-3 rounded-lg font-medium hover:bg-indigo-50 transition-colors">
+                        Contact Support
+                    </a>
+                    <a href="#" class="border border-white text-white px-8 py-3 rounded-lg font-medium hover:bg-white hover:bg-opacity-10 transition-colors">
+                        Read Privacy Policy
+                    </a>
+                </div>
+            </div>
+        </section>
+
+  </body>
+</html>

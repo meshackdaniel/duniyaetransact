@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= name %> - Mobile Recharge & Payment Platform</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+      :root {
+        --primary: #4f46e5;
+        --primary-dark: #4338ca;
+        --secondary: #0ea5e9;
+        --accent: #8b5cf6;
+      }
+
+      body {
+        font-family: "Inter", sans-serif;
+        background-color: #f9fafb;
+      }
+
+      .primary-gradient {
+        background: linear-gradient(
+          135deg,
+          var(--primary) 0%,
+          var(--secondary) 100%
+        );
+      }
+
+      .secondary-gradient {
+        background: linear-gradient(
+          135deg,
+          var(--accent) 0%,
+          var(--secondary) 100%
+        );
+      }
+
+      .card-hover {
+        transition: all 0.3s ease;
+      }
+
+      .card-hover:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+          0 10px 10px -5px rgba(0, 0, 0, 0.04);
+      }
+
+      .app-mockup {
+        position: relative;
+        width: 280px;
+        height: 560px;
+        border-radius: 40px;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        overflow: hidden;
+      }
+
+      .app-screen {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: #fff;
+        overflow: hidden;
+      }
+
+      .app-notch {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 150px;
+        height: 30px;
+        background: #000;
+        border-bottom-left-radius: 15px;
+        border-bottom-right-radius: 15px;
+        z-index: 10;
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-10px);
+        }
+      }
+
+      .float-animation {
+        animation: float 6s ease-in-out infinite;
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.7;
+        }
+      }
+
+      .pulse-animation {
+        animation: pulse 2s infinite;
+      }
+
+      .service-icon {
+        transition: all 0.3s ease;
+      }
+
+      .card-hover:hover .service-icon {
+        transform: scale(1.1);
+      }
+
+      .custom-scrollbar::-webkit-scrollbar {
+        width: 6px;
+      }
+
+      .custom-scrollbar::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 10px;
+      }
+
+      .custom-scrollbar::-webkit-scrollbar-thumb {
+        background: #c7d2fe;
+        border-radius: 10px;
+      }
+
+      .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+        background: #a5b4fc;
+      }
+
+      .feature-card {
+        transition: all 0.3s ease;
+      }
+
+      .feature-card:hover {
+        transform: translateY(-5px);
+      }
+
+      .feature-icon {
+        transition: all 0.3s ease;
+      }
+
+      .feature-card:hover .feature-icon {
+        transform: scale(1.1) rotate(10deg);
+      }
+
+      /* About */
+      .gradient-bg {
+            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+        }
+        .gradient-text {
+            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .team-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .stat-card {
+            transition: all 0.3s ease;
+        }
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+        .timeline-dot {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+            position: absolute;
+            left: -10px;
+            top: 0;
+        }
+        .timeline-line {
+            position: absolute;
+            left: 0;
+            top: 20px;
+            bottom: 0;
+            width: 1px;
+            background-color: #e5e7eb;
+        }
+    </style>
+  </head>
+  <body>
+            <!-- Hero Section -->
+        <section class="relative">
+            <div class="gradient-bg h-64 md:h-80"></div>
+            <div class="container mx-auto px-4">
+                <div class="bg-white rounded-xl shadow-lg p-8 md:p-12 -mt-20 relative z-10">
+                    <div class="flex flex-col md:flex-row items-center">
+                        <div class="md:w-1/2 mb-8 md:mb-0 md:pr-8">
+                            <h1 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Our Story</h1>
+                            <p class="text-gray-600 mb-6">Founded in 2018, QuickTopup was born from a simple idea: to make digital services accessible to everyone. We noticed how people struggled with long queues and unreliable service when trying to purchase airtime and data. We believed there had to be a better way.</p>
+                            <p class="text-gray-600">Today, we've grown into a trusted platform serving over 500,000 customers across the country, providing instant access to airtime, data bundles, and more - all at your fingertips.</p>
+                        </div>
+                        <div class="md:w-1/2">
+                            <div class="rounded-xl overflow-hidden">
+                                <svg class="w-full" viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg">
+                                    <rect width="600" height="400" fill="#f3f4f6" />
+                                    <path d="M0,250 Q150,150 300,250 T600,250" fill="#e0e7ff" />
+                                    <path d="M0,280 Q150,180 300,280 T600,280" fill="#c7d2fe" />
+                                    <path d="M0,310 Q150,210 300,310 T600,310" fill="#a5b4fc" />
+                                    <circle cx="300" cy="150" r="60" fill="#4f46e5" />
+                                    <circle cx="300" cy="150" r="40" fill="#ffffff" />
+                                    <path d="M280,150 L310,170 L330,120" stroke="#4f46e5" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Mission & Values -->
+        <section class="py-16 bg-white mt-16">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold text-gray-800 mb-4">Our Mission & Values</h2>
+                    <p class="text-gray-600 max-w-2xl mx-auto">We're driven by a clear purpose and guided by strong values that shape everything we do.</p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="bg-indigo-50 rounded-xl p-8 text-center">
+                        <div class="bg-white w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6 shadow-md">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-3">Simplicity</h3>
+                        <p class="text-gray-600">We believe in making technology simple and accessible for everyone, regardless of technical expertise.</p>
+                    </div>
+                    
+                    <div class="bg-indigo-50 rounded-xl p-8 text-center">
+                        <div class="bg-white w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6 shadow-md">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-3">Security</h3>
+                        <p class="text-gray-600">Your trust is our priority. We implement the highest security standards to protect your data and transactions.</p>
+                    </div>
+                    
+                    <div class="bg-indigo-50 rounded-xl p-8 text-center">
+                        <div class="bg-white w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6 shadow-md">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-3">Innovation</h3>
+                        <p class="text-gray-600">We continuously evolve our services to meet your changing needs and stay ahead of industry trends.</p>
+                    </div>
+                </div>
+                
+                <div class="mt-16 text-center">
+                    <h3 class="text-2xl font-bold text-gray-800 mb-6">Our Mission</h3>
+                    <p class="text-gray-600 max-w-3xl mx-auto text-lg">
+                        To empower individuals and businesses with seamless access to digital services, 
+                        making everyday transactions effortless and reliable.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Company Journey -->
+        <section class="py-16 bg-gray-50">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold text-gray-800 mb-4">Our Journey</h2>
+                    <p class="text-gray-600 max-w-2xl mx-auto">From a small startup to a leading digital services provider, our journey has been remarkable.</p>
+                </div>
+                
+                <div class="max-w-3xl mx-auto">
+                    <div class="relative pl-10 pb-10">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-line"></div>
+                        <div class="mb-6">
+                            <h3 class="text-xl font-semibold text-gray-800">2018 - The Beginning</h3>
+                            <p class="text-gray-600 mt-2">QuickTopup was founded with a mission to simplify digital services access. We started with just airtime recharge services.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="relative pl-10 pb-10">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-line"></div>
+                        <div class="mb-6">
+                            <h3 class="text-xl font-semibold text-gray-800">2019 - Expanding Services</h3>
+                            <p class="text-gray-600 mt-2">We expanded our offerings to include data bundles and bill payments, serving over 100,000 customers.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="relative pl-10 pb-10">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-line"></div>
+                        <div class="mb-6">
+                            <h3 class="text-xl font-semibold text-gray-800">2020 - Mobile App Launch</h3>
+                            <p class="text-gray-600 mt-2">We launched our mobile application, making our services even more accessible to users on the go.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="relative pl-10 pb-10">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-line"></div>
+                        <div class="mb-6">
+                            <h3 class="text-xl font-semibold text-gray-800">2021 - Strategic Partnerships</h3>
+                            <p class="text-gray-600 mt-2">We formed strategic partnerships with major telecom providers and financial institutions to enhance our service offerings.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="relative pl-10">
+                        <div class="timeline-dot"></div>
+                        <div class="mb-6">
+                            <h3 class="text-xl font-semibold text-gray-800">2023 - Today</h3>
+                            <p class="text-gray-600 mt-2">Today, we serve over 500,000 customers nationwide, processing millions of transactions monthly with a 99.9% success rate.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stats -->
+        <section class="py-16 bg-white">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold text-gray-800 mb-4">Our Impact</h2>
+                    <p class="text-gray-600 max-w-2xl mx-auto">Numbers that reflect our commitment to excellence and customer satisfaction.</p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div class="stat-card bg-indigo-50 rounded-xl p-8 text-center">
+                        <h3 class="text-4xl font-bold gradient-text mb-2">500K+</h3>
+                        <p class="text-gray-600">Active Users</p>
+                    </div>
+                    
+                    <div class="stat-card bg-indigo-50 rounded-xl p-8 text-center">
+                        <h3 class="text-4xl font-bold gradient-text mb-2">5M+</h3>
+                        <p class="text-gray-600">Monthly Transactions</p>
+                    </div>
+                    
+                    <div class="stat-card bg-indigo-50 rounded-xl p-8 text-center">
+                        <h3 class="text-4xl font-bold gradient-text mb-2">99.9%</h3>
+                        <p class="text-gray-600">Success Rate</p>
+                    </div>
+                    
+                    <div class="stat-card bg-indigo-50 rounded-xl p-8 text-center">
+                        <h3 class="text-4xl font-bold gradient-text mb-2">24/7</h3>
+                        <p class="text-gray-600">Customer Support</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Team Section -->
+        <section class="py-16 bg-gray-50">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold text-gray-800 mb-4">Meet Our Team</h2>
+                    <p class="text-gray-600 max-w-2xl mx-auto">The passionate individuals behind QuickTopup who work tirelessly to provide you with the best service.</p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div class="team-card bg-white rounded-xl overflow-hidden shadow-sm transition-all duration-300">
+                        <div class="h-48 bg-indigo-100 flex items-center justify-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-24 w-24 text-indigo-300" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
+                            </svg>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-lg font-semibold text-gray-800">Sarah Johnson</h3>
+                            <p class="text-indigo-600 text-sm mb-3">CEO & Founder</p>
+                            <p class="text-gray-600 text-sm">With over 15 years in fintech, Sarah leads our vision and strategic direction.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="team-card bg-white rounded-xl overflow-hidden shadow-sm transition-all duration-300">
+                        <div class="h-48 bg-indigo-100 flex items-center justify-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-24 w-24 text-indigo-300" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
+                            </svg>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-lg font-semibold text-gray-800">Michael Okonkwo</h3>
+                            <p class="text-indigo-600 text-sm mb-3">CTO</p>
+                            <p class="text-gray-600 text-sm">Michael oversees our technical infrastructure and innovation initiatives.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="team-card bg-white rounded-xl overflow-hidden shadow-sm transition-all duration-300">
+                        <div class="h-48 bg-indigo-100 flex items-center justify-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-24 w-24 text-indigo-300" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
+                            </svg>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-lg font-semibold text-gray-800">Amina Bello</h3>
+                            <p class="text-indigo-600 text-sm mb-3">Head of Operations</p>
+                            <p class="text-gray-600 text-sm">Amina ensures smooth day-to-day operations and service delivery.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="team-card bg-white rounded-xl overflow-hidden shadow-sm transition-all duration-300">
+                        <div class="h-48 bg-indigo-100 flex items-center justify-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-24 w-24 text-indigo-300" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
+                            </svg>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-lg font-semibold text-gray-800">David Adeyemi</h3>
+                            <p class="text-indigo-600 text-sm mb-3">Customer Success Manager</p>
+                            <p class="text-gray-600 text-sm">David leads our customer support team, ensuring client satisfaction.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials -->
+        <section class="py-16 bg-white">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold text-gray-800 mb-4">What Our Customers Say</h2>
+                    <p class="text-gray-600 max-w-2xl mx-auto">Don't just take our word for it - hear from some of our satisfied customers.</p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="bg-gray-50 rounded-xl p-8 relative">
+                        <div class="absolute -top-4 left-8">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-indigo-400" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
+                            </svg>
+                        </div>
+                        <p class="text-gray-600 mb-6 pt-4">QuickTopup has made recharging my phone so convenient. I no longer have to leave my house to buy airtime. The service is fast and reliable!</p>
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 rounded-full bg-indigo-100 flex items-center justify-center mr-3">
+                                <span class="text-indigo-600 font-semibold">OA</span>
+                            </div>
+                            <div>
+                                <h4 class="font-medium text-gray-800">Oluwaseun A.</h4>
+                                <p class="text-gray-500 text-sm">Lagos, Nigeria</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-gray-50 rounded-xl p-8 relative">
+                        <div class="absolute -top-4 left-8">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-indigo-400" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
+                            </svg>
+                        </div>
+                        <p class="text-gray-600 mb-6 pt-4">As a small business owner, I use QuickTopup to manage all my company's data subscriptions. Their bulk purchase option saves me time and money!</p>
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 rounded-full bg-indigo-100 flex items-center justify-center mr-3">
+                                <span class="text-indigo-600 font-semibold">CN</span>
+                            </div>
+                            <div>
+                                <h4 class="font-medium text-gray-800">Chioma N.</h4>
+                                <p class="text-gray-500 text-sm">Abuja, Nigeria</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-gray-50 rounded-xl p-8 relative">
+                        <div class="absolute -top-4 left-8">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-indigo-400" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
+                            </svg>
+                        </div>
+                        <p class="text-gray-600 mb-6 pt-4">The customer service at QuickTopup is exceptional. I had an issue with a transaction, and they resolved it within minutes. Highly recommended!</p>
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 rounded-full bg-indigo-100 flex items-center justify-center mr-3">
+                                <span class="text-indigo-600 font-semibold">JI</span>
+                            </div>
+                            <div>
+                                <h4 class="font-medium text-gray-800">John I.</h4>
+                                <p class="text-gray-500 text-sm">Port Harcourt, Nigeria</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="py-16 gradient-bg">
+            <div class="container mx-auto px-4 text-center">
+                <h2 class="text-3xl font-bold text-white mb-6">Ready to experience seamless digital services?</h2>
+                <p class="text-indigo-100 max-w-2xl mx-auto mb-8">Join over 500,000 satisfied customers who trust QuickTopup for their airtime, data, and payment needs.</p>
+                <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
+                    <button class="bg-white text-indigo-600 px-8 py-3 rounded-lg font-medium hover:bg-indigo-50 transition-colors">
+                        Get Started
+                    </button>
+                    <button class="border border-white text-white px-8 py-3 rounded-lg font-medium hover:bg-white hover:bg-opacity-10 transition-colors">
+                        Contact Sales
+                    </button>
+                </div>
+            </div>
+        </section>
+  </body>
+</html>
