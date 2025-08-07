@@ -15,7 +15,8 @@ router.get("/", async (req, res) => {
       email: getUser.email,
       phone: getUser.phone,
       countryCode: getUser.countryCode,
-      profile: getUser.profile || "images/profile.png" // Default profile image if not set
+      profile: getUser.profile || "images/profile.png", // Default profile image if not set
+      notifications: getUser.notifications.slice(0, 3) || [],
     };
   res.render("transactions", {
     title: "Transactions",

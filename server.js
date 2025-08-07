@@ -71,7 +71,31 @@ app.use("/transactions", authenticateToken, transactionsRouter);
 const myAccountRouter = require("./routes/my-account");
 app.use("/my-account", authenticateToken, myAccountRouter);
 
+const referralRouter = require("./routes/referral");
+app.use("/referral", authenticateToken, referralRouter);
+
+const notificationPrefrencesRouter = require("./routes/notification-prefrences");
+app.use("/notification-prefrences", authenticateToken, notificationPrefrencesRouter);
+
+const changePasswordRouter = require("./routes/change-password");
+app.use(
+  "/change-password",
+  authenticateToken,
+  changePasswordRouter
+);
+
+const airtimeRouter = require("./routes/airtime");
+app.use("/airtime", authenticateToken, airtimeRouter);
+
+const dataRouter = require("./routes/data");
+app.use("/data", authenticateToken, dataRouter);
+
 const helpAndSupportRouter = require("./routes/help-and-support");
 app.use("/help-and-support", helpAndSupportRouter);
+
+app.get("/logout", (req, res) => {
+  res.clearCookie("refreshToken");
+  res.redirect("/");
+});
 
 app.listen(port);

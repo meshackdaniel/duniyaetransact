@@ -34,7 +34,14 @@ router.post("/", async (req, res) => {
       email: email,
       phone: phone,
       countryCode: countryCode,
-      profile: ""
+      profile: "",
+      notifications: [
+        {
+          title: "Welcome to Duniya Comm",
+          text: "Thank you for signing up! We're excited to have you on board. visit your dashboard to explore features. Visit your profile to set up your account.",
+          type: "Greetings",
+        },
+      ],
     };
     await User.create(user);
     res.status(201).send();

@@ -18,7 +18,7 @@ router.get("/", async (req, res) => {
     profile: getUser.profile || "images/profile.png", // Default profile image if not set
     notifications: getUser.notifications.slice(0,3) || [],
   };
-  res.render("dashboard", { title: "dashboard", user: user, name: "Duniya Comm" });
+  res.render("airtime", { title: "Airtime", user: user, name: "Duniya Comm" });
 });
 
 module.exports = router;

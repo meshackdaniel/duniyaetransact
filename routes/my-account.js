@@ -16,6 +16,7 @@ router.get("/", async (req, res) => {
     phone: getUser.phone,
     countryCode: getUser.countryCode,
     profile: getUser.profile || "images/profile.png", // Default profile image if not set
+    notifications: getUser.notifications.slice(0,3) || [],
   };
   res.render("my-account", {
     title: "My Account",

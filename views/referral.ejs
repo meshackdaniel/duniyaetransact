@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title><%= name %> - Mobile Recharge & Payment Platform</title>
+    <title><%= name %> - Referrals</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
@@ -484,7 +484,7 @@
   <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
 </svg>
               <h1 class="text-2xl ms-4 font-bold text-gray-800">
-              Welcome<span class="hidden md:inline-block"> back, <%= user.name %></span>! 👋
+              Referral
             </h1>
             </div>
 
@@ -650,167 +650,214 @@
 
             <!-- Account Content -->
             <main class="px-4 sm:px-6 lg:px-8 py-8">
-                <!-- Account Overview -->
-                <div class="mb-8">
-                    <div class="bg-white rounded-xl shadow-sm overflow-hidden">
-                        <div class="md:flex">
-                            <div class="p-6 md:p-8 md:w-1/3 bg-gradient-to-br from-indigo-600 to-purple-600 text-white">
-                                <div class="flex flex-col items-center md:items-start">
-                                    <div class="relative mb-4">
-                                        <img src=<%= user.profile %> alt="Profile" class="h-24 w-24 rounded-full border-4 border-white">
-                                        <button class="absolute bottom-0 right-0 bg-white rounded-full p-1 shadow-md">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" />
-                                            </svg>
-                                        </button>
-                                    </div>
-                                    <h3 class="text-xl font-semibold mb-1"><%= user.name %></h3>
-                                    <p class="text-indigo-100 mb-4"><%= user.email %></p>
-                                    <div class="flex items-center mb-6">
-                                        <span class="bg-green-500 h-2.5 w-2.5 rounded-full mr-2"></span>
-                                        <span class="text-sm text-indigo-100">Verified Account</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="p-6 md:p-8 md:w-2/3">
-                                <div class="flex flex-col md:flex-row md:justify-between md:items-center mb-6">
-                                    <h3 class="text-lg font-semibold text-gray-800 mb-4 md:mb-0">Account Overview</h3>
-                                    <div class="flex space-x-3">
-                                        <button class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors flex items-center">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                                            </svg>
-                                            Fund Wallet
-                                        </button>
-                                        <button class="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors flex items-center">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-                                            </svg>
-                                            Withdraw
-                                        </button>
-                                    </div>
-                                </div>
-                                
-                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                    <div class="bg-gray-50 rounded-lg p-4">
-                                        <div class="flex justify-between items-center mb-3">
-                                            <h4 class="text-sm font-medium text-gray-500">Wallet Balance</h4>
-                                            <div class="bg-indigo-100 p-1 rounded-full">
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
-                                                </svg>
-                                            </div>
-                                        </div>
-                                        <div class="flex items-baseline">
-                                            <span class="text-2xl font-bold text-gray-800">₦25,750.00</span>
-                                            <span class="ml-2 text-xs text-green-600 font-medium">+₦10,000 today</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 
                 <!-- Account Settings Tabs -->
                 <div class="bg-white rounded-xl shadow-sm overflow-hidden">
                     
-                    <!-- Personal Information Tab Content -->
-                    <div id="personal-info" class="tab-content active p-6">
-                      <nav class="overflow-x-auto mb-6">
-                            <button class="tab-button text-gray-600 py-2  block hover:text-indigo-600 focus:outline-none whitespace-nowrap border-b-2 border-indigo-600 font-medium text-indigo-600 active">
-                                Personal Information
-                            </button>
-                        </nav>
-                        <form>
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                <div>
-                                    <label for="firstName" class="block text-sm font-medium text-gray-700 mb-1">First Name</label>
-                                    <input type="text" id="firstName" name="firstName" value="John" class="form-input w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                    <!-- Referrals Tab Content -->
+                    <div id="referrals" class="tab-content">
+                        <div class="bg-gradient-to-r from-indigo-600 to-purple-600 rounded-xl p-6 text-white mb-8">
+                            <div class="md:flex items-center justify-between">
+                                <div class="mb-6 md:mb-0">
+                                    <h3 class="text-xl font-semibold mb-2">Invite Friends & Earn</h3>
+                                    <p class="text-indigo-100">Earn ₦500 for each friend who signs up and completes a transaction</p>
                                 </div>
-                                <div>
-                                    <label for="lastName" class="block text-sm font-medium text-gray-700 mb-1">Last Name</label>
-                                    <input type="text" id="lastName" name="lastName" value="Doe" class="form-input w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
-                                </div>
-                                <div>
-                                    <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
-                                    <input type="email" id="email" name="email" value="<%= user.email %>" class="form-input w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
-                                </div>
-                                <div>
-                                    <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
-                                    <input type="tel" id="phone" name="phone" value=<%= user.phone %> class="form-input w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
-                                </div>
-                                <div>
-                                    <label for="dob" class="block text-sm font-medium text-gray-700 mb-1">Date of Birth</label>
-                                    <input type="date" id="dob" name="dob" value="" class="form-input w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
-                                </div>
-                                <div>
-                                    <label for="gender" class="block text-sm font-medium text-gray-700 mb-1">Gender</label>
-                                    <select id="gender" name="gender" class="form-input w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
-                                        <option value="male" selected>Male</option>
-                                        <option value="female">Female</option>
-                                        <option value="other">Other</option>
-                                        <option value="prefer-not-to-say">Prefer not to say</option>
-                                    </select>
-                                </div>
-                                <div class="md:col-span-2">
-                                    <label for="address" class="block text-sm font-medium text-gray-700 mb-1">Address</label>
-                                    <input type="text" id="address" name="address" value="" class="form-input w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
-                                </div>
-                                <div>
-                                    <label for="city" class="block text-sm font-medium text-gray-700 mb-1">City</label>
-                                    <input type="text" id="city" name="city" value="" class="form-input w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
-                                </div>
-                                <div>
-                                    <label for="state" class="block text-sm font-medium text-gray-700 mb-1">State</label>
-                                    <input type="text" id="state" name="state" value="" class="form-input w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
-                                </div>
-                            </div>
-                            
-                            <div class="mt-8 flex justify-end">
-                                <button type="button" class="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors mr-3">
-                                    Cancel
-                                </button>
-                                <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors">
-                                    Save Changes
-                                </button>
-                            </div>
-                        </form>
-                    </div>
-                    
-                    <!-- Notifications Tab Content -->
-                    <div id="notifications" class="tab-content p-6">
-                        <h3 class="text-lg font-semibold text-gray-800 mb-6">Danger Zone</h3>
-                        
-                        <div class="border-t border-gray-200 pt-6">
-                                    <div class="flex flex-col md:flex-row md:items-center">
-                                        <div class="md:w-1/3 mb-2 md:mb-0">
-                                            <span class="text-sm font-medium text-gray-700">Deactivate Account</span>
-                                        </div>
-                                        <div class="md:w-2/3">
-                                            <p class="text-sm text-gray-500 mb-2">Temporarily disable your account. You can reactivate it anytime.</p>
-                                            <button class="px-3 py-1.5 bg-white text-gray-700 text-sm font-medium rounded border border-gray-300 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                                                Deactivate Account
-                                            </button>
-                                        </div>
-                                    </div>
-
-                                    <div class="flex flex-col md:flex-row md:items-center mt-6">
-                                        <div class="md:w-1/3 mb-2 md:mb-0">
-                                            <span class="text-sm font-medium text-gray-700">Delete Account</span>
-                                        </div>
-                                        <div class="md:w-2/3">
-                                            <p class="text-sm text-gray-500 mb-2">Permanently delete your account and all of your data. This action cannot be undone.</p>
-                                            <button class="px-3 py-1.5 bg-red-600 text-white text-sm font-medium rounded hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
-                                                Delete Account
-                                            </button>
-                                        </div>
+                                <div class="flex flex-col md:items-end">
+                                    <p class="text-sm text-indigo-100 mb-2">Your Referral Code</p>
+                                    <div class="flex items-center bg-white bg-opacity-20 rounded-lg p-2">
+                                        <span class="text-lg font-semibold mr-2">JOHN500</span>
+                                        <button class="p-1 hover:bg-white hover:bg-opacity-10 rounded">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                                            </svg>
+                                        </button>
                                     </div>
                                 </div>
+                            </div>
+                            <div class="mt-6">
+                                <p class="text-sm text-indigo-100 mb-2">Share your referral link</p>
+                                <div class="flex items-center bg-white bg-opacity-20 rounded-lg p-2">
+                                    <span class="text-sm truncate mr-2">https://quicktopup.com/ref/JOHN500</span>
+                                    <button class="p-1 hover:bg-white hover:bg-opacity-10 rounded">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                                        </svg>
+                                    </button>
+                                </div>
+                                <div class="grid grid-cols-2 md:grid-cols-3 gap-3 mt-4">
+                                    <button class="flex items-center justify-center bg-white bg-opacity-20 hover:bg-opacity-30 rounded-lg px-4 py-2 transition-colors">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                                            <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/>
+                                        </svg>
+                                        X
+                                    </button>
+                                    <button class="flex items-center justify-center bg-white bg-opacity-20 hover:bg-opacity-30 rounded-lg px-4 py-2 transition-colors">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                                            <path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"/>
+                                        </svg>
+                                        Facebook
+                                    </button>
+                                    <button class="flex items-center justify-center bg-white bg-opacity-20 hover:bg-opacity-30 rounded-lg px-4 py-2 transition-colors">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                                            <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
+                                        </svg>
+                                        WhatsApp
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
                         
+                        <div class="mb-8">
+                            <h3 class="text-lg font-semibold text-gray-800 mb-4">Referral Statistics</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                <div class="bg-gray-50 p-4 rounded-lg">
+                                    <div class="flex justify-between items-center mb-2">
+                                        <h4 class="text-sm font-medium text-gray-500">Total Referrals</h4>
+                                        <div class="bg-indigo-100 p-1 rounded-full">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <div class="text-2xl font-bold text-gray-800">3</div>
+                                </div>
+                                
+                                <div class="bg-gray-50 p-4 rounded-lg">
+                                    <div class="flex justify-between items-center mb-2">
+                                        <h4 class="text-sm font-medium text-gray-500">Successful Referrals</h4>
+                                        <div class="bg-green-100 p-1 rounded-full">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <div class="text-2xl font-bold text-gray-800">3</div>
+                                </div>
+                                
+                                <div class="bg-gray-50 p-4 rounded-lg">
+                                    <div class="flex justify-between items-center mb-2">
+                                        <h4 class="text-sm font-medium text-gray-500">Total Earnings</h4>
+                                        <div class="bg-purple-100 p-1 rounded-full">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <div class="text-2xl font-bold text-gray-800">₦1,500.00</div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--
+                        <div class="">
+                            <h3 class="text-lg font-semibold text-gray-800 mb-4">Referral History</h3>
+                            <div class="bg-white border border-gray-200 bg-red-900 rounded-lg w-30 overflow-hidden">
+                                <table class="divide-y divide-gray-200">
+                                    <thead class="bg-gray-50 hidden md:block">
+                                        <tr>
+                                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                Name
+                                            </th>
+                                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                Date Joined
+                                            </th>
+                                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                Status
+                                            </th>
+                                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                Bonus
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="bg-red-800 divide-y divide-gray-200 ">
+                                        <tr>
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                <div class="flex items-center">
+                                                    <div class="flex-shrink-0 h-8 w-8">
+                                                        <img class="h-8 w-8 rounded-full" src="https://randomuser.me/api/portraits/women/42.jpg" alt="">
+                                                    </div>
+                                                    <div class="ml-4">
+                                                        <div class="text-sm font-medium text-gray-900">
+                                                            Sarah Johnson
+                                                        </div>
+                                                        <div class="text-sm text-gray-500">
+                                                            sarah.j@example.com
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                <div class="text-sm text-gray-900">May 10, 2023</div>
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                                                    Completed
+                                                </span>
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                                ₦500.00
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                <div class="flex items-center">
+                                                    <div class="flex-shrink-0 h-8 w-8">
+                                                        <img class="h-8 w-8 rounded-full" src="https://randomuser.me/api/portraits/men/86.jpg" alt="">
+                                                    </div>
+                                                    <div class="ml-4">
+                                                        <div class="text-sm font-medium text-gray-900">
+                                                            Michael Brown
+                                                        </div>
+                                                        <div class="text-sm text-gray-500">
+                                                            michael.b@example.com
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                <div class="text-sm text-gray-900">April 28, 2023</div>
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                                                    Completed
+                                                </span>
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                                ₦500.00
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                <div class="flex items-center">
+                                                    <div class="flex-shrink-0 h-8 w-8">
+                                                        <img class="h-8 w-8 rounded-full" src="https://randomuser.me/api/portraits/women/65.jpg" alt="">
+                                                    </div>
+                                                    <div class="ml-4">
+                                                        <div class="text-sm font-medium text-gray-900">
+                                                            Jessica Williams
+                                                        </div>
+                                                        <div class="text-sm text-gray-500">
+                                                            jessica.w@example.com
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                <div class="text-sm text-gray-900">April 15, 2023</div>
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                                                    Completed
+                                                </span>
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                                ₦500.00
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>-->
                     </div>
-                    
                 </div>
             </main>
         </div>

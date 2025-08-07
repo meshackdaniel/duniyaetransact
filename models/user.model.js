@@ -25,8 +25,33 @@ const userSchema = new mongoose.Schema(
     },
     profile: {
       type: String,
-      required: false
+      required: false,
     },
+    notifications: [
+      {
+        title: {
+          type: String,
+          required: true,
+          trim: true,
+        },
+        text: {
+          type: String,
+          required: true,
+          trim: true,
+        },
+        type: {
+          type: String,
+          required: true,
+          enum: ["Success", "Pending", "Failed", "Security", "Profile", "Info", "Greetings"], // You can modify these types as needed
+          default: "Info",
+        },
+        time: {
+          type: Date,
+          required: true,
+          default: Date.now,
+        },
+      },
+    ],
   },
   {
     timestamps: true,

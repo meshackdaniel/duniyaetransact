@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title><%= name %> - Mobile Recharge & Payment Platform</title>
+    <title><%= name %> - Notification Prefrences</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
@@ -331,7 +331,7 @@
                 Transaction History
               </a>
               <a
-                href="/change-password"
+                href="/logout"
                 class="sidebar-link flex items-center px-4 py-2 text-sm text-gray-700 rounded-lg"
               >
                 <svg
@@ -354,33 +354,7 @@
                     d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
                   />
                 </svg>
-                Change Password
-              </a>
-              <a
-                href="/referral"
-                class="sidebar-link flex items-center px-4 py-2 text-sm text-gray-700 rounded-lg"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  class="h-4 w-4 mr-3 text-gray-500"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
-                  />
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                  />
-                </svg>
-                Referral
+                Settings
               </a>
               <a
                 href="/logout"
@@ -484,7 +458,7 @@
   <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
 </svg>
               <h1 class="text-2xl ms-4 font-bold text-gray-800">
-              Welcome<span class="hidden md:inline-block"> back, <%= user.name %></span>! 👋
+              Notification Prefrences
             </h1>
             </div>
 
@@ -650,167 +624,121 @@
 
             <!-- Account Content -->
             <main class="px-4 sm:px-6 lg:px-8 py-8">
-                <!-- Account Overview -->
-                <div class="mb-8">
-                    <div class="bg-white rounded-xl shadow-sm overflow-hidden">
-                        <div class="md:flex">
-                            <div class="p-6 md:p-8 md:w-1/3 bg-gradient-to-br from-indigo-600 to-purple-600 text-white">
-                                <div class="flex flex-col items-center md:items-start">
-                                    <div class="relative mb-4">
-                                        <img src=<%= user.profile %> alt="Profile" class="h-24 w-24 rounded-full border-4 border-white">
-                                        <button class="absolute bottom-0 right-0 bg-white rounded-full p-1 shadow-md">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" />
-                                            </svg>
-                                        </button>
-                                    </div>
-                                    <h3 class="text-xl font-semibold mb-1"><%= user.name %></h3>
-                                    <p class="text-indigo-100 mb-4"><%= user.email %></p>
-                                    <div class="flex items-center mb-6">
-                                        <span class="bg-green-500 h-2.5 w-2.5 rounded-full mr-2"></span>
-                                        <span class="text-sm text-indigo-100">Verified Account</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="p-6 md:p-8 md:w-2/3">
-                                <div class="flex flex-col md:flex-row md:justify-between md:items-center mb-6">
-                                    <h3 class="text-lg font-semibold text-gray-800 mb-4 md:mb-0">Account Overview</h3>
-                                    <div class="flex space-x-3">
-                                        <button class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors flex items-center">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                                            </svg>
-                                            Fund Wallet
-                                        </button>
-                                        <button class="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors flex items-center">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-                                            </svg>
-                                            Withdraw
-                                        </button>
-                                    </div>
-                                </div>
-                                
-                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                    <div class="bg-gray-50 rounded-lg p-4">
-                                        <div class="flex justify-between items-center mb-3">
-                                            <h4 class="text-sm font-medium text-gray-500">Wallet Balance</h4>
-                                            <div class="bg-indigo-100 p-1 rounded-full">
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
-                                                </svg>
-                                            </div>
-                                        </div>
-                                        <div class="flex items-baseline">
-                                            <span class="text-2xl font-bold text-gray-800">₦25,750.00</span>
-                                            <span class="ml-2 text-xs text-green-600 font-medium">+₦10,000 today</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 
                 <!-- Account Settings Tabs -->
                 <div class="bg-white rounded-xl shadow-sm overflow-hidden">
                     
-                    <!-- Personal Information Tab Content -->
-                    <div id="personal-info" class="tab-content active p-6">
-                      <nav class="overflow-x-auto mb-6">
-                            <button class="tab-button text-gray-600 py-2  block hover:text-indigo-600 focus:outline-none whitespace-nowrap border-b-2 border-indigo-600 font-medium text-indigo-600 active">
-                                Personal Information
-                            </button>
-                        </nav>
-                        <form>
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                <div>
-                                    <label for="firstName" class="block text-sm font-medium text-gray-700 mb-1">First Name</label>
-                                    <input type="text" id="firstName" name="firstName" value="John" class="form-input w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
-                                </div>
-                                <div>
-                                    <label for="lastName" class="block text-sm font-medium text-gray-700 mb-1">Last Name</label>
-                                    <input type="text" id="lastName" name="lastName" value="Doe" class="form-input w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
-                                </div>
-                                <div>
-                                    <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
-                                    <input type="email" id="email" name="email" value="<%= user.email %>" class="form-input w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
-                                </div>
-                                <div>
-                                    <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
-                                    <input type="tel" id="phone" name="phone" value=<%= user.phone %> class="form-input w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
-                                </div>
-                                <div>
-                                    <label for="dob" class="block text-sm font-medium text-gray-700 mb-1">Date of Birth</label>
-                                    <input type="date" id="dob" name="dob" value="" class="form-input w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
-                                </div>
-                                <div>
-                                    <label for="gender" class="block text-sm font-medium text-gray-700 mb-1">Gender</label>
-                                    <select id="gender" name="gender" class="form-input w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
-                                        <option value="male" selected>Male</option>
-                                        <option value="female">Female</option>
-                                        <option value="other">Other</option>
-                                        <option value="prefer-not-to-say">Prefer not to say</option>
-                                    </select>
-                                </div>
-                                <div class="md:col-span-2">
-                                    <label for="address" class="block text-sm font-medium text-gray-700 mb-1">Address</label>
-                                    <input type="text" id="address" name="address" value="" class="form-input w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
-                                </div>
-                                <div>
-                                    <label for="city" class="block text-sm font-medium text-gray-700 mb-1">City</label>
-                                    <input type="text" id="city" name="city" value="" class="form-input w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
-                                </div>
-                                <div>
-                                    <label for="state" class="block text-sm font-medium text-gray-700 mb-1">State</label>
-                                    <input type="text" id="state" name="state" value="" class="form-input w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                    <!-- Notifications Tab Content -->
+                    <div id="notifications" class="tab-content p-6">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-6">Notification Preferences</h3>
+                        
+                        <div class="space-y-6">
+                            <div class="border-b border-gray-200 pb-6">
+                                <h4 class="text-base font-medium text-gray-800 mb-4">Email Notifications</h4>
+                                <div class="space-y-4">
+                                    <div class="flex items-center justify-between">
+                                        <div>
+                                            <p class="text-sm font-medium text-gray-700">Transaction Confirmations</p>
+                                            <p class="text-xs text-gray-500">Receive emails for all transaction confirmations</p>
+                                        </div>
+                                        <label class="relative inline-flex items-center cursor-pointer">
+                                            <input type="checkbox" value="" class="sr-only peer" checked>
+                                            <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-indigo-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600"></div>
+                                        </label>
+                                    </div>
+                                    <div class="flex items-center justify-between">
+                                        <div>
+                                            <p class="text-sm font-medium text-gray-700">Account Updates</p>
+                                            <p class="text-xs text-gray-500">Receive emails about your account activity and security</p>
+                                        </div>
+                                        <label class="relative inline-flex items-center cursor-pointer">
+                                            <input type="checkbox" value="" class="sr-only peer" checked>
+                                            <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-indigo-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600"></div>
+                                        </label>
+                                    </div>
+                                    <div class="flex items-center justify-between">
+                                        <div>
+                                            <p class="text-sm font-medium text-gray-700">Promotional Emails</p>
+                                            <p class="text-xs text-gray-500">Receive emails about new features and special offers</p>
+                                        </div>
+                                        <label class="relative inline-flex items-center cursor-pointer">
+                                            <input type="checkbox" value="" class="sr-only peer">
+                                            <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-indigo-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600"></div>
+                                        </label>
+                                    </div>
                                 </div>
                             </div>
                             
-                            <div class="mt-8 flex justify-end">
-                                <button type="button" class="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors mr-3">
-                                    Cancel
-                                </button>
-                                <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors">
-                                    Save Changes
-                                </button>
-                            </div>
-                        </form>
-                    </div>
-                    
-                    <!-- Notifications Tab Content -->
-                    <div id="notifications" class="tab-content p-6">
-                        <h3 class="text-lg font-semibold text-gray-800 mb-6">Danger Zone</h3>
-                        
-                        <div class="border-t border-gray-200 pt-6">
-                                    <div class="flex flex-col md:flex-row md:items-center">
-                                        <div class="md:w-1/3 mb-2 md:mb-0">
-                                            <span class="text-sm font-medium text-gray-700">Deactivate Account</span>
+                            <div class="border-b border-gray-200 pb-6">
+                                <h4 class="text-base font-medium text-gray-800 mb-4">Push Notifications</h4>
+                                <div class="space-y-4">
+                                    <div class="flex items-center justify-between">
+                                        <div>
+                                            <p class="text-sm font-medium text-gray-700">Transaction Alerts</p>
+                                            <p class="text-xs text-gray-500">Receive push notifications for all transactions</p>
                                         </div>
-                                        <div class="md:w-2/3">
-                                            <p class="text-sm text-gray-500 mb-2">Temporarily disable your account. You can reactivate it anytime.</p>
-                                            <button class="px-3 py-1.5 bg-white text-gray-700 text-sm font-medium rounded border border-gray-300 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                                                Deactivate Account
-                                            </button>
-                                        </div>
+                                        <label class="relative inline-flex items-center cursor-pointer">
+                                            <input type="checkbox" value="" class="sr-only peer" checked>
+                                            <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-indigo-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600"></div>
+                                        </label>
                                     </div>
-
-                                    <div class="flex flex-col md:flex-row md:items-center mt-6">
-                                        <div class="md:w-1/3 mb-2 md:mb-0">
-                                            <span class="text-sm font-medium text-gray-700">Delete Account</span>
+                                    <div class="flex items-center justify-between">
+                                        <div>
+                                            <p class="text-sm font-medium text-gray-700">Security Alerts</p>
+                                            <p class="text-xs text-gray-500">Receive push notifications for security-related activities</p>
                                         </div>
-                                        <div class="md:w-2/3">
-                                            <p class="text-sm text-gray-500 mb-2">Permanently delete your account and all of your data. This action cannot be undone.</p>
-                                            <button class="px-3 py-1.5 bg-red-600 text-white text-sm font-medium rounded hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
-                                                Delete Account
-                                            </button>
+                                        <label class="relative inline-flex items-center cursor-pointer">
+                                            <input type="checkbox" value="" class="sr-only peer" checked>
+                                            <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-indigo-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600"></div>
+                                        </label>
+                                    </div>
+                                    <div class="flex items-center justify-between">
+                                        <div>
+                                            <p class="text-sm font-medium text-gray-700">Promotional Notifications</p>
+                                            <p class="text-xs text-gray-500">Receive push notifications about offers and updates</p>
                                         </div>
+                                        <label class="relative inline-flex items-center cursor-pointer">
+                                            <input type="checkbox" value="" class="sr-only peer">
+                                            <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-indigo-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600"></div>
+                                        </label>
                                     </div>
                                 </div>
+                            </div>
+                            
+                            <div>
+                                <h4 class="text-base font-medium text-gray-800 mb-4">SMS Notifications</h4>
+                                <div class="space-y-4">
+                                    <div class="flex items-center justify-between">
+                                        <div>
+                                            <p class="text-sm font-medium text-gray-700">Transaction Alerts</p>
+                                            <p class="text-xs text-gray-500">Receive SMS alerts for transactions above ₦5,000</p>
+                                        </div>
+                                        <label class="relative inline-flex items-center cursor-pointer">
+                                            <input type="checkbox" value="" class="sr-only peer" checked>
+                                            <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-indigo-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600"></div>
+                                        </label>
+                                    </div>
+                                    <div class="flex items-center justify-between">
+                                        <div>
+                                            <p class="text-sm font-medium text-gray-700">Account Security</p>
+                                            <p class="text-xs text-gray-500">Receive SMS alerts for login attempts and security updates</p>
+                                        </div>
+                                        <label class="relative inline-flex items-center cursor-pointer">
+                                            <input type="checkbox" value="" class="sr-only peer" checked>
+                                            <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-indigo-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600"></div>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         
+                
+                        <div class="mt-8 flex justify-end">
+                            <button type="button" class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors">
+                                Save Preferences
+                            </button>
+                        </div>
                     </div>
-                    
                 </div>
             </main>
         </div>
