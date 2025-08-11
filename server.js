@@ -13,6 +13,20 @@ const jwt = require("jsonwebtoken");
 // Set view engine to EJS
 app.set("view engine", "ejs");
 
+const Confirmation = require("./models/confirmation.model");
+
+const nodemailer = require("nodemailer");
+const myEmail = process.env.NODEMAILER_EMAIL;
+const password = process.env.NODEMAILER_PASSWORD; // Use environment variable or hardcoded password for testing
+
+const transporter = nodemailer.createTransport({
+  service: process.env.NODEMAILER_SERVICE,
+  auth: {
+    user: myEmail,
+    pass: password,
+  },
+});
+
 // MIDDLEWARES
 // Add this middleware to parse JSON bodies
 app.use(express.json());
@@ -75,14 +89,17 @@ const referralRouter = require("./routes/referral");
 app.use("/referral", authenticateToken, referralRouter);
 
 const notificationPrefrencesRouter = require("./routes/notification-prefrences");
-app.use("/notification-prefrences", authenticateToken, notificationPrefrencesRouter);
+app.use(
+  "/notification-prefrences",
+  authenticateToken,
+  notificationPrefrencesRouter
+);
+
+const changePinRouter = require("./routes/change-pin");
+app.use("/change-pin", authenticateToken, changePinRouter);
 
 const changePasswordRouter = require("./routes/change-password");
-app.use(
-  "/change-password",
-  authenticateToken,
-  changePasswordRouter
-);
+app.use("/change-password", authenticateToken, changePasswordRouter);
 
 const airtimeRouter = require("./routes/airtime");
 app.use("/airtime", authenticateToken, airtimeRouter);
@@ -90,8 +107,73 @@ app.use("/airtime", authenticateToken, airtimeRouter);
 const dataRouter = require("./routes/data");
 app.use("/data", authenticateToken, dataRouter);
 
+const fundAccountRouter = require("./routes/fund-account");
+app.use("/fund-account", authenticateToken, fundAccountRouter);
+
 const helpAndSupportRouter = require("./routes/help-and-support");
 app.use("/help-and-support", helpAndSupportRouter);
+
+const accountCreatedRouter = require("./routes/account-created");
+app.use("/account-created",authenticateToken, accountCreatedRouter);
+
+function generateRandomString(max) {
+  const characters =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  let result = "";
+  for (let i = 0; i < max; i++) {
+    const randomIndex = Math.floor(Math.random() * characters.length);
+    result += characters[randomIndex];
+  }
+  return result;
+}
+
+app.post("/api/send-confirmation-email", async (req, res) => {
+  const { email } = req.body;
+  const code = generateRandomString(6);
+  console.log("Email received:", email);
+  const getConfirmation = await Confirmation.findOne({ email });
+  if (getConfirmation) {
+    const updatedConfirmation = await Confirmation.deleteOne({ email });
+  }
+  await Confirmation.create({ email, code });
+  try {
+    await transporter.sendMail({
+      from: myEmail,
+      to: email,
+      text: `Your confirmation code for duniya comm is: ${code}`,
+      subject: "Confirmation code for duniya comm",
+    });
+    res.status(200).json({
+      message: "Confirmation email sent successfully",
+    });
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+app.post("/api/resend-confirmation-email", async (req, res) => {
+  const { email } = req.body;
+  const code = generateRandomString(6);
+  console.log("Email received:", email);
+  const getConfirmation = await Confirmation.findOne({ email });
+  if (getConfirmation) {
+    const updatedConfirmation = await Confirmation.deleteOne({ email });
+  }
+  await Confirmation.create({ email, code });
+  try {
+    await transporter.sendMail({
+      from: myEmail,
+      to: email,
+      text: `Your confirmation code for duniya comm is: ${code}`,
+      subject: "Confirmation code for duniya comm",
+    });
+    res.status(200).json({
+      message: "Confirmation email sent successfully",
+    });
+  } catch (error) {
+    console.log(error);
+  }
+});
 
 app.get("/logout", (req, res) => {
   res.clearCookie("refreshToken");

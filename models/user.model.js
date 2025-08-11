@@ -1,8 +1,46 @@
+const { status } = require("express/lib/response");
+const { Transaction } = require("mongodb");
 const mongoose = require("mongoose");
+const transactionSchema = new mongoose.Schema({
+  category: {
+    type: String,
+    enum: ["deposit", "transfer", "airtime", "data"],
+    required: true,
+  },
+  amount: {
+    type: Number,
+    required: true,
+    min: 0,
+  },
+  date: {
+    type: Date,
+    default: Date.now,
+  },
+  recipient: {
+    type: String,
+    required: true, // Not required for deposits
+  },
+  status: {
+    type: String,
+    enum: ["pending", "succesful", "reversed", "failed"],
+    required: true,
+  },
+  description: {
+    type: String,
+    trim: true,
+  },
+});
+
 const userSchema = new mongoose.Schema(
   {
     name: {
       type: String,
+      required: true,
+    },
+    pin: {
+      type: Number,
+      minlength: 4,
+      maxlength: 4,
       required: true,
     },
     password: {
@@ -42,7 +80,15 @@ const userSchema = new mongoose.Schema(
         type: {
           type: String,
           required: true,
-          enum: ["Success", "Pending", "Failed", "Security", "Profile", "Info", "Greetings"], // You can modify these types as needed
+          enum: [
+            "Success",
+            "Pending",
+            "Failed",
+            "Security",
+            "Profile",
+            "Info",
+            "Greetings",
+          ], // You can modify these types as needed
           default: "Info",
         },
         time: {
@@ -52,6 +98,31 @@ const userSchema = new mongoose.Schema(
         },
       },
     ],
+    account: {
+      accountName: {
+        type: String,
+        required: true,
+        trim: true,
+      },
+      accountBalance: {
+        type: Number,
+        required: true,
+        min: 0,
+        default: 0,
+      },
+      accountNumber: {
+        type: String,
+        required: true,
+        unique: true,
+        trim: true,
+      },
+      bankName: {
+        type: String,
+        required: true,
+        trim: true,
+      },
+      transactions: [transactionSchema],
+    },
   },
   {
     timestamps: true,

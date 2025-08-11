@@ -156,7 +156,7 @@
   </head>
   <body>
     <!-- Navigation -->
-     <% if (title != "dashboard" && title != "Transactions" && title != "My Account" && title != "Referral" && title != "Notification Prefrences" && title != "Change Password" && title != "Airtime" && title != "Data") { %>
+     <% if (title != "dashboard" && title != "Transactions" && title != "My Account" && title != "Referral" && title != "Notification Prefrences" && title != "Change Password" && title != "Change Pin" && title != "Airtime" && title != "Data" && title != "Fund Account") { %>
     <nav class="bg-white shadow-sm sticky top-0 z-50">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
@@ -190,10 +190,9 @@
             </div>
           </div>
           <div class="flex items-center space-x-4">
-            
+              <!-- id="fundWalletNav" -->            
             <a
             href="/login"
-              id="fundWalletNav"
               class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
             >
               Login
@@ -220,7 +219,7 @@
       <p></p>
     <% } %>
     <%- body %>
-    <% if (title != "dashboard" && title != "Transactions" && title != "My Account" && title != "Referral" && title != "Notification Prefrences" && title != "Change Password" && title != "Airtime" && title != "Data") { %>
+    <% if (title != "dashboard" && title != "Transactions" && title != "My Account" && title != "Referral" && title != "Notification Prefrences" && title != "Change Password" && title != "Change Pin" && title != "Airtime" && title != "Data" && title != "Fund Account") { %>
     <footer class="bg-gray-900 text-white pt-16 pb-8">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
@@ -814,7 +813,7 @@
       </div>
     </div>
     <!-- Cookie Banner -->
-    <div
+    <!-- <div
       id="cookie-banner"
       class="fixed bottom-0 left-0 right-0 bg-white shadow-lg p-4 md:p-6 z-50"
     >
@@ -848,7 +847,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
 
     <!-- Success Modal -->
     <div

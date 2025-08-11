@@ -1202,13 +1202,29 @@
               const network = document.getElementById('selectedNetwork').value;
               const phoneNumber = document.getElementById('phoneNumber').value;
               const amount = document.getElementById('amount').value;
-
-              console.log("amount", amount,"network",  network,"phone number", phoneNumber);
+              airtimeFormData = {
+                network: network,
+                phoneNumber: phoneNumber,
+                amount: amount,
+                pin: pin,
+                email: "<%= user.email %>",
+              }
                 // Simulate successful transaction
                 // document.getElementById('successMessage').classList.remove('hidden');
                 // document.getElementById('transactionDetails').innerText = `Network: ${selectedNetwork}, Phone: ${document.getElementById('phoneNumber').value}, Amount: ₦${document.getElementById('amount').value}`;
-                
-                // Hide pin modal
+                fetch("/airtime/", {
+                method: "POST",
+                body: JSON.stringify(airtimeFormData),
+                headers: {
+                  "Content-Type": "application/json",
+                  Accept: "application/json",
+                },
+                }).then((res) => {
+                  if (!res.ok){
+                    throw new Error("Failed to send message")
+                  }
+                  else {
+                    // Hide pin modal
                 document.getElementById("pin-modal").classList.add("hidden");
                 
                 // Reset form
@@ -1225,6 +1241,10 @@
                 b.classList.remove('from-blue-600', 'to-indigo-600', 'text-white', 'border-blue-600', 'shadow-blue-500/25');
                 b.classList.add('from-blue-50', 'to-blue-100', 'border-blue-200');
                 });
+                  }
+                  return res.json();
+                });
+                
             } else {
                 document.getElementById('fpin').classList.add('border-red-500');
                 document.getElementById('spin').classList.add('border-red-500');

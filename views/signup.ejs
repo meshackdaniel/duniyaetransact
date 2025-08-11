@@ -11,6 +11,11 @@
     />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
+      input[type="number"]::-webkit-inner-spin-button,
+      input[type="number"]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
       :root {
         --primary: #4f46e5;
         --primary-dark: #4338ca;
@@ -192,7 +197,7 @@
   </head>
   <body>
     <!-- Signup Section -->
-    <div class="flex-grow flex items-center justify-center px-4 py-12">
+    <div id="firstSection" class="flex-grow flex items-center justify-center px-4 py-12">
       <div class="w-full max-w-lg">
         <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
           <!-- Signup Header -->
@@ -350,7 +355,7 @@
                       </svg>
                     </button>
                   </div>
-
+                  <p class="text-red-500 text-sm my-2" id="passwordError"></p>
                   <!-- Password Strength Indicator -->
                   <div class="mt-2">
                     <div class="flex justify-between mb-1">
@@ -369,7 +374,7 @@
                       ></div>
                     </div>
                     <div class="mt-1 text-xs text-gray-500">
-                      Use 8+ characters with a mix of letters, numbers & symbols
+                      Use 6+ characters with a mix of letters, numbers & symbols
                     </div>
                   </div>
                 </div>
@@ -409,67 +414,6 @@
               </div>
             </form>
 
-            <div class="mt-6">
-              <div class="relative">
-                <div class="absolute inset-0 flex items-center">
-                  <div class="w-full border-t border-gray-300"></div>
-                </div>
-                <div class="relative flex justify-center text-sm">
-                  <span class="px-2 bg-white text-gray-500"
-                    >Or sign up with</span
-                  >
-                </div>
-              </div>
-
-              <div class="mt-6 grid grid-cols-2 gap-3">
-                <button
-                  type="button"
-                  class="flex justify-center items-center py-2.5 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
-                >
-                  <svg
-                    class="h-5 w-5 mr-2"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
-                      fill="#4285F4"
-                    />
-                    <path
-                      d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
-                      fill="#34A853"
-                    />
-                    <path
-                      d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"
-                      fill="#FBBC05"
-                    />
-                    <path
-                      d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
-                      fill="#EA4335"
-                    />
-                  </svg>
-                  Google
-                </button>
-                <button
-                  type="button"
-                  class="flex justify-center items-center py-2.5 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
-                >
-                  <svg
-                    class="h-5 w-5 mr-2 text-[#1877F2]"
-                    fill="currentColor"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"
-                    />
-                  </svg>
-                  Facebook
-                </button>
-              </div>
-            </div>
-
             <div class="mt-6 text-center">
               <p class="text-sm text-gray-600">
                 Already have an account?
@@ -505,172 +449,428 @@
         </div>
       </div>
     </div>
-    <!-- Success Modal -->
-    <div
-      id="successModal"
-      class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center hidden"
-    >
-      <div class="bg-white rounded-xl p-6 w-full max-w-md mx-4 text-center">
-        <div class="mb-4">
-          <div
-            class="mx-auto w-16 h-16 bg-green-100 rounded-full flex items-center justify-center"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="h-10 w-10 text-green-500"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
+    <!-- Second sction -->
+     <div id="secondSection" class="flex-grow flex items-center justify-center px-4 py-12 hidden">
+      <div class="w-full max-w-lg">
+        <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
+          <!-- Signup Header -->
+          <div class="gradient-bg px-6 py-8 text-center">
+            <div
+              class="bg-white/20 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4"
             >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M5 13l4 4L19 7"
-              />
-            </svg>
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide text-green-500 lucide-lock-icon lucide-lock w-10 h-10"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+
+            </div>
+            <h2 class="text-2xl font-bold text-white">Create pin</h2>
+            <p class="text-indigo-100 mt-1">
+              Join QuickTopup for fast and secure transactions
+            </p>
+          </div>
+
+          <!-- Signup Form -->
+          <div class="px-6 py-8">
+            <div class="mb-4">
+        </div>
+        <form action="" id="pinForm" method="post" class="my-4">
+          <div class="flex justify-center gap-1.5">
+            <input type="number" name="" class="border-2 border-gray-600 p-2 ps-3.5 w-10 h-10 rounded" id="fpin">
+            <input type="number" name="" class="border-2 border-gray-600 p-2 ps-3.5 w-10 h-10 rounded" id="spin">
+            <input type="number" name="" class="border-2 border-gray-600 p-2 ps-3.5 w-10 h-10 rounded" id="tpin">
+            <input type="number" name="" class="border-2 border-gray-600 p-2 ps-3.5 w-10 h-10 rounded" id="fopin"> 
+          </div>
+          <p class="text-red-500 text-sm my-2 text-center hidden" id="pinError">Please enter a valid 4 digit pin</p>
+          <button
+          id="payNow"
+          type="submit"
+          class="w-full mt-5 bg-indigo-600 text-white tect-center py-3 rounded-lg font-medium hover:bg-indigo-500 transition-colors"
+        >
+          Confirm
+        </button>
+          </form>
           </div>
         </div>
-        <h3 class="text-xl font-semibold text-gray-800 mb-2">
-          Account Created Successfully!
-        </h3>
-        <p class="text-gray-600 mb-6">
-          This is a demo signup page. In a real application, you would receive a
-          verification email and be redirected to complete your profile.
-        </p>
-        <button
-          id="closeSuccessModal"
-          class="w-full bg-indigo-600 text-white py-3 rounded-lg font-medium hover:bg-indigo-700 transition-colors"
+
+        <!-- Security Note -->
+        <div
+          class="mt-6 flex items-center justify-center text-sm text-gray-500"
         >
-          Close
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-4 w-4 mr-1 text-green-500"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+            />
+          </svg>
+          <span>Your data is encrypted and secure</span>
+        </div>
+      </div>
+    </div>
+    <div id="thirdSection" class="flex-grow flex items-center justify-center px-4 py-12 hidden">
+      <div class="w-full max-w-lg">
+        <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
+          <!-- Signup Header -->
+          <div class="gradient-bg px-6 py-8 text-center">
+            <div
+              class="bg-white/20 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4"
+            >
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide text-green-500 lucide-lock-icon lucide-lock w-10 h-10"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+
+            </div>
+            <h2 class="text-2xl font-bold text-white">Confirm Email</h2>
+            <p class="text-indigo-100 mt-1">
+              Input confirmation code sent to <span id="userEmail"></span>
+            </p>
+          </div>
+
+          <!-- Signup Form -->
+          <div class="px-6 py-8">
+            <div class="mb-4">
+        </div>
+        <form action="" id="confirmationCodeForm" method="post" class="my-4">
+          <div class="flex justify-center gap-1.5">
+            <input
+                    type="text"
+                    id="confirmationCode"
+                    name="confirmationCode"
+                    class="w-full px-4 py-3 rounded-lg border border-gray-300 input-focus focus:outline-none"
+                    required
+                  /> 
+          </div>
+          <p class="text-sm mt-2">Didn't receive code? <a href="#" id="resendCode" class="text-blue-500">Resend</a></p>
+          <button
+          id="payNow"
+          type="submit"
+          class="w-full mt-5 bg-indigo-600 text-white tect-center py-3 rounded-lg font-medium hover:bg-indigo-500 transition-colors"
+        >
+          Confirm
         </button>
+          </form>
+          </div>
+        </div>
+
+        <!-- Security Note -->
+        <div
+          class="mt-6 flex items-center justify-center text-sm text-gray-500"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-4 w-4 mr-1 text-green-500"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+            />
+          </svg>
+          <span>Your data is encrypted and secure</span>
+        </div>
       </div>
     </div>
 
     <script>
-      // Toggle password visibility
-      const togglePassword = document.getElementById("togglePassword");
-      const password = document.getElementById("password");
-      const eyeIcon = document.getElementById("eyeIcon");
+  document.getElementById("fpin").addEventListener("input", function (e) {
+    if (this.value.length >= 1) {
+      this.value = this.value.slice(0, 1);
+      document.getElementById("spin").focus();
+    }
+  });
+  document.getElementById("spin").addEventListener("input", function (e) {
+    if (this.value.length >= 1) {
+      this.value = this.value.slice(0, 1);
+      document.getElementById("tpin").focus();
+    }
+  });
+  document.getElementById("tpin").addEventListener("input", function (e) {
+    if (this.value.length >= 1) {
+      this.value = this.value.slice(0, 1);
+      document.getElementById("fopin").focus();
+    }
+  });
+  document.getElementById("fopin").addEventListener("input", function (e) {
+    if (this.value.length >= 1) {
+      this.value = this.value.slice(0, 1);
+      document.getElementById("payNow").focus();
+    }
+    document.getElementById("fpin").classList.remove("border-red-500");
+    document.getElementById("spin").classList.remove("border-red-500");
+    document.getElementById("tpin").classList.remove("border-red-500");
+    document.getElementById("fopin").classList.remove("border-red-500");
+    document.getElementById("fpin").classList.add("border-green-500");
+    document.getElementById("spin").classList.add("border-green-500");
+    document.getElementById("tpin").classList.add("border-green-500");
+    document.getElementById("fopin").classList.add("border-green-500");
+    document.getElementById("pinError").classList.add("hidden");
+  });
+  document.getElementById("fpin").addEventListener("keydown", function (event) {
+    if (event.key === "Backspace") {
+      document.getElementById("fpin").classList.remove("border-green-500");
+      document.getElementById("spin").classList.remove("border-green-500");
+      document.getElementById("tpin").classList.remove("border-green-500");
+      document.getElementById("fopin").classList.remove("border-green-500");
+    }
+  });
+  document.getElementById("spin").addEventListener("keydown", function (event) {
+    if (event.key === "Backspace") {
+      document.getElementById("fpin").classList.remove("border-green-500");
+      document.getElementById("spin").classList.remove("border-green-500");
+      document.getElementById("tpin").classList.remove("border-green-500");
+      document.getElementById("fopin").classList.remove("border-green-500");
+      if (this.value.length === 0) {
+        document.getElementById("fpin").focus();
+      }
+    }
+  });
 
-      togglePassword.addEventListener("click", function () {
-        const type =
-          password.getAttribute("type") === "password" ? "text" : "password";
-        password.setAttribute("type", type);
+  document.getElementById("tpin").addEventListener("keydown", function (event) {
+    if (event.key === "Backspace") {
+      document.getElementById("fpin").classList.remove("border-green-500");
+      document.getElementById("spin").classList.remove("border-green-500");
+      document.getElementById("tpin").classList.remove("border-green-500");
+      document.getElementById("fopin").classList.remove("border-green-500");
+      if (this.value.length === 0) {
+        document.getElementById("spin").focus();
+      }
+    }
+  });
 
-        if (type === "text") {
-          eyeIcon.innerHTML = `
+  document
+    .getElementById("fopin")
+    .addEventListener("keydown", function (event) {
+      // if(event.key != "Backspace") {
+      //   document.getElementById("tpin").focus();
+      // }
+      if (event.key === "Backspace") {
+        document.getElementById("fpin").classList.remove("border-green-500");
+        document.getElementById("spin").classList.remove("border-green-500");
+        document.getElementById("tpin").classList.remove("border-green-500");
+        document.getElementById("fopin").classList.remove("border-green-500");
+        if (this.value.length === 0) {
+          document.getElementById("tpin").focus();
+        }
+      } else if (event.key === "Enter") {
+        // showPinModal();
+      }
+    });
+
+  // Toggle password visibility
+  const togglePassword = document.getElementById("togglePassword");
+  const password = document.getElementById("password");
+  const eyeIcon = document.getElementById("eyeIcon");
+
+  togglePassword.addEventListener("click", function () {
+    const type =
+      password.getAttribute("type") === "password" ? "text" : "password";
+    password.setAttribute("type", type);
+
+    if (type === "text") {
+      eyeIcon.innerHTML = `
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21" />
                 `;
-        } else {
-          eyeIcon.innerHTML = `
+    } else {
+      eyeIcon.innerHTML = `
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                 `;
-        }
-      });
+    }
+  });
 
-      // Password strength indicator
-      const strengthBar = document.getElementById("strengthBar");
-      const strengthText = document.getElementById("strengthText");
+  // Password strength indicator
+  const strengthBar = document.getElementById("strengthBar");
+  const strengthText = document.getElementById("strengthText");
 
-      password.addEventListener("input", function () {
-        const value = password.value;
-        let strength = 0;
-        let color = "bg-gray-300";
-        let text = "None";
+  password.addEventListener("input", function () {
+    const value = password.value;
+    let strength = 0;
+    let color = "bg-gray-300";
+    let text = "None";
 
-        if (value.length > 0) {
-          // Length check
-          if (value.length >= 8) {
-            strength += 25;
-          }
+    if (value.length > 0) {
+      // Length check
+      if (value.length >= 8) {
+        strength += 25;
+      }
 
-          // Lowercase letters check
-          if (/[a-z]/.test(value)) {
-            strength += 25;
-          }
+      // Lowercase letters check
+      if (/[a-z]/.test(value)) {
+        strength += 25;
+      }
 
-          // Uppercase letters check
-          if (/[A-Z]/.test(value)) {
-            strength += 25;
-          }
+      // Uppercase letters check
+      if (/[A-Z]/.test(value)) {
+        strength += 25;
+      }
 
-          // Numbers and special characters check
-          if (/[0-9]/.test(value) || /[^A-Za-z0-9]/.test(value)) {
-            strength += 25;
-          }
+      // Numbers and special characters check
+      if (/[0-9]/.test(value) || /[^A-Za-z0-9]/.test(value)) {
+        strength += 25;
+      }
 
-          // Set color and text based on strength
-          if (strength <= 25) {
-            color = "bg-red-500";
-            text = "Weak";
-          } else if (strength <= 50) {
-            color = "bg-orange-500";
-            text = "Fair";
-          } else if (strength <= 75) {
-            color = "bg-yellow-500";
-            text = "Good";
-          } else {
-            color = "bg-green-500";
-            text = "Strong";
-          }
-        }
+      // Set color and text based on strength
+      if (strength <= 25) {
+        color = "bg-red-500";
+        text = "Weak";
+      } else if (strength <= 50) {
+        color = "bg-orange-500";
+        text = "Fair";
+      } else if (strength <= 75) {
+        color = "bg-yellow-500";
+        text = "Good";
+      } else {
+        color = "bg-green-500";
+        text = "Strong";
+      }
+    }
 
-        // Update the strength bar
-        strengthBar.className = `password-strength ${color} rounded-full`;
-        strengthBar.style.width = `${strength}%`;
-        strengthText.textContent = text;
+    // Update the strength bar
+    strengthBar.className = `password-strength ${color} rounded-full`;
+    strengthBar.style.width = `${strength}%`;
+    strengthText.textContent = text;
 
-        // Update text color to match bar
-        if (color === "bg-gray-300") {
-          strengthText.className = "text-xs font-medium text-gray-500";
-        } else if (color === "bg-red-500") {
-          strengthText.className = "text-xs font-medium text-red-500";
-        } else if (color === "bg-orange-500") {
-          strengthText.className = "text-xs font-medium text-orange-500";
-        } else if (color === "bg-yellow-500") {
-          strengthText.className = "text-xs font-medium text-yellow-500";
-        } else {
-          strengthText.className = "text-xs font-medium text-green-500";
-        }
-      });
+    // Update text color to match bar
+    if (color === "bg-gray-300") {
+      strengthText.className = "text-xs font-medium text-gray-500";
+    } else if (color === "bg-red-500") {
+      strengthText.className = "text-xs font-medium text-red-500";
+    } else if (color === "bg-orange-500") {
+      strengthText.className = "text-xs font-medium text-orange-500";
+    } else if (color === "bg-yellow-500") {
+      strengthText.className = "text-xs font-medium text-yellow-500";
+    } else {
+      strengthText.className = "text-xs font-medium text-green-500";
+    }
+  });
 
-      // Form submission
-      const signupForm = document.getElementById("signupForm");
-      const successModal = document.getElementById("successModal");
-      const closeSuccessModal = document.getElementById("closeSuccessModal");
-      const values = {
-        fullname: "",
-        email: "",
-        phone: "",
-        countryCode: "+234",
-        password: "",
-        terms: false,
-      };
-      const handleChange = ({ target }) => {
-        values[target.name] = target.value;
-        console.log(values);
-      };
-      signupForm.addEventListener("submit", function (e) {
-        e.preventDefault();
-        fetch("/signup/", {
-          method: "POST",
-          body: JSON.stringify(values),
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-          },
-        }).then((res) => {
-          if (!res.ok) throw new Error("Failed to send message");
-          return res.json();
-        });
-        // successModal.classList.remove("hidden");
-      });
+  // Form submission
+  const signupForm = document.getElementById("signupForm");
+  const pinForm = document.getElementById("pinForm");
+  const confirmationCodeForm = document.getElementById("confirmationCodeForm");
+  const values = {
+    fullname: "",
+    email: "",
+    phone: "",
+    countryCode: "+234",
+    password: "",
+    terms: false,
+  };
+  const handleChange = ({ target }) => {
+    values[target.name] = target.value;
+    console.log(values);
+  };
+  signupForm.addEventListener("submit", function (e) {
+    e.preventDefault();
+    if (values.password.length < 6){
+      document.getElementById("passwordError").textContent = "Password must be at least 6 characters long";
+      return;
+    }
+    // fetch("/signup/", {
+    //   method: "POST",
+    //   body: JSON.stringify(values),
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //     Accept: "application/json",
+    //   },
+    // }).then((res) => {
+    //   if (!res.ok) throw new Error("Failed to send message");
+    //   return res.json();
+    // });
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+    document.getElementById("firstSection").classList.add("hidden");
+    document.getElementById("secondSection").classList.remove("hidden");
+  });
 
-      closeSuccessModal.addEventListener("click", function () {
-        successModal.classList.add("hidden");
-      });
-    </script>
+  pinForm.addEventListener("submit", function (e) {
+    e.preventDefault();
+    const pin = document.getElementById('fpin').value + document.getElementById('spin').value + document.getElementById('tpin').value + document.getElementById('fopin').value;
+    if (pin.length < 4) {
+      document.getElementById("pinError").classList.remove("hidden");
+      document.getElementById('fpin').classList.add('border-red-500');
+      document.getElementById('spin').classList.add('border-red-500');
+      document.getElementById('tpin').classList.add('border-red-500');
+      document.getElementById('fopin').classList.add('border-red-500');
+      return;
+    }
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+    const data = {name: document.getElementById("fullname").value, email: document.getElementById("email").value};
+    console.log("data", data);
+    fetch("/api/send-confirmation-email/", {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+    }).then((res) => {
+      if (!res.ok){
+        throw new Error("Failed to send message");
+      }
+      else {
+        document.getElementById("userEmail").textContent = data.email;
+        document.getElementById("secondSection").classList.add("hidden");
+        document.getElementById("thirdSection").classList.remove("hidden");
+      }
+      return res.json();
+    });
+  });
+
+  confirmationCodeForm.addEventListener("submit", function (e) {
+    e.preventDefault();
+    const confirmationCode = document.getElementById("confirmationCode").value;
+    const allValues = {
+      ...values,
+      pin: document.getElementById('fpin').value + document.getElementById('spin').value + document.getElementById('tpin').value + document.getElementById('fopin').value,
+      confirmationCode: confirmationCode,
+    };
+    console.log("all values", allValues);
+    if (confirmationCode.length < 6) {
+      alert("Please enter a valid confirmation code");
+      return;
+    }
+    fetch("/signup/", {
+      method: "POST",
+      body: JSON.stringify(allValues),
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+    }).then((res) => {
+      if (!res.ok) throw new Error("Failed to send message");
+      window.location.href = '/account-created';
+    });
+  });
+
+  document.getElementById("resendCode").addEventListener("click", function (e) {
+    e.preventDefault();
+    const data = {email: document.getElementById("email").value};
+    fetch("/api/resend-confirmation-email/", {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+    }).then((res) => {
+      if (!res.ok) throw new Error("Failed to send message");
+      alert("Confirmation code resent successfully!");
+    });
+  });
+</script>
+
   </body>
 </html>

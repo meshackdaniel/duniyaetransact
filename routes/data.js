@@ -21,4 +21,28 @@ router.get("/", async (req, res) => {
   res.render("data", { title: "Data", user: user, name: "Duniya Comm" });
 });
 
+// Handle the form submission
+router.post("/", async (req, res) => {
+  const { phoneNumber, amount, pin, network, email } = req.body;
+  const getUser = await User.findOne({ email: email });
+  if (!getUser) {
+    return res.status(404).send("User not found");
+  } else {
+    if (pin == getUser.pin) {
+      console.log("correct pin");
+      const updatedUser = await User.updateOne(
+        { email: email },
+        { $inc: { 'account.accountBalance': -amount } },
+        { new: true }
+      );
+      if(updatedUser) {
+        console.log("Balance updated successfully");
+      }
+      res.status(200).send("Airtime purchase successful");
+    } else {
+      return res.status(400).send("Incorrect pin");
+    }
+  }
+});
+
 module.exports = router;

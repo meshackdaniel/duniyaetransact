@@ -19,29 +19,29 @@ router.get("/", async (req, res) => {
     profile: getUser.profile || "images/profile.png", // Default profile image if not set
     notifications: getUser.notifications.slice(0, 3) || [],
   };
-  res.render("change-password", {
-    title: "Change Password",
+  res.render("change-pin", {
+    title: "Change Pin",
     user: user,
     name: "Duniya Comm",
   });
 });
 
 router.post("/", async (req, res) => {
-  const { currentPassword, newPassword, confirmPassword, email } = req.body;
-  if (!currentPassword || !newPassword || !confirmPassword || !email) {
+  const { currentPin, newPin, confirmPin, email } = req.body;
+  if (!currentPin || !newPin || !confirmPin || !email) {
     return res.status(400).send("All fields are required");
   }
 
-  if (newPassword !== confirmPassword) {
+  if (newPin !== confirmPin) {
     return res
       .status(400)
-      .send("New password and confirm password do not match");
+      .send("New pin and confirm pin do not match");
   }
 
-  if (newPassword.length < 6) {
+  if (newPin.length != 4) {
     return res
       .status(400)
-      .send("New password must be at least 6 characters long");
+      .send("New pin must contain 4 digit only");
   }
 
   const getUser = await User.findOne({ email: email });
@@ -49,24 +49,24 @@ router.post("/", async (req, res) => {
     return res.status(404).send("User not found");
   }
 
-  const passwordMatch = bcrypt.compare(
-    currentPassword,
-    getUser.password,
+  const pinMatch = bcrypt.compare(
+    currentPin,
+    getUser.pin,
     async (err, result) => {
       if (err) {
         return res.status(404).send(err.message);
       }
       if (result) {
-        const newHashedPassword = await bcrypt.hash(newPassword, 10);
+        const newHashedPin = await bcrypt.hash(newPin, 10);
         const updatedUser = await User.findOneAndUpdate(
           { email: email },
-          { password: newHashedPassword },
+          { pin: newHashedPin },
           { new: true }
         );
         console.log("user updated successfully", updatedUser);
-        return res.status(200).send("Password updated successfully");
+        return res.status(200).send("Pin updated successfully");
       } else {
-        return res.status(400).send("Current password is incorrect");
+        return res.status(400).send("Current pin is incorrect");
       }
     }
   );

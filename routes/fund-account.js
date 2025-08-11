@@ -19,7 +19,7 @@ router.get("/", async (req, res) => {
     notifications: getUser.notifications.slice(0, 3) || [],
     account: getUser.account,
   };
-  res.render("dashboard", { title: "dashboard", user: user, name: "Duniya Comm" });
+  res.render("fund-account", { title: "Fund Account", user: user, name: "Duniya Comm" });
 });
 
 module.exports = router;

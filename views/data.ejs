@@ -754,8 +754,8 @@
           >
             Select Plan
           </label>
-          <div class="grid grid-cols-3 gap-3 mb-6">
-            <button
+            <div id="planSelection" class="grid grid-cols-3 gap-3 mb-6">
+              <button
               type="button"
               class="amount-btn group bg-gradient-to-br from-blue-50 to-blue-100 border-2 border-blue-200 rounded-xl py-4 px-3 text-center hover:from-blue-500 hover:to-blue-600 hover:border-blue-500 hover:text-white transform hover:scale-105 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-blue-300 hover:shadow-xl"
               data-amount="100"
@@ -772,8 +772,8 @@
               <div class="text-[10px] group-hover:animate-pulse text-blue-500 mt-0.5">
                 Cashback - ₦30
               </div>
-            </button>
-            <button
+              </button>
+              <button
               type="button"
               class="amount-btn group bg-gradient-to-br from-blue-50 to-blue-100 border-2 border-blue-200 rounded-xl py-4 px-3 text-center hover:from-blue-500 hover:to-blue-600 hover:border-blue-500 hover:text-white transform hover:scale-105 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-blue-300 hover:shadow-xl"
               data-amount="200"
@@ -790,8 +790,8 @@
               <div class="text-[10px] group-hover:animate-pulse text-blue-500 mt-0.5">
                 Cashback - ₦30
               </div>
-            </button>
-            <button
+              </button>
+              <button
               type="button"
               class="amount-btn group bg-gradient-to-br from-blue-50 to-blue-100 border-2 border-blue-200 rounded-xl py-4 px-3 text-center hover:from-blue-500 hover:to-blue-600 hover:border-blue-500 hover:text-white transform hover:scale-105 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-blue-300 hover:shadow-xl"
               data-amount="500"
@@ -808,8 +808,8 @@
               <div class="text-[10px] group-hover:animate-pulse text-blue-500 mt-0.5">
                 Cashback - ₦30
               </div>
-            </button>
-            <button
+              </button>
+              <button
               type="button"
               class="amount-btn group bg-gradient-to-br from-blue-50 to-blue-100 border-2 border-blue-200 rounded-xl py-4 px-3 text-center hover:from-blue-500 hover:to-blue-600 hover:border-blue-500 hover:text-white transform hover:scale-105 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-blue-300 hover:shadow-xl"
               data-amount="1000"
@@ -826,8 +826,8 @@
               <div class="text-[10px] group-hover:animate-pulse text-blue-500 mt-0.5">
                 Cashback - ₦30
               </div>
-            </button>
-            <button
+              </button>
+              <button
               type="button"
               class="amount-btn group bg-gradient-to-br from-blue-50 to-blue-100 border-2 border-blue-200 rounded-xl py-4 px-3 text-center hover:from-blue-500 hover:to-blue-600 hover:border-blue-500 hover:text-white transform hover:scale-105 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-blue-300 hover:shadow-xl"
               data-amount="2000"
@@ -844,8 +844,8 @@
               <div class="text-[10px] group-hover:animate-pulse text-blue-500 mt-0.5">
                 Cashback - ₦30
               </div>
-            </button>
-            <button
+              </button>
+              <button
               type="button"
               class="amount-btn group bg-gradient-to-br from-blue-50 to-blue-100 border-2 border-blue-200 rounded-xl py-4 px-3 text-center hover:from-blue-500 hover:to-blue-600 hover:border-blue-500 hover:text-white transform hover:scale-105 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-blue-300 hover:shadow-xl"
               data-amount="5000"
@@ -862,7 +862,7 @@
               <div class="text-[10px] group-hover:animate-pulse text-blue-500 mt-0.5">
                 Cashback - ₦30
               </div>
-            </button>
+              </button>
           </div>
 
           <!-- Custom Amount -->
@@ -1037,176 +1037,310 @@
 
     </script>
     <script>
-      const values = {
-        network: "",
-        phoneNumber: "",
-        amount: "",
-      };
-      document.getElementById('fpin').addEventListener('input', function (e) {
-        if (this.value.length >= 1) {
-          this.value = this.value.slice(0, 1);
-          document.getElementById('spin').focus();
-        }
+  const data = {
+    MTN: [
+      { name: "1GB", price: 300, validity: "1", cashback: 30, hot: true },
+      { name: "2GB", price: 600, validity: "1", cashback: 30, hot: true },
+      { name: "3GB", price: 750, validity: "1", cashback: 30 },
+      { name: "5GB", price: 1500, validity: "1", cashback: 30 },
+      { name: "10GB", price: 3000, validity: "1", cashback: 30 },
+    ],
+    Airtel: [
+      { name: "1GB", price: 300, validity: "1", cashback: 30, hot: true },
+      { name: "2GB", price: 600, validity: "1", cashback: 30, hot: true },
+      { name: "3GB", price: 750, validity: "1", cashback: 30 },
+      { name: "5GB", price: 1500, validity: "1", cashback: 30 },
+    ],
+    GLO: [
+      { name: "1GB", price: 300, validity: "1", cashback: 30, hot: true },
+      { name: "2GB", price: 600, validity: "1", cashback: 30, hot: true },
+      { name: "3GB", price: 750, validity: "1", cashback: 30 },
+      { name: "5GB", price: 1500, validity: "1", cashback: 30 },
+    ],
+    "9mobile": [
+      { name: "1GB", price: 300, validity: "1", cashback: 30, hot: true },
+      { name: "2GB", price: 600, validity: "1", cashback: 30, hot: true },
+      { name: "3GB", price: 750, validity: "1", cashback: 30 },
+      { name: "5GB", price: 1500, validity: "1", cashback: 30 },
+    ],
+  };
+  const values = {
+    network: "",
+    phoneNumber: "",
+    amount: "",
+  };
+  document.getElementById("fpin").addEventListener("input", function (e) {
+    if (this.value.length >= 1) {
+      this.value = this.value.slice(0, 1);
+      document.getElementById("spin").focus();
+    }
+  });
+  document.getElementById("spin").addEventListener("input", function (e) {
+    if (this.value.length >= 1) {
+      this.value = this.value.slice(0, 1);
+      document.getElementById("tpin").focus();
+    }
+  });
+  document.getElementById("tpin").addEventListener("input", function (e) {
+    if (this.value.length >= 1) {
+      this.value = this.value.slice(0, 1);
+      document.getElementById("fopin").focus();
+    }
+  });
+  document.getElementById("fopin").addEventListener("input", function (e) {
+    if (this.value.length >= 1) {
+      this.value = this.value.slice(0, 1);
+      document.getElementById("payNow").focus();
+    }
+    document.getElementById("fpin").classList.add("border-green-500");
+    document.getElementById("spin").classList.add("border-green-500");
+    document.getElementById("tpin").classList.add("border-green-500");
+    document.getElementById("fopin").classList.add("border-green-500");
+  });
 
-      });
-      document.getElementById('spin').addEventListener('input', function (e) {
-        if (this.value.length >= 1) {
-          this.value = this.value.slice(0, 1);
-          document.getElementById('tpin').focus();
-        }
-
-      });
-      document.getElementById('tpin').addEventListener('input', function (e) {
-        if (this.value.length >= 1) {
-          this.value = this.value.slice(0, 1);
-          document.getElementById('fopin').focus();
-        }
-
-      });
-      document.getElementById('fopin').addEventListener('input', function (e) {
-        if (this.value.length >= 1) {
-          this.value = this.value.slice(0, 1);
-          document.getElementById('payNow').focus();
-        }
-        document.getElementById('fpin').classList.add('border-green-500');
-        document.getElementById('spin').classList.add('border-green-500');
-        document.getElementById('tpin').classList.add('border-green-500');
-        document.getElementById('fopin').classList.add('border-green-500');
-
-      });
-
-      document.getElementById('spin').addEventListener('keydown', function(event) {
-        if (event.key === 'Backspace') {
-          if (this.value.length === 0) {
-            document.getElementById('fpin').focus();
-          }
-        }
-      });
-
-      document.getElementById('tpin').addEventListener('keydown', function(event) {
-        if (event.key === 'Backspace') {
-          if (this.value.length === 0) {
-            document.getElementById('spin').focus();
-          }
-        }
-      });
-
-      document.getElementById('fopin').addEventListener('keydown', function(event) {
-        if (event.key === 'Backspace') {
-          if (this.value.length === 0) {
-            document.getElementById('tpin').focus();
-          }
-        } else if (event.key === 'Enter') {
-          // showPinModal();
-        }
-      });
-
-      document.getElementById('phoneNumber').addEventListener('input', function() {
-        if (this.value.length == 11) {
-          document.getElementById("phoneError").classList.add('hidden');
-        }
-      });
-
-      document.getElementById('amount').addEventListener('input', function() {
-        if (this.value >= 50) {
-          document.getElementById("amountError").classList.add('hidden');
-        }
-      });
-
-      // Pin modal
-      function showPinModal() {
-        const modal = document.getElementById("pin-modal");
-        modal.classList.remove("hidden");
-
-        document
-          .getElementById("close-modal")
-          .addEventListener("click", function () {
-            modal.classList.add("hidden");
-          });
+  document.getElementById("spin").addEventListener("keydown", function (event) {
+    if (event.key === "Backspace") {
+      if (this.value.length === 0) {
+        document.getElementById("fpin").focus();
       }
-        let selectedNetwork = '';
-        let selectedAmount = '';
+    }
+  });
 
-        // Network selection
-        document.querySelectorAll('.network-btn').forEach(btn => {
-            btn.addEventListener('click', function() {
-              document.querySelectorAll('.network-btn').forEach(btn => {
-                    btn.classList.remove('border-red-200', 'text-red-500');
-                    btn.classList.add('border-blue-200');});
+  document.getElementById("tpin").addEventListener("keydown", function (event) {
+    if (event.key === "Backspace") {
+      if (this.value.length === 0) {
+        document.getElementById("spin").focus();
+      }
+    }
+  });
 
-                // Remove active class from all network buttons
-                document.querySelectorAll('.network-btn').forEach(b => {
-                    b.classList.remove('from-blue-600', 'to-indigo-600', 'text-white', 'border-blue-600', 'shadow-blue-500/25');
-                    b.classList.add('from-blue-50', 'to-blue-100', 'border-blue-200');
-                    // b.querySelector('div:last-child').classList.remove('text-white');
-                    // b.querySelector('div:last-child').classList.add('text-gray-800');
-                });
-                
-                // Add active class to clicked button
-                this.classList.remove('from-blue-50', 'to-blue-100', 'border-blue-200');
-                this.classList.add('from-blue-600', 'to-indigo-600', 'text-white', 'border-blue-600', 'shadow-blue-500/25');
-                // this.querySelector('div:last-child').classList.remove('text-gray-800');
-                // this.querySelector('div:last-child').classList.add('text-white');
-                
-                selectedNetwork = this.dataset.network;
-                document.getElementById('selectedNetwork').value = selectedNetwork;
-            });
+  document
+    .getElementById("fopin")
+    .addEventListener("keydown", function (event) {
+      if (event.key === "Backspace") {
+        if (this.value.length === 0) {
+          document.getElementById("tpin").focus();
+        }
+      } else if (event.key === "Enter") {
+        // showPinModal();
+      }
+    });
+
+  document.getElementById("phoneNumber").addEventListener("input", function () {
+    if (this.value.length == 11) {
+      document.getElementById("phoneError").classList.add("hidden");
+    }
+  });
+
+  document.getElementById("amount").addEventListener("input", function () {
+    if (this.value >= 50) {
+      document.getElementById("amountError").classList.add("hidden");
+    }
+  });
+
+  // Pin modal
+  function showPinModal() {
+    const modal = document.getElementById("pin-modal");
+    modal.classList.remove("hidden");
+
+    document
+      .getElementById("close-modal")
+      .addEventListener("click", function () {
+        modal.classList.add("hidden");
+      });
+  }
+  let selectedNetwork = "";
+  let selectedAmount = "";
+
+  // Network selection
+  document.querySelectorAll(".network-btn").forEach((btn) => {
+    btn.addEventListener("click", function () {
+      document.querySelectorAll(".network-btn").forEach((btn) => {
+        btn.classList.remove("border-red-200", "text-red-500");
+        btn.classList.add("border-blue-200");
+      });
+
+      // Remove active class from all network buttons
+      document.querySelectorAll(".network-btn").forEach((b) => {
+        b.classList.remove(
+          "from-blue-600",
+          "to-indigo-600",
+          "text-white",
+          "border-blue-600",
+          "shadow-blue-500/25"
+        );
+        b.classList.add("from-blue-50", "to-blue-100", "border-blue-200");
+        // b.querySelector('div:last-child').classList.remove('text-white');
+        // b.querySelector('div:last-child').classList.add('text-gray-800');
+      });
+
+      // Add active class to clicked button
+      this.classList.remove("from-blue-50", "to-blue-100", "border-blue-200");
+      this.classList.add(
+        "from-blue-600",
+        "to-indigo-600",
+        "text-white",
+        "border-blue-600",
+        "shadow-blue-500/25"
+      );
+      // this.querySelector('div:last-child').classList.remove('text-gray-800');
+      // this.querySelector('div:last-child').classList.add('text-white');
+
+      selectedNetwork = this.dataset.network;
+      document.getElementById("selectedNetwork").value = selectedNetwork;
+
+      // Update plan selection based on selected network
+      const plans = data[selectedNetwork] || [];
+      const planSelection = document.getElementById("planSelection");
+      planSelection.innerHTML = ""; // Clear previous plans
+      plans.forEach((plan) => {
+        const planButton = document.createElement("button");
+        planButton.type = "button";
+        planButton.className =
+          "amount-btn group bg-gradient-to-br from-blue-50 to-blue-100 border-2 border-blue-200 rounded-xl py-4 px-3 text-center hover:from-blue-500 hover:to-blue-600 hover:border-blue-500 hover:text-white transform hover:scale-105 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-blue-300 hover:shadow-xl";
+        planButton.dataset.amount = plan.price;
+        planButton.innerHTML = `
+                        <div class="font-bold text-lg group-hover:animate-pulse">${plan.name}</div>
+                        <div class="text-sm group-hover:animate-pulse">${plan.validity} Day</div>
+                        <div class="text-xs group-hover:animate-pulse mt-0.5">₦${plan.price}</div>
+                        <div class="text-[10px] group-hover:animate-pulse text-blue-500 mt-0.5">Cashback - ₦${plan.cashback}</div>
+                    `;
+        planSelection.appendChild(planButton);
+      });
+      // Amount selection
+      document.querySelectorAll(".amount-btn").forEach((btn) => {
+        btn.addEventListener("click", function () {
+          // Remove active class from all amount buttons
+          document.querySelectorAll(".amount-btn").forEach((b) => {
+            b.classList.remove(
+              "from-blue-600",
+              "to-indigo-600",
+              "text-white",
+              "border-blue-600",
+              "shadow-blue-500/25"
+            );
+            b.classList.add("from-blue-50", "to-blue-100", "border-blue-200");
+            b.querySelector("div").classList.remove("text-white");
+            b.querySelector("div").classList.add("text-gray-800");
+          });
+
+          // Add active class to clicked button
+          this.classList.remove(
+            "from-blue-50",
+            "to-blue-100",
+            "border-blue-200"
+          );
+          this.classList.add(
+            "from-blue-600",
+            "to-indigo-600",
+            "text-white",
+            "border-blue-600",
+            "shadow-blue-500/25"
+          );
+          this.querySelector("div").classList.remove("text-gray-800");
+          this.querySelector("div").classList.add("text-white");
+
+          selectedAmount = this.dataset.amount;
+          document.getElementById("amount").value = selectedAmount;
         });
+      });
+    });
+  });
 
-        // Amount selection
-        document.querySelectorAll('.amount-btn').forEach(btn => {
-            btn.addEventListener('click', function() {
-                // Remove active class from all amount buttons
-                document.querySelectorAll('.amount-btn').forEach(b => {
-                    b.classList.remove('from-blue-600', 'to-indigo-600', 'text-white', 'border-blue-600', 'shadow-blue-500/25');
-                    b.classList.add('from-blue-50', 'to-blue-100', 'border-blue-200');
-                    b.querySelector('div').classList.remove('text-white');
-                    b.querySelector('div').classList.add('text-gray-800');
-                });
-                
-                // Add active class to clicked button
-                this.classList.remove('from-blue-50', 'to-blue-100', 'border-blue-200');
-                this.classList.add('from-blue-600', 'to-indigo-600', 'text-white', 'border-blue-600', 'shadow-blue-500/25');
-                this.querySelector('div').classList.remove('text-gray-800');
-                this.querySelector('div').classList.add('text-white');
-                
-                selectedAmount = this.dataset.amount;
-                document.getElementById('amount').value = selectedAmount;
-            });
-        });
+  // Amount selection
+  document.querySelectorAll(".amount-btn").forEach((btn) => {
+    btn.addEventListener("click", function () {
+      // Remove active class from all amount buttons
+      document.querySelectorAll(".amount-btn").forEach((b) => {
+        b.classList.remove(
+          "from-blue-600",
+          "to-indigo-600",
+          "text-white",
+          "border-blue-600",
+          "shadow-blue-500/25"
+        );
+        b.classList.add("from-blue-50", "to-blue-100", "border-blue-200");
+        b.querySelector("div").classList.remove("text-white");
+        b.querySelector("div").classList.add("text-gray-800");
+      });
 
-        // Custom amount input
-        document.getElementById('amount').addEventListener('change', function() {
-            // Remove active class from all amount buttons when typing custom amount
-            document.querySelectorAll('.amount-btn').forEach(b => {
-                b.classList.remove('from-blue-600', 'to-indigo-600', 'text-white', 'border-blue-600', 'shadow-blue-500/25');
-                b.classList.add('from-blue-50', 'to-blue-100', 'border-blue-200');
-                b.querySelector('div').classList.remove('text-white');
-                b.querySelector('div').classList.add('text-gray-800');
-            });
-        });
+      // Add active class to clicked button
+      this.classList.remove("from-blue-50", "to-blue-100", "border-blue-200");
+      this.classList.add(
+        "from-blue-600",
+        "to-indigo-600",
+        "text-white",
+        "border-blue-600",
+        "shadow-blue-500/25"
+      );
+      this.querySelector("div").classList.remove("text-gray-800");
+      this.querySelector("div").classList.add("text-white");
 
-        // Phone number formatting
-        document.getElementById('phoneNumber').addEventListener('change', function() {
-            this.value = this.value.replace(/\D/g, '');
-        });
+      selectedAmount = this.dataset.amount;
+      document.getElementById("amount").value = selectedAmount;
+    });
+  });
 
-        // Pin submission
-        document.getElementById('pin').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const pin = document.getElementById('fpin').value + document.getElementById('spin').value + document.getElementById('tpin').value + document.getElementById('fopin').value;
-            // Validate pin
-            if (pin.length === 4) {
-              const network = document.getElementById('selectedNetwork').value;
-              const phoneNumber = document.getElementById('phoneNumber').value;
-              const amount = document.getElementById('amount').value;
+  // Custom amount input
+  document.getElementById("amount").addEventListener("change", function () {
+    // Remove active class from all amount buttons when typing custom amount
+    document.querySelectorAll(".amount-btn").forEach((b) => {
+      b.classList.remove(
+        "from-blue-600",
+        "to-indigo-600",
+        "text-white",
+        "border-blue-600",
+        "shadow-blue-500/25"
+      );
+      b.classList.add("from-blue-50", "to-blue-100", "border-blue-200");
+      b.querySelector("div").classList.remove("text-white");
+      b.querySelector("div").classList.add("text-gray-800");
+    });
+  });
 
-              console.log("amount", amount,"network",  network,"phone number", phoneNumber);
-                // Simulate successful transaction
-                // document.getElementById('successMessage').classList.remove('hidden');
-                // document.getElementById('transactionDetails').innerText = `Network: ${selectedNetwork}, Phone: ${document.getElementById('phoneNumber').value}, Amount: ₦${document.getElementById('amount').value}`;
-                
-                // Hide pin modal
+  // Phone number formatting
+  document
+    .getElementById("phoneNumber")
+    .addEventListener("change", function () {
+      this.value = this.value.replace(/\D/g, "");
+    });
+
+  // Pin submission
+  document.getElementById("pin").addEventListener("submit", function (e) {
+    e.preventDefault();
+    const pin =
+      document.getElementById("fpin").value +
+      document.getElementById("spin").value +
+      document.getElementById("tpin").value +
+      document.getElementById("fopin").value;
+    // Validate pin
+    if (pin.length === 4) {
+      const network = document.getElementById("selectedNetwork").value;
+      const phoneNumber = document.getElementById("phoneNumber").value;
+      const amount = document.getElementById("amount").value;
+      airtimeFormData = {
+      network: network,
+      phoneNumber: phoneNumber,
+      amount: amount,
+      pin: pin,
+      email: "<%= user.email %>",
+      }
+
+
+
+      fetch("/data/", {
+                method: "POST",
+                body: JSON.stringify(airtimeFormData),
+                headers: {
+                  "Content-Type": "application/json",
+                  Accept: "application/json",
+                },
+                }).then((res) => {
+                  if (!res.ok){
+                    throw new Error("Failed to send message")
+                  }
+                  else {
+                    // Hide pin modal
                 document.getElementById("pin-modal").classList.add("hidden");
                 
                 // Reset form
@@ -1223,44 +1357,52 @@
                 b.classList.remove('from-blue-600', 'to-indigo-600', 'text-white', 'border-blue-600', 'shadow-blue-500/25');
                 b.classList.add('from-blue-50', 'to-blue-100', 'border-blue-200');
                 });
-            } else {
-                document.getElementById('fpin').classList.add('border-red-500');
-                document.getElementById('spin').classList.add('border-red-500');
-                document.getElementById('tpin').classList.add('border-red-500');
-                document.getElementById('fopin').classList.add('border-red-500');
-            }
+                  }
+                  return res.json();
+                });
+
+    } else {
+      document.getElementById("fpin").classList.add("border-red-500");
+      document.getElementById("spin").classList.add("border-red-500");
+      document.getElementById("tpin").classList.add("border-red-500");
+      document.getElementById("fopin").classList.add("border-red-500");
+    }
+  });
+  // Form submission
+  document
+    .getElementById("airtimeForm")
+    .addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const network = document.getElementById("selectedNetwork").value;
+      const phoneNumber = document.getElementById("phoneNumber").value;
+      const amount = document.getElementById("amount").value;
+
+      if (!network) {
+        document.querySelectorAll(".network-btn").forEach((btn) => {
+          btn.classList.add("border-red-200", "text-red-500");
+          btn.classList.remove("border-blue-200");
         });
-        // Form submission
-        document.getElementById('airtimeForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const network = document.getElementById('selectedNetwork').value;
-            const phoneNumber = document.getElementById('phoneNumber').value;
-            const amount = document.getElementById('amount').value;
-            
-            if (!network) {
-                document.querySelectorAll('.network-btn').forEach(btn => {
-                    btn.classList.add('border-red-200', 'text-red-500');
-                    btn.classList.remove('border-blue-200');});
-                // return;
-            }
-            
-            if (!phoneNumber || phoneNumber.length !== 11) {
-                document.getElementById('phoneNumber').classList.add('border-red-500');
-                document.getElementById('phoneError').classList.remove('hidden');
-                // return;
-            }
-            
-            if (!amount || amount < 50) {
-                document.getElementById('amount').classList.add('border-red-500');
-                document.getElementById('amountError').classList.remove('hidden');
-                // return;
-            }
-            if (network && phoneNumber.length === 11 && amount >= 50) {      
-                // Show pin modal
-                showPinModal();
-            }
-          });
-    </script>
+        // return;
+      }
+
+      if (!phoneNumber || phoneNumber.length !== 11) {
+        document.getElementById("phoneNumber").classList.add("border-red-500");
+        document.getElementById("phoneError").classList.remove("hidden");
+        // return;
+      }
+
+      if (!amount || amount < 50) {
+        document.getElementById("amount").classList.add("border-red-500");
+        document.getElementById("amountError").classList.remove("hidden");
+        // return;
+      }
+      if (network && phoneNumber.length === 11 && amount >= 50) {
+        // Show pin modal
+        showPinModal();
+      }
+    });
+</script>
+
   </body>
 </html>

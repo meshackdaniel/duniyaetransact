@@ -2,6 +2,7 @@
   "name": "duniya-comm",
   "version": "1.0.0",
   "main": "server.js",
+  "type":"commonjs",
   "scripts": {
     "start": "nodemon server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -19,7 +20,8 @@
     "express-ejs-layouts": "^2.5.1",
     "jsonwebtoken": "^9.0.2",
     "mongodb": "6.17",
-    "mongoose": "^8.17.0"
+    "mongoose": "^8.17.0",
+    "nodemailer": "^7.0.5"
   },
   "devDependencies": {
     "nodemon": "^3.1.10"
