@@ -79,6 +79,9 @@ app.use("/signup", signupRouter);
 const dashboardRouter = require("./routes/dashboard");
 app.use("/dashboard", authenticateToken, dashboardRouter);
 
+const notificationsRouter = require("./routes/notifications");
+app.use("/notifications", authenticateToken, notificationsRouter);
+
 const transactionsRouter = require("./routes/transactions");
 app.use("/transactions", authenticateToken, transactionsRouter);
 
@@ -114,7 +117,7 @@ const helpAndSupportRouter = require("./routes/help-and-support");
 app.use("/help-and-support", helpAndSupportRouter);
 
 const accountCreatedRouter = require("./routes/account-created");
-app.use("/account-created",authenticateToken, accountCreatedRouter);
+app.use("/account-created", authenticateToken, accountCreatedRouter);
 
 function generateRandomString(max) {
   const characters =
@@ -150,6 +153,7 @@ app.post("/api/send-confirmation-email", async (req, res) => {
     console.log(error);
   }
 });
+
 
 app.post("/api/resend-confirmation-email", async (req, res) => {
   const { email } = req.body;

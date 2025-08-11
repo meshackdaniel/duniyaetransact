@@ -1,5 +1,3 @@
-const { status } = require("express/lib/response");
-const { Transaction } = require("mongodb");
 const mongoose = require("mongoose");
 const transactionSchema = new mongoose.Schema({
   category: {

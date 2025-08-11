@@ -34,12 +34,13 @@ router.post("/", async (req, res) => {
   const email = req.body.email;
   const countryCode = req.body.countryCode;
   const hashedPassword = await bcrypt.hash(req.body.password, 10);
-  const hashedPin = await bcrypt.hash(req.body.pin, 10);
+  const pin = req.body.pin;
+  // const hashedPin = await bcrypt.hash(req.body.pin, 10);
   const confirmationCode = req.body.confirmationCode;
   const otPayBody = {
     business_code: otPayBusinessCode,
-    phone: req.body.phone,
-    email: req.body.email,
+    phone: phone,
+    email: email,
     bank_code: [100033],
     name: name,
   };
@@ -84,18 +85,17 @@ router.post("/", async (req, res) => {
               accountName: newAccount.accounts[0].name,
               accountBalance: 0,
             },
-            pin: hashedPin, // Default pin, should be changed by user
+            pin: pin, // Default pin, should be changed by user
           };
           console.log("user", user);
           const createdUser = await User.create(user);
-          console.log("created user", createdUser);
+          console.log("createduser", createdUser);
           const username = email;
           const refreshToken = jwt.sign(
             { username },
             process.env.REFRESH_TOKEN_SECRET,
             { expiresIn: "1d" }
           );
-          console.log("refresh Token", refreshToken);
           res.cookie("refreshToken", refreshToken, {
             httpOnly: true,
             maxAge: 24 * 60 * 60 * 1000, // 1 day

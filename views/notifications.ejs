@@ -21,6 +21,8 @@
       body {
         font-family: "Inter", sans-serif;
         background-color: #f9fafb;
+        max-width: 100vw;
+        overflow-x: hidden;
       }
 
       .primary-gradient {
@@ -188,10 +190,35 @@
         width: 1px;
         background-color: #e5e7eb;
       }
+
+
+
+      .notification-item {
+            transition: all 0.3s ease;
+        }
+        .notification-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        .notification-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        .notification-content.expanded {
+            max-height: 500px;
+        }
+        .unread-dot {
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
     </style>
   </head>
   <body>
-    <div class="flex min-h-screen mt-8">
+    <div class="flex min-h-screen">
       <!-- Sidebar -->
       <aside
         id="sidebar"
@@ -445,6 +472,8 @@
         </div>
       </aside>
 
+      <!-- Sidebar Mobile -->
+
       <!-- Main Content -->
       <div class="flex-1 lg:ml-64 pt-20 pb-4" id="mainContent">
         <!-- Top Navigation -->
@@ -484,7 +513,7 @@
   <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
 </svg>
               <h1 class="text-2xl ms-4 font-bold text-gray-800">
-              Transactions
+              Notifications
             </h1>
             </div>
 
@@ -621,7 +650,7 @@
 
               <div class="hidden md:flex items-center">
                 <img
-                  src="<%= user.profile %>"
+                  src=<%= user.profile %>
                   alt="User"
                   class="h-8 w-8 rounded-full"
                 />
@@ -647,350 +676,266 @@
           </div>
         </header>
 
-
-            <!-- Transactions Content -->
-            <main class="px-4 sm:px-6 lg:px-8 py-8">
-                
-                <!-- Filter and Search Section -->
-                <div class="bg-white rounded-xl shadow-sm p-6 mb-8">
-                    <div class="flex flex-col md:flex-row md:items-center md:justify-between space-y-4 md:space-y-0">
-                        <h3 class="text-lg font-semibold text-gray-800">All Transactions</h3>
-                        
-                        <div class="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">
-                            
-                            <div class="grid grid-cols-2 md:grid-cols-3 gap-2">
-                                <select class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 bg-white">
-                                    <option value="">All Services</option>
-                                    <option value="airtime">Airtime</option>
-                                    <option value="data">Data</option>
-                                    <option value="bills">Bill Payments</option>
-                                    <option value="wallet">Wallet Funding</option>
-                                </select>
-                                
-                                <select class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 bg-white">
-                                    <option value="">All Status</option>
-                                    <option value="successful">Successful</option>
-                                    <option value="pending">Pending</option>
-                                    <option value="failed">Failed</option>
-                                </select>
-                                
-                                <button id="dateFilterBtn" class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 bg-white flex items-center">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                                    </svg>
-                                    <span>Date</span>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Date Filter Dropdown (Hidden by default) -->
-                    <div id="dateFilterDropdown" class="hidden mt-4 p-4 border border-gray-200 rounded-lg bg-gray-50">
-                        <div class="flex flex-col md:flex-row md:items-center space-y-4 md:space-y-0 md:space-x-4">
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-1">From</label>
-                                <input type="date" class="date-picker px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 bg-white">
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-1">To</label>
-                                <input type="date" class="date-picker px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 bg-white">
-                            </div>
-                            <div class="flex items-end">
-                                <button class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors">Apply Filter</button>
-                            </div>
-                        </div>
-                        <div class="mt-4 flex flex-wrap gap-2">
-                            <button class="px-3 py-1 text-xs font-medium bg-gray-200 text-gray-700 rounded-full hover:bg-gray-300">Today</button>
-                            <button class="px-3 py-1 text-xs font-medium bg-gray-200 text-gray-700 rounded-full hover:bg-gray-300">Yesterday</button>
-                            <button class="px-3 py-1 text-xs font-medium bg-gray-200 text-gray-700 rounded-full hover:bg-gray-300">Last 7 days</button>
-                            <button class="px-3 py-1 text-xs font-medium bg-gray-200 text-gray-700 rounded-full hover:bg-gray-300">Last 30 days</button>
-                            <button class="px-3 py-1 text-xs font-medium bg-gray-200 text-gray-700 rounded-full hover:bg-gray-300">This month</button>
-                            <button class="px-3 py-1 text-xs font-medium bg-gray-200 text-gray-700 rounded-full hover:bg-gray-300">Last month</button>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Transactions Table -->
-                <div class="bg-white rounded-xl shadow-sm overflow-hidden mb-8">
-                    <div class="overflow-x-auto w-[90vw] md:w-[75vw]">
-                        <table class="min-w-full divide-y divide-gray-200">
-                            <thead class="bg-gray-50">
-                                <tr>
-                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        Transaction ID
-                                    </th>
-                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        Service
-                                    </th>
-                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        Date & Time
-                                    </th>
-                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        Amount
-                                    </th>
-                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        Status
-                                    </th>
-                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        Actions
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody class="bg-white divide-y divide-gray-200">
-                    <% user.transactions.forEach(transaction => { %>
-                      <tr class="transaction-row">
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                        <%= transaction._id %>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="flex items-center">
-                                            <div class="bg-blue-100 p-1 rounded-full">
-                                              <% switch(transaction.category) {
-                        case 'deposit' : %>
-                          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                                </svg>
-                        <% break;
-                        case 'transfer' : %>
-                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-dashed-icon lucide-circle-dashed h-5 w-5 text-yellow-500"><path d="M10.1 2.182a10 10 0 0 1 3.8 0"/><path d="M13.9 21.818a10 10 0 0 1-3.8 0"/><path d="M17.609 3.721a10 10 0 0 1 2.69 2.7"/><path d="M2.182 13.9a10 10 0 0 1 0-3.8"/><path d="M20.279 17.609a10 10 0 0 1-2.7 2.69"/><path d="M21.818 10.1a10 10 0 0 1 0 3.8"/><path d="M3.721 6.391a10 10 0 0 1 2.7-2.69"/><path d="M6.391 20.279a10 10 0 0 1-2.69-2.7"/></svg>
-                        <% break;
-                        case 'airtime' : %>
-                          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
-                                                </svg>
-                        <% break;
-                        case 'data' : %>
-                          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0" />
-                                                </svg>
-                        <% break;
-                        case 'bill' : %>
-                          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-yellow-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                                </svg>
-                        <% break;
-                        }
-                        %>
-                                                
-                                            </div>
-                                            <div class="ml-2">
-                                                <div class="text-sm font-medium text-gray-900 capitalize"><%= transaction.category %></div>
-                                                <div class="text-xs text-gray-500"><%= transaction.recipient %></div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="text-sm text-gray-900"><%= transaction.date.toLocaleDateString() %></div>
-                                        <div class="text-xs text-gray-500"><%= transaction.date.toLocaleTimeString() %></div>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-red-600 font-medium">
-                                        ₦<%= transaction.amount %>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap capitalize">
-                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                                            <%= transaction.status %>
-                                        </span>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                        <div class="flex space-x-2">
-                                            <button class="text-indigo-600 hover:text-indigo-900" title="View Details">
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                                                </svg>
-                                            </button>
-                                            <button class="text-gray-600 hover:text-gray-900" title="Download Receipt">
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-                                                </svg>
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                        
-                    <% }); %>
-                            </tbody>
-                        </table>
-                    </div>
-                    <% if (user.account.transactions.length === 0) { %>
-                      <div class="mx-auto p-5 w-fit mt-5 bg-green-100 rounded-full flex items-center justify-center">
-                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-archive-x-icon h-16 w-16 text-blue-500 lucide-archive-x"><rect width="20" height="5" x="2" y="3" rx="1"/><path d="M4 8v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8"/><path d="m9.5 17 5-5"/><path d="m9.5 12 5 5"/></svg>
-                        </div>
-                        <p class="mt-5 text-center text-sm font-semibold">You have not made any transaction</p>
-                    <% } %>
-                    <!-- Pagination -->
-                    <% if (user.account.transactions.length > 10) { %>
-                        <button class="text-sm text-center mt-3 w-full flex items-center justify-center text-green-500">
-                      <span class="font-semibold">Load More</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 lucide lucide-chevrons-down-icon lucide-chevrons-down"><path d="m7 6 5 5 5-5"/><path d="m7 13 5 5 5-5"/></svg>
-                      </button>
-                    <% } %>
-                    
-                </div>
-                
-                <!-- Transaction Details Modal (Hidden by default) -->
-                <div id="transactionModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center z-50 hidden">
-                    <div class="bg-white rounded-xl shadow-xl max-w-lg w-full mx-4 overflow-hidden">
-                        <div class="px-6 py-4 bg-indigo-600 text-white flex justify-between items-center">
-                            <h3 class="text-lg font-semibold">Transaction Details</h3>
-                            <button id="closeModal" class="text-white hover:text-gray-200">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                                </svg>
-                            </button>
-                        </div>
-                        <div class="p-6">
-                            <div class="flex justify-center mb-6">
-                                <div class="bg-green-100 p-3 rounded-full">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                    </svg>
-                                </div>
-                            </div>
-                            <div class="text-center mb-6">
-                                <h4 class="text-lg font-semibold text-gray-800">Transaction Successful</h4>
-                                <p class="text-gray-600">Your transaction has been completed successfully.</p>
-                            </div>
-                            <div class="space-y-4">
-                                <div class="flex justify-between">
-                                    <span class="text-sm text-gray-500">Transaction ID</span>
-                                    <span class="text-sm font-medium text-gray-800">#TRX-5678</span>
-                                </div>
-                                <div class="flex justify-between">
-                                    <span class="text-sm text-gray-500">Service</span>
-                                    <span class="text-sm font-medium text-gray-800">MTN Airtime</span>
-                                </div>
-                                <div class="flex justify-between">
-                                    <span class="text-sm text-gray-500">Phone Number</span>
-                                    <span class="text-sm font-medium text-gray-800">08012345678</span>
-                                </div>
-                                <div class="flex justify-between">
-                                    <span class="text-sm text-gray-500">Amount</span>
-                                    <span class="text-sm font-medium text-gray-800">₦5,000.00</span>
-                                </div>
-                                <div class="flex justify-between">
-                                    <span class="text-sm text-gray-500">Fee</span>
-                                    <span class="text-sm font-medium text-gray-800">₦0.00</span>
-                                </div>
-                                <div class="flex justify-between">
-                                    <span class="text-sm text-gray-500">Date & Time</span>
-                                    <span class="text-sm font-medium text-gray-800">May 16, 2023 10:45 AM</span>
-                                </div>
-                                <div class="flex justify-between">
-                                    <span class="text-sm text-gray-500">Payment Method</span>
-                                    <span class="text-sm font-medium text-gray-800">Wallet Balance</span>
-                                </div>
-                                <div class="flex justify-between">
-                                    <span class="text-sm text-gray-500">Status</span>
-                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                                        Successful
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="mt-6 flex space-x-3">
-                                <button class="flex-1 py-2 bg-indigo-600 text-white rounded-lg font-medium hover:bg-indigo-700 transition-colors flex items-center justify-center">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-                                    </svg>
-                                    Download Receipt
-                                </button>
-                                <button class="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg font-medium hover:bg-gray-50 transition-colors">
-                                    Close
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </main>
+        <!-- Dashboard Content -->
+        <main class="px-4 sm:px-6 lg:px-8 py-8">
+          <div class="container mx-auto px-4 py-8 max-w-4xl">
+        <!-- Header -->
+        <div class="mb-8">
+            <div class="flex items-center gap-4 mt-4">
+                <span class="text-sm text-gray-500" id="notificationCount">5 new notifications</span>
+                <button onclick="markAllAsRead()" class="text-sm text-blue-600 hover:text-blue-800 font-medium">
+                    Mark all as read
+                </button>
+            </div>
         </div>
+
+        <!-- Notifications List -->
+        <div class="space-y-4" id="notificationsList">
+            <!-- Notification 1 -->
+            <div class="notification-item bg-white rounded-xl shadow-md border border-gray-200 cursor-pointer" onclick="toggleNotification(this)">
+                <div class="p-6">
+                    <div class="flex items-start gap-4">
+                        <div class="flex-shrink-0">
+                            <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
+                                <span class="text-blue-600 text-xl">📧</span>
+                            </div>
+                            <div class="unread-dot w-3 h-3 bg-blue-500 rounded-full mt-2 ml-4"></div>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <div class="flex items-center justify-between mb-2">
+                                <h3 class="text-lg font-semibold text-gray-800">New Message Received</h3>
+                                <span class="text-sm text-gray-500">2 min ago</span>
+                            </div>
+                            <p class="text-gray-600 mb-2">You have a new message from Sarah Johnson...</p>
+                            <div class="notification-content">
+                                <div class="bg-gray-50 rounded-lg p-4 mt-4">
+                                    <p class="text-gray-700 leading-relaxed">
+                                        Hi there! I wanted to follow up on our conversation from yesterday about the project timeline. 
+                                        I've reviewed the documents you sent and have a few questions about the implementation phase. 
+                                        Could we schedule a call this week to discuss the details? I'm available Tuesday through Thursday 
+                                        between 2-5 PM. Looking forward to hearing from you!
+                                    </p>
+                                    <div class="mt-3 pt-3 border-t border-gray-200">
+                                        <span class="text-sm text-gray-500">From: sarah.johnson@company.com</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Notification 2 -->
+            <div class="notification-item bg-white rounded-xl shadow-md border border-gray-200 cursor-pointer" onclick="toggleNotification(this)">
+                <div class="p-6">
+                    <div class="flex items-start gap-4">
+                        <div class="flex-shrink-0">
+                            <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
+                                <span class="text-green-600 text-xl">✅</span>
+                            </div>
+                            <div class="unread-dot w-3 h-3 bg-blue-500 rounded-full mt-2 ml-4"></div>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <div class="flex items-center justify-between mb-2">
+                                <h3 class="text-lg font-semibold text-gray-800">Task Completed</h3>
+                                <span class="text-sm text-gray-500">1 hour ago</span>
+                            </div>
+                            <p class="text-gray-600 mb-2">Your website backup has been completed successfully...</p>
+                            <div class="notification-content">
+                                <div class="bg-gray-50 rounded-lg p-4 mt-4">
+                                    <p class="text-gray-700 leading-relaxed">
+                                        Great news! Your scheduled website backup has been completed successfully. 
+                                        The backup includes all your files, databases, and configurations as of today at 3:00 PM EST. 
+                                        The backup file (2.3 GB) has been stored securely in your cloud storage and is available 
+                                        for download from your dashboard. This automated backup will help ensure your data is safe 
+                                        and can be restored quickly if needed.
+                                    </p>
+                                    <div class="mt-3 pt-3 border-t border-gray-200 flex gap-2">
+                                        <button class="px-3 py-1 bg-blue-100 text-blue-700 rounded-md text-sm hover:bg-blue-200">
+                                            View Backup
+                                        </button>
+                                        <button class="px-3 py-1 bg-gray-100 text-gray-700 rounded-md text-sm hover:bg-gray-200">
+                                            Download
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Notification 3 -->
+            <div class="notification-item bg-white rounded-xl shadow-md border border-gray-200 cursor-pointer" onclick="toggleNotification(this)">
+                <div class="p-6">
+                    <div class="flex items-start gap-4">
+                        <div class="flex-shrink-0">
+                            <div class="w-12 h-12 bg-yellow-100 rounded-full flex items-center justify-center">
+                                <span class="text-yellow-600 text-xl">⚠️</span>
+                            </div>
+                            <div class="unread-dot w-3 h-3 bg-blue-500 rounded-full mt-2 ml-4"></div>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <div class="flex items-center justify-between mb-2">
+                                <h3 class="text-lg font-semibold text-gray-800">Security Alert</h3>
+                                <span class="text-sm text-gray-500">3 hours ago</span>
+                            </div>
+                            <p class="text-gray-600 mb-2">Unusual login activity detected on your account...</p>
+                            <div class="notification-content">
+                                <div class="bg-gray-50 rounded-lg p-4 mt-4">
+                                    <p class="text-gray-700 leading-relaxed">
+                                        We detected a login attempt from a new device and location. Someone tried to access your account 
+                                        from Chrome on Windows in New York, NY at 2:15 PM EST. If this was you, you can safely ignore 
+                                        this message. If you don't recognize this activity, we recommend changing your password immediately 
+                                        and reviewing your account security settings. Your account remains secure and no unauthorized 
+                                        access occurred.
+                                    </p>
+                                    <div class="mt-3 pt-3 border-t border-gray-200 flex gap-2">
+                                        <button class="px-3 py-1 bg-red-100 text-red-700 rounded-md text-sm hover:bg-red-200">
+                                            Change Password
+                                        </button>
+                                        <button class="px-3 py-1 bg-gray-100 text-gray-700 rounded-md text-sm hover:bg-gray-200">
+                                            Review Security
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Notification 4 -->
+            <div class="notification-item bg-white rounded-xl shadow-md border border-gray-200 cursor-pointer" onclick="toggleNotification(this)">
+                <div class="p-6">
+                    <div class="flex items-start gap-4">
+                        <div class="flex-shrink-0">
+                            <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center">
+                                <span class="text-purple-600 text-xl">🎉</span>
+                            </div>
+                            <div class="unread-dot w-3 h-3 bg-blue-500 rounded-full mt-2 ml-4"></div>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <div class="flex items-center justify-between mb-2">
+                                <h3 class="text-lg font-semibold text-gray-800">Milestone Achieved</h3>
+                                <span class="text-sm text-gray-500">1 day ago</span>
+                            </div>
+                            <p class="text-gray-600 mb-2">Congratulations! You've reached 1,000 subscribers...</p>
+                            <div class="notification-content">
+                                <div class="bg-gray-50 rounded-lg p-4 mt-4">
+                                    <p class="text-gray-700 leading-relaxed">
+                                        Amazing achievement! Your newsletter has just reached 1,000 subscribers, marking a significant 
+                                        milestone in your journey. This represents a 150% growth over the past 6 months. Your engaging 
+                                        content and consistent publishing schedule have really paid off. To celebrate this milestone, 
+                                        we've unlocked premium analytics features for your account, including detailed subscriber insights 
+                                        and advanced engagement metrics.
+                                    </p>
+                                    <div class="mt-3 pt-3 border-t border-gray-200">
+                                        <button class="px-3 py-1 bg-purple-100 text-purple-700 rounded-md text-sm hover:bg-purple-200">
+                                            View Analytics
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Notification 5 -->
+            <div class="notification-item bg-white rounded-xl shadow-md border border-gray-200 cursor-pointer" onclick="toggleNotification(this)">
+                <div class="p-6">
+                    <div class="flex items-start gap-4">
+                        <div class="flex-shrink-0">
+                            <div class="w-12 h-12 bg-indigo-100 rounded-full flex items-center justify-center">
+                                <span class="text-indigo-600 text-xl">🔄</span>
+                            </div>
+                            <div class="unread-dot w-3 h-3 bg-blue-500 rounded-full mt-2 ml-4"></div>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <div class="flex items-center justify-between mb-2">
+                                <h3 class="text-lg font-semibold text-gray-800">System Update</h3>
+                                <span class="text-sm text-gray-500">2 days ago</span>
+                            </div>
+                            <p class="text-gray-600 mb-2">New features and improvements are now available...</p>
+                            <div class="notification-content">
+                                <div class="bg-gray-50 rounded-lg p-4 mt-4">
+                                    <p class="text-gray-700 leading-relaxed">
+                                        We've just released version 2.4 with exciting new features and improvements! This update includes 
+                                        a redesigned dashboard with better navigation, enhanced mobile responsiveness, new collaboration 
+                                        tools for team projects, and improved performance across all devices. We've also fixed several 
+                                        bugs reported by users and added dark mode support. The update has been automatically applied 
+                                        to your account.
+                                    </p>
+                                    <div class="mt-3 pt-3 border-t border-gray-200">
+                                        <button class="px-3 py-1 bg-indigo-100 text-indigo-700 rounded-md text-sm hover:bg-indigo-200">
+                                            View Changelog
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Empty State (hidden by default) -->
+        <div id="emptyState" class="text-center py-12 hidden">
+            <div class="w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <span class="text-4xl text-gray-400">📭</span>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-600 mb-2">All caught up!</h3>
+            <p class="text-gray-500">You have no new notifications</p>
+        </div>
+    </div>
+        </main>
+      </div>
     </div>
 
     <script>
-              // Toggle sidebar on larger screens
-      const sidebar = document.getElementById("sidemenu");
-      const sidebarClose = document.getElementById("cancelSideMenu");
-      const sidebarLarge = document.getElementById("sidemenuLarge");
-      sidebarLarge.addEventListener("click", function (event) {
-          document.getElementById("sidebar").classList.toggle("lg:flex");
-          document.getElementById("logoContainer").classList.toggle("lg:flex");
-          document.getElementById("mainContent").classList.toggle("lg:ml-64");
-          document.getElementById("sidemenuLarge").classList.toggle("lg:ms-16");
-      });
-      sidebar.addEventListener("click", function (event) {
-          document.getElementById("sidebar").classList.toggle("hidden");
-          document.getElementById("sidemenu").classList.toggle("hidden");
-          document.getElementById("cancelSideMenu").classList.toggle("hidden");
-      });
-      sidebarClose.addEventListener("click", function (event) {
-          document.getElementById("sidebar").classList.toggle("hidden");
-          document.getElementById("sidemenu").classList.toggle("hidden");
-          document.getElementById("cancelSideMenu").classList.toggle("hidden");
-      });
+        function toggleNotification(element) {
+            const content = element.querySelector('.notification-content');
+            const dot = element.querySelector('.unread-dot');
+            
+            // Toggle expanded state
+            content.classList.toggle('expanded');
+            
+            // Mark as read (remove dot)
+            if (dot) {
+                dot.style.display = 'none';
+                updateNotificationCount();
+            }
+        }
 
-        
-        // Close sidebar when clicking outside on mobile
-        document.addEventListener('click', function(event) {
-            const isClickInsideSidebar = sidebar.contains(event.target);
-            const isClickInsideToggle = menuToggle.contains(event.target);
-            
-            if (!isClickInsideSidebar && !isClickInsideToggle && window.innerWidth < 768) {
-                sidebar.classList.remove('open');
-            }
-        });
-        
-        // Toggle notification dropdown
-        const notificationButton = document.getElementById('notificationButton');
-        const notificationDropdown = document.getElementById('notificationDropdown');
-        
-        notificationButton.addEventListener('click', function(event) {
-            event.stopPropagation();
-            notificationDropdown.classList.toggle('hidden');
-        });
-        
-        // Close notification dropdown when clicking outside
-        document.addEventListener('click', function(event) {
-            const isClickInsideNotification = notificationButton.contains(event.target) || notificationDropdown.contains(event.target);
-            
-            if (!isClickInsideNotification) {
-                notificationDropdown.classList.add('hidden');
-            }
-        });
-        
-        // Toggle date filter dropdown
-        const dateFilterBtn = document.getElementById('dateFilterBtn');
-        const dateFilterDropdown = document.getElementById('dateFilterDropdown');
-        
-        dateFilterBtn.addEventListener('click', function() {
-            dateFilterDropdown.classList.toggle('hidden');
-        });
-        
-        // Transaction Modal
-        const viewDetailsBtns = document.querySelectorAll('button[title="View Details"]');
-        const transactionModal = document.getElementById('transactionModal');
-        const closeModal = document.getElementById('closeModal');
-        
-        viewDetailsBtns.forEach(btn => {
-            btn.addEventListener('click', function() {
-                transactionModal.classList.remove('hidden');
+        function markAllAsRead() {
+            const dots = document.querySelectorAll('.unread-dot');
+            dots.forEach(dot => {
+                dot.style.display = 'none';
             });
-        });
-        
-        closeModal.addEventListener('click', function() {
-            transactionModal.classList.add('hidden');
-        });
-        
-        // Close modal when clicking outside
-        transactionModal.addEventListener('click', function(event) {
-            if (event.target === transactionModal) {
-                transactionModal.classList.add('hidden');
+            updateNotificationCount();
+        }
+
+        function updateNotificationCount() {
+            const visibleDots = document.querySelectorAll('.unread-dot[style=""], .unread-dot:not([style*="display: none"])');
+            const count = visibleDots.length;
+            const countElement = document.getElementById('notificationCount');
+            
+            if (count === 0) {
+                countElement.textContent = 'All notifications read';
+                countElement.classList.add('text-green-600');
+            } else {
+                countElement.textContent = `${count} new notification${count > 1 ? 's' : ''}`;
+                countElement.classList.remove('text-green-600');
             }
-        });
-        
-        // Close modal with close button at the bottom
-        const closeBtn = transactionModal.querySelector('button:last-child');
-        closeBtn.addEventListener('click', function() {
-            transactionModal.classList.add('hidden');
+        }
+
+        // Initialize notification count on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            updateNotificationCount();
         });
     </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'96d9d22413b93853',t:'MTc1NDkzNzIwMS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+
   </body>
 </html>
