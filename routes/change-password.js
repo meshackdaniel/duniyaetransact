@@ -27,6 +27,7 @@ router.get("/", async (req, res) => {
 });
 
 router.post("/", async (req, res) => {
+  console.log("in change password");
   const { currentPassword, newPassword, confirmPassword, email } = req.body;
   if (!currentPassword || !newPassword || !confirmPassword || !email) {
     return res.status(400).send("All fields are required");
@@ -46,16 +47,14 @@ router.post("/", async (req, res) => {
 
   const getUser = await User.findOne({ email: email });
   if (!getUser) {
+    console.log("user not found")
     return res.status(404).send("User not found");
   }
 
-  const passwordMatch = bcrypt.compare(
+  const passwordMatch = await bcrypt.compare(
     currentPassword,
     getUser.password,
     async (err, result) => {
-      if (err) {
-        return res.status(404).send(err.message);
-      }
       if (result) {
         const newHashedPassword = await bcrypt.hash(newPassword, 10);
         const updatedUser = await User.findOneAndUpdate(
@@ -63,10 +62,13 @@ router.post("/", async (req, res) => {
           { password: newHashedPassword },
           { new: true }
         );
-        console.log("user updated successfully", updatedUser);
-        return res.status(200).send("Password updated successfully");
+        return res
+          .status(200)
+          .json({ message: "Password updated successfully" });
       } else {
-        return res.status(400).send("Current password is incorrect");
+        return res
+          .status(404)
+          .json({ message: "Current password is incorrect" });
       }
     }
   );

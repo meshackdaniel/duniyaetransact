@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
 const User = require("../models/user.model");
+const bcrypt = require("bcrypt");
 
 // Import the home route
 router.get("/", async (req, res) => {
@@ -16,31 +17,44 @@ router.get("/", async (req, res) => {
     phone: getUser.phone,
     countryCode: getUser.countryCode,
     profile: getUser.profile || "images/profile.png", // Default profile image if not set
-    notifications: getUser.notifications.slice(0,3) || [],
+    notifications: getUser.notifications.slice(0, 3) || [],
   };
   res.render("data", { title: "Data", user: user, name: "Duniya Comm" });
 });
 
 // Handle the form submission
 router.post("/", async (req, res) => {
-  const { phoneNumber, amount, pin, network, email } = req.body;
+  const { phoneNumber, amount, pin, network, email, bundle } = req.body;
   const getUser = await User.findOne({ email: email });
   if (!getUser) {
     return res.status(404).send("User not found");
   } else {
-    if (pin == getUser.pin) {
-      console.log("correct pin");
+    if (await bcrypt.compare(pin, getUser.pin)) {
+      console.log("bundle", bundle);
       const updatedUser = await User.updateOne(
         { email: email },
-        { $inc: { 'account.accountBalance': -amount } },
+        { $inc: { "account.accountBalance": -amount } },
         { new: true }
       );
-      if(updatedUser) {
+      if (updatedUser) {
         console.log("Balance updated successfully");
       }
-      res.status(200).send("Airtime purchase successful");
+      const transactionDetails = {
+        message: "Airtime purchase successful",
+        status: "succesful",
+        id: "9819809898908809809",
+        service: network,
+        phoneNumber: phoneNumber,
+        amount: amount,
+        bundle: bundle,
+        validity: "2 days",
+        date: "13 Aug 2025",
+        time: "4:00pm",
+      };
+      return res.status(200).json(transactionDetails);
     } else {
-      return res.status(400).send("Incorrect pin");
+      console.log("Incorrect pin");
+      return res.status(400).json({ message: "Incorrect pin" });
     }
   }
 });

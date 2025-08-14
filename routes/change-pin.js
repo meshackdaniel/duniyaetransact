@@ -27,6 +27,7 @@ router.get("/", async (req, res) => {
 });
 
 router.post("/", async (req, res) => {
+  console.log("in change pin");
   const { currentPin, newPin, confirmPin, email } = req.body;
   if (!currentPin || !newPin || !confirmPin || !email) {
     return res.status(400).send("All fields are required");
@@ -38,24 +39,22 @@ router.post("/", async (req, res) => {
       .send("New pin and confirm pin do not match");
   }
 
-  if (newPin.length != 4) {
+  if (newPin.length < 4) {
     return res
       .status(400)
-      .send("New pin must contain 4 digit only");
+      .send("New pin must be at least 6 characters long");
   }
 
   const getUser = await User.findOne({ email: email });
   if (!getUser) {
+    console.log("user not found");
     return res.status(404).send("User not found");
   }
 
-  const pinMatch = bcrypt.compare(
+  const pinMatch = await bcrypt.compare(
     currentPin,
     getUser.pin,
     async (err, result) => {
-      if (err) {
-        return res.status(404).send(err.message);
-      }
       if (result) {
         const newHashedPin = await bcrypt.hash(newPin, 10);
         const updatedUser = await User.findOneAndUpdate(
@@ -63,10 +62,13 @@ router.post("/", async (req, res) => {
           { pin: newHashedPin },
           { new: true }
         );
-        console.log("user updated successfully", updatedUser);
-        return res.status(200).send("Pin updated successfully");
+        return res
+          .status(200)
+          .json({ message: "Pin updated successfully" });
       } else {
-        return res.status(400).send("Current pin is incorrect");
+        return res
+          .status(404)
+          .json({ message: "Current pin is incorrect" });
       }
     }
   );

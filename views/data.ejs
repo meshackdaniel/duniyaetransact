@@ -666,7 +666,7 @@
           <div class="">
   <div class="gradient-border">
     <div class="gradient-border-inner glass- rounded-2xl p-8">
-      <form id="airtimeForm" class="space-y-8">
+      <form id="dataForm" class="space-y-8">
         <!-- Network Selection -->
         <div>
           <label
@@ -750,119 +750,12 @@
         <!-- Amount Selection -->
         <div>
           <label
-            class="block text-gray-800 font-bold mb-4 text-xl flex items-center"
+          id="selectPlanLabel"
+            class="block text-gray-800 font-bold mb-4 text-xl flex items-center hidden"
           >
             Select Plan
           </label>
             <div id="planSelection" class="grid grid-cols-3 gap-3 mb-6">
-              <button
-              type="button"
-              class="amount-btn group bg-gradient-to-br from-blue-50 to-blue-100 border-2 border-blue-200 rounded-xl py-4 px-3 text-center hover:from-blue-500 hover:to-blue-600 hover:border-blue-500 hover:text-white transform hover:scale-105 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-blue-300 hover:shadow-xl"
-              data-amount="100"
-            >
-              <div class="font-bold text-lg group-hover:animate-pulse">
-                1GB
-              </div>
-              <div class="text-sm group-hover:animate-pulse">
-                1 Day
-              </div>
-              <div class="text-xs group-hover:animate-pulse mt-0.5">
-                ₦300
-              </div>
-              <div class="text-[10px] group-hover:animate-pulse text-blue-500 mt-0.5">
-                Cashback - ₦30
-              </div>
-              </button>
-              <button
-              type="button"
-              class="amount-btn group bg-gradient-to-br from-blue-50 to-blue-100 border-2 border-blue-200 rounded-xl py-4 px-3 text-center hover:from-blue-500 hover:to-blue-600 hover:border-blue-500 hover:text-white transform hover:scale-105 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-blue-300 hover:shadow-xl"
-              data-amount="200"
-            >
-              <div class="font-bold text-lg group-hover:animate-pulse">
-                2GB
-              </div>
-              <div class="text-sm group-hover:animate-pulse">
-                1 Day
-              </div>
-              <div class="text-xs group-hover:animate-pulse mt-0.5">
-                ₦600
-              </div>
-              <div class="text-[10px] group-hover:animate-pulse text-blue-500 mt-0.5">
-                Cashback - ₦30
-              </div>
-              </button>
-              <button
-              type="button"
-              class="amount-btn group bg-gradient-to-br from-blue-50 to-blue-100 border-2 border-blue-200 rounded-xl py-4 px-3 text-center hover:from-blue-500 hover:to-blue-600 hover:border-blue-500 hover:text-white transform hover:scale-105 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-blue-300 hover:shadow-xl"
-              data-amount="500"
-            >
-              <div class="font-bold text-lg group-hover:animate-pulse">
-                3GB
-              </div>
-              <div class="text-sm group-hover:animate-pulse">
-                1 Day
-              </div>
-              <div class="text-xs group-hover:animate-pulse mt-0.5">
-                ₦750
-              </div>
-              <div class="text-[10px] group-hover:animate-pulse text-blue-500 mt-0.5">
-                Cashback - ₦30
-              </div>
-              </button>
-              <button
-              type="button"
-              class="amount-btn group bg-gradient-to-br from-blue-50 to-blue-100 border-2 border-blue-200 rounded-xl py-4 px-3 text-center hover:from-blue-500 hover:to-blue-600 hover:border-blue-500 hover:text-white transform hover:scale-105 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-blue-300 hover:shadow-xl"
-              data-amount="1000"
-            >
-              <div class="font-bold text-lg group-hover:animate-pulse">
-                1GB
-              </div>
-              <div class="text-sm group-hover:animate-pulse">
-                1 Day
-              </div>
-              <div class="text-xs group-hover:animate-pulse mt-0.5">
-                ₦300
-              </div>
-              <div class="text-[10px] group-hover:animate-pulse text-blue-500 mt-0.5">
-                Cashback - ₦30
-              </div>
-              </button>
-              <button
-              type="button"
-              class="amount-btn group bg-gradient-to-br from-blue-50 to-blue-100 border-2 border-blue-200 rounded-xl py-4 px-3 text-center hover:from-blue-500 hover:to-blue-600 hover:border-blue-500 hover:text-white transform hover:scale-105 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-blue-300 hover:shadow-xl"
-              data-amount="2000"
-            >
-              <div class="font-bold text-lg group-hover:animate-pulse">
-                2GB
-              </div>
-              <div class="text-sm group-hover:animate-pulse">
-                1 Day
-              </div>
-              <div class="text-xs group-hover:animate-pulse mt-0.5">
-                ₦600
-              </div>
-              <div class="text-[10px] group-hover:animate-pulse text-blue-500 mt-0.5">
-                Cashback - ₦30
-              </div>
-              </button>
-              <button
-              type="button"
-              class="amount-btn group bg-gradient-to-br from-blue-50 to-blue-100 border-2 border-blue-200 rounded-xl py-4 px-3 text-center hover:from-blue-500 hover:to-blue-600 hover:border-blue-500 hover:text-white transform hover:scale-105 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-blue-300 hover:shadow-xl"
-              data-amount="5000"
-            >
-              <div class="font-bold text-lg group-hover:animate-pulse">
-                1GB
-              </div>
-              <div class="text-sm group-hover:animate-pulse">
-                1 Day
-              </div>
-              <div class="text-xs group-hover:animate-pulse mt-0.5">
-                ₦300
-              </div>
-              <div class="text-[10px] group-hover:animate-pulse text-blue-500 mt-0.5">
-                Cashback - ₦30
-              </div>
-              </button>
           </div>
 
           <!-- Custom Amount -->
@@ -895,8 +788,10 @@
               </svg>
             </div>
           </div>
-          <p class="mt-1 ms-1 text-red-500 hidden" id="amountError">Amount must be greater that 50</p>
+          <p class="mt-1 ms-1 text-red-500 hidden" id="amountError">Select a plan</p>
+          <input type="text" id="bundle" class="hidden" />
         </div>
+
         <!-- Submit Button -->
         <button
           type="submit"
@@ -912,27 +807,6 @@
         </button>
       </form>
 
-      <!-- Success Message -->
-      <div
-        id="successMessage"
-        class="hidden mt-8 p-6 bg-gradient-to-r from-green-50 to-emerald-50 border-2 border-green-200 rounded-2xl"
-      >
-        <div class="flex items-center">
-          <div class="text-4xl mr-4 animate-bounce">✅</div>
-          <div>
-            <div class="font-bold text-green-800 text-xl">
-              Airtime Loaded Successfully!
-            </div>
-            <div
-              id="transactionDetails"
-              class="text-green-700 text-lg mt-2 font-medium"
-            ></div>
-            <div class="text-green-600 text-sm mt-1">
-              Transaction completed in 2.3 seconds
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
 </div>
@@ -979,6 +853,7 @@
             <input type="number" name="" class="border-2 border-gray-600 p-2 ps-3.5 w-10 h-10 rounded" id="tpin">
             <input type="number" name="" class="border-2 border-gray-600 p-2 ps-3.5 w-10 h-10 rounded" id="fopin"> 
           </div>
+          <p class="text-red-500 text-sm my-2 hidden" id="incorrectPin">Incorrect Pin</p>
           <button
           id="payNow"
           type="submit"
@@ -990,6 +865,10 @@
       </div>
     </div>
 
+
+
+<div id="transactionDetails"></div>
+                      
     <script>
       // Toggle sidebar on larger screens
       const sidebar = document.getElementById("sidemenu");
@@ -1039,29 +918,29 @@
     <script>
   const data = {
     MTN: [
-      { name: "1GB", price: 300, validity: "1", cashback: 30, hot: true },
-      { name: "2GB", price: 600, validity: "1", cashback: 30, hot: true },
-      { name: "3GB", price: 750, validity: "1", cashback: 30 },
-      { name: "5GB", price: 1500, validity: "1", cashback: 30 },
-      { name: "10GB", price: 3000, validity: "1", cashback: 30 },
+      { bundle: "1GB", price: 300, validity: "1", hot: true },
+      { bundle: "2GB", price: 600, validity: "1", hot: true },
+      { bundle: "3GB", price: 750, validity: "1" },
+      { bundle: "5GB", price: 1500, validity: "1" },
+      { bundle: "10GB", price: 3000, validity: "1" },
     ],
     Airtel: [
-      { name: "1GB", price: 300, validity: "1", cashback: 30, hot: true },
-      { name: "2GB", price: 600, validity: "1", cashback: 30, hot: true },
-      { name: "3GB", price: 750, validity: "1", cashback: 30 },
-      { name: "5GB", price: 1500, validity: "1", cashback: 30 },
+      { bundle: "1GB", price: 300, validity: "1", hot: true },
+      { bundle: "2GB", price: 600, validity: "1", hot: true },
+      { bundle: "3GB", price: 750, validity: "1" },
+      { bundle: "5GB", price: 1500, validity: "1" },
     ],
     GLO: [
-      { name: "1GB", price: 300, validity: "1", cashback: 30, hot: true },
-      { name: "2GB", price: 600, validity: "1", cashback: 30, hot: true },
-      { name: "3GB", price: 750, validity: "1", cashback: 30 },
-      { name: "5GB", price: 1500, validity: "1", cashback: 30 },
+      { bundle: "1GB", price: 300, validity: "1", hot: true },
+      { bundle: "2GB", price: 600, validity: "1", hot: true },
+      { bundle: "3GB", price: 750, validity: "1" },
+      { bundle: "5GB", price: 1500, validity: "1" },
     ],
     "9mobile": [
-      { name: "1GB", price: 300, validity: "1", cashback: 30, hot: true },
-      { name: "2GB", price: 600, validity: "1", cashback: 30, hot: true },
-      { name: "3GB", price: 750, validity: "1", cashback: 30 },
-      { name: "5GB", price: 1500, validity: "1", cashback: 30 },
+      { bundle: "1GB", price: 300, validity: "1", hot: true },
+      { bundle: "2GB", price: 600, validity: "1", hot: true },
+      { bundle: "3GB", price: 750, validity: "1" },
+      { bundle: "5GB", price: 1500, validity: "1" },
     ],
   };
   const values = {
@@ -1092,14 +971,30 @@
       this.value = this.value.slice(0, 1);
       document.getElementById("payNow").focus();
     }
+    document.getElementById("fpin").classList.remove("border-red-500");
+    document.getElementById("spin").classList.remove("border-red-500");
+    document.getElementById("tpin").classList.remove("border-red-500");
+    document.getElementById("fopin").classList.remove("border-red-500");
     document.getElementById("fpin").classList.add("border-green-500");
     document.getElementById("spin").classList.add("border-green-500");
     document.getElementById("tpin").classList.add("border-green-500");
     document.getElementById("fopin").classList.add("border-green-500");
+    document.getElementById("pinError").classList.add("hidden");
   });
-
+  document.getElementById("fpin").addEventListener("keydown", function (event) {
+    if (event.key === "Backspace") {
+      document.getElementById("fpin").classList.remove("border-green-500");
+      document.getElementById("spin").classList.remove("border-green-500");
+      document.getElementById("tpin").classList.remove("border-green-500");
+      document.getElementById("fopin").classList.remove("border-green-500");
+    }
+  });
   document.getElementById("spin").addEventListener("keydown", function (event) {
     if (event.key === "Backspace") {
+      document.getElementById("fpin").classList.remove("border-green-500");
+      document.getElementById("spin").classList.remove("border-green-500");
+      document.getElementById("tpin").classList.remove("border-green-500");
+      document.getElementById("fopin").classList.remove("border-green-500");
       if (this.value.length === 0) {
         document.getElementById("fpin").focus();
       }
@@ -1108,6 +1003,10 @@
 
   document.getElementById("tpin").addEventListener("keydown", function (event) {
     if (event.key === "Backspace") {
+      document.getElementById("fpin").classList.remove("border-green-500");
+      document.getElementById("spin").classList.remove("border-green-500");
+      document.getElementById("tpin").classList.remove("border-green-500");
+      document.getElementById("fopin").classList.remove("border-green-500");
       if (this.value.length === 0) {
         document.getElementById("spin").focus();
       }
@@ -1117,7 +1016,14 @@
   document
     .getElementById("fopin")
     .addEventListener("keydown", function (event) {
+      // if(event.key != "Backspace") {
+      //   document.getElementById("tpin").focus();
+      // }
       if (event.key === "Backspace") {
+        document.getElementById("fpin").classList.remove("border-green-500");
+        document.getElementById("spin").classList.remove("border-green-500");
+        document.getElementById("tpin").classList.remove("border-green-500");
+        document.getElementById("fopin").classList.remove("border-green-500");
         if (this.value.length === 0) {
           document.getElementById("tpin").focus();
         }
@@ -1125,6 +1031,7 @@
         // showPinModal();
       }
     });
+
 
   document.getElementById("phoneNumber").addEventListener("input", function () {
     if (this.value.length == 11) {
@@ -1192,6 +1099,7 @@
       // Update plan selection based on selected network
       const plans = data[selectedNetwork] || [];
       const planSelection = document.getElementById("planSelection");
+      document.getElementById("selectPlanLabel").classList.remove("hidden");
       planSelection.innerHTML = ""; // Clear previous plans
       plans.forEach((plan) => {
         const planButton = document.createElement("button");
@@ -1199,11 +1107,11 @@
         planButton.className =
           "amount-btn group bg-gradient-to-br from-blue-50 to-blue-100 border-2 border-blue-200 rounded-xl py-4 px-3 text-center hover:from-blue-500 hover:to-blue-600 hover:border-blue-500 hover:text-white transform hover:scale-105 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-blue-300 hover:shadow-xl";
         planButton.dataset.amount = plan.price;
+        planButton.dataset.bundle = plan.bundle;
         planButton.innerHTML = `
-                        <div class="font-bold text-lg group-hover:animate-pulse">${plan.name}</div>
+                        <div class="font-bold text-lg group-hover:animate-pulse">${plan.bundle}</div>
                         <div class="text-sm group-hover:animate-pulse">${plan.validity} Day</div>
                         <div class="text-xs group-hover:animate-pulse mt-0.5">₦${plan.price}</div>
-                        <div class="text-[10px] group-hover:animate-pulse text-blue-500 mt-0.5">Cashback - ₦${plan.cashback}</div>
                     `;
         planSelection.appendChild(planButton);
       });
@@ -1241,7 +1149,9 @@
           this.querySelector("div").classList.add("text-white");
 
           selectedAmount = this.dataset.amount;
+          selectedBundle = this.dataset.bundle;
           document.getElementById("amount").value = selectedAmount;
+          document.getElementById("bundle").value = selectedBundle;
         });
       });
     });
@@ -1318,10 +1228,13 @@
       const network = document.getElementById("selectedNetwork").value;
       const phoneNumber = document.getElementById("phoneNumber").value;
       const amount = document.getElementById("amount").value;
-      airtimeFormData = {
+      const bundle = document.getElementById("bundle").value;
+      // const bundle = 
+      dataFormData = {
       network: network,
       phoneNumber: phoneNumber,
       amount: amount,
+      bundle: bundle,
       pin: pin,
       email: "<%= user.email %>",
       }
@@ -1330,21 +1243,30 @@
 
       fetch("/data/", {
                 method: "POST",
-                body: JSON.stringify(airtimeFormData),
+                body: JSON.stringify(dataFormData),
                 headers: {
                   "Content-Type": "application/json",
                   Accept: "application/json",
                 },
-                }).then((res) => {
+                }).then(async (res) => {
                   if (!res.ok){
-                    throw new Error("Failed to send message")
+                    const error = await res.json();
+                    if(error.message == "Incorrect pin"){
+                      document.getElementById("incorrectPin").classList.remove("hidden");
+                      document.getElementById("fpin").classList.add("border-red-500");
+    document.getElementById("spin").classList.add("border-red-500");
+    document.getElementById("tpin").classList.add("border-red-500");
+    document.getElementById("fopin").classList.add("border-red-500");
+    document.getElementById("fpin").classList.remove("border-green-500");
+    document.getElementById("spin").classList.remove("border-green-500");
+    document.getElementById("tpin").classList.remove("border-green-500");
+    document.getElementById("fopin").classList.remove("border-green-500");
+                    }
+                    throw new Error("Data subscription unssucessful")
                   }
-                  else {
-                    // Hide pin modal
-                document.getElementById("pin-modal").classList.add("hidden");
-                
+                  else {                    
                 // Reset form
-                document.getElementById('airtimeForm').reset();
+                document.getElementById('dataForm').reset();
                 // Remove active class from all amount buttons
                 document.querySelectorAll('.amount-btn').forEach(b => {
                     b.classList.remove('from-blue-600', 'to-indigo-600', 'text-white', 'border-blue-600', 'shadow-blue-500/25');
@@ -1358,7 +1280,105 @@
                 b.classList.add('from-blue-50', 'to-blue-100', 'border-blue-200');
                 });
                   }
-                  return res.json();
+                  document.getElementById("pin-modal").classList.add("hidden");
+                
+                // Reset form
+                document.getElementById('dataForm').reset();
+                // Remove active class from all amount buttons
+                document.querySelectorAll('.amount-btn').forEach(b => {
+                    b.classList.remove('from-blue-600', 'to-indigo-600', 'text-white', 'border-blue-600', 'shadow-blue-500/25');
+                    b.classList.add('from-blue-50', 'to-blue-100', 'border-blue-200');
+                    b.querySelector('div').classList.remove('text-white');
+                    b.querySelector('div').classList.add('text-gray-800');
+                });
+                // Remove active class from all network buttons
+                document.querySelectorAll('.network-btn').forEach(b => {
+                b.classList.remove('from-blue-600', 'to-indigo-600', 'text-white', 'border-blue-600', 'shadow-blue-500/25');
+                b.classList.add('from-blue-50', 'to-blue-100', 'border-blue-200');
+                });
+                const response = await res.json();
+                 const transactionDetails = document.getElementById("transactionDetails");
+                  if (response.status = "successful"){
+                    console.log("transaction successful");
+                      transactionDetails.innerHTML = `
+                        <div class="transactionModal fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center z-50">
+                    <div class="bg-white rounded-xl shadow-xl max-w-lg w-full mx-4 overflow-hidden">
+                        <div class="px-6 py-4 bg-indigo-600 text-white flex justify-between items-center">
+                            <h3 class="text-lg font-semibold">Transaction Details</h3>
+                            <button class="closeTransactionModal text-white hover:text-gray-200">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex justify-center mb-6">
+                                <div class="bg-green-100 p-3 rounded-full">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="text-center mb-6">
+                                <h4 class="text-lg font-semibold text-gray-800 capitalize">data subscription ${response.status}</h4>
+                                <p class="text-gray-600">${response.message}</p>
+                            </div>
+                            <div class="space-y-4"> 
+                                <div class="flex justify-between">
+                                    <span class="text-sm text-gray-500">Transaction ID</span>
+                                    <span class="text-sm font-medium text-gray-800">${response.id}</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-sm text-gray-500">Service</span>
+                                    <span class="text-sm font-medium text-gray-800">${response.service}</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-sm text-gray-500">Phone Number</span>
+                                    <span class="text-sm font-medium text-gray-800">${response.phoneNumber}</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-sm text-gray-500">Amount</span>
+                                    <span class="text-sm font-medium text-gray-800">₦${response.amount.toLocaleString()}</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-sm text-gray-500">Bundle</span>
+                                    <span class="text-sm font-medium text-gray-800">${response.bundle}</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-sm text-gray-500">Validity</span>
+                                    <span class="text-sm font-medium text-gray-800">${response.validity}</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-sm text-gray-500">Date & Time</span>
+                                    <span class="text-sm font-medium text-gray-800">${response.date} ${response.time}</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-sm text-gray-500">Payment Method</span>
+                                    <span class="text-sm font-medium text-gray-800">Wallet Balance</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-sm text-gray-500">Status</span>
+                          <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                                        Successful
+                                    </span>                                    
+                                </div>
+                            </div>
+                            <div class="mt-6 flex space-x-3">
+                                <button class="flex-1 py-2 bg-indigo-600 text-white rounded-lg font-medium hover:bg-indigo-700 transition-colors flex items-center justify-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                                    </svg>
+                                    Download Receipt
+                                </button>
+                                <button class="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg font-medium hover:bg-gray-50 transition-colors">
+                                    Close
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                      `
+                    }
                 });
 
     } else {
@@ -1370,7 +1390,7 @@
   });
   // Form submission
   document
-    .getElementById("airtimeForm")
+    .getElementById("dataForm")
     .addEventListener("submit", function (e) {
       e.preventDefault();
 

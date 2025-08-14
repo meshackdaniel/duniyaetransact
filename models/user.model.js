@@ -31,14 +31,16 @@ const transactionSchema = new mongoose.Schema({
 
 const userSchema = new mongoose.Schema(
   {
-    name: {
+    firstName: {
+      type: String,
+      required: true,
+    },
+    lastName: {
       type: String,
       required: true,
     },
     pin: {
-      type: Number,
-      minlength: 4,
-      maxlength: 4,
+      type: String,
       required: true,
     },
     password: {
@@ -63,6 +65,26 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: false,
     },
+    adrress: {
+      type: String,
+      required: false,
+    },
+    dateOfBirth: {
+      type: Date,
+      required: false,
+    },
+    gender: {
+      type: String,
+      required: false,
+    },
+    city: {
+      type: String,
+      required: false,
+    },
+    state: {
+      type: String,
+      required: false,
+    },
     notifications: [
       {
         title: {
@@ -74,6 +96,11 @@ const userSchema = new mongoose.Schema(
           type: String,
           required: true,
           trim: true,
+        },
+        read: {
+          type: Boolean,
+          required: true,
+          default: false,
         },
         type: {
           type: String,
@@ -119,7 +146,65 @@ const userSchema = new mongoose.Schema(
         required: true,
         trim: true,
       },
-      transactions: [transactionSchema],
+      transactions: [
+        {
+          category: {
+            type: String,
+            enum: [
+              "deposit",
+              "transfer",
+              "airtime purchase",
+              "data subscription",
+            ],
+            required: true,
+          },
+          service: {
+            type: String,
+            enum: ["Airtel", "MTN", "GLO", "9mobile"],
+            required: true,
+          },
+          phoneNumber: {
+            type: Number,
+            required: false,
+            min: 0,
+          },
+          bundle: {
+            type: String,
+            required: false,
+          },
+          validity: {
+            type: String,
+            required: false,
+          },
+          amount: {
+            type: Number,
+            required: true,
+            min: 0,
+          },
+          date: {
+            type: Date,
+            default: Date.now,
+          },
+          sender: {
+            type: String,
+            required: false,
+          },
+          recipient: {
+            type: String,
+            required: false,
+          },
+          status: {
+            type: String,
+            enum: ["pending", "succesful", "reversed", "failed"],
+            required: true,
+          },
+          description: {
+            type: String,
+            trim: true,
+            required: false,
+          },
+        },
+      ],
     },
   },
   {

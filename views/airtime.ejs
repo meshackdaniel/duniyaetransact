@@ -979,8 +979,9 @@
             <input type="number" name="" class="border-2 border-gray-600 p-2 ps-3.5 w-10 h-10 rounded" id="fpin">
             <input type="number" name="" class="border-2 border-gray-600 p-2 ps-3.5 w-10 h-10 rounded" id="spin">
             <input type="number" name="" class="border-2 border-gray-600 p-2 ps-3.5 w-10 h-10 rounded" id="tpin">
-            <input type="number" name="" class="border-2 border-gray-600 p-2 ps-3.5 w-10 h-10 rounded" id="fopin"> 
+            <input type="number" name="" class="border-2 border-gray-600 p-2 ps-3.5 w-10 h-10 rounded" id="fopin">
           </div>
+          <p class="text-red-500 text-sm my-2 hidden" id="incorrectPin">Incorrect Pin</p>
           <button
           id="payNow"
           type="submit"
@@ -1044,64 +1045,89 @@
         phoneNumber: "",
         amount: "",
       };
-      document.getElementById('fpin').addEventListener('input', function (e) {
-        if (this.value.length >= 1) {
-          this.value = this.value.slice(0, 1);
-          document.getElementById('spin').focus();
-        }
+      document.getElementById("fpin").addEventListener("input", function (e) {
+    if (this.value.length >= 1) {
+      this.value = this.value.slice(0, 1);
+      document.getElementById("spin").focus();
+    }
+  });
+  document.getElementById("spin").addEventListener("input", function (e) {
+    if (this.value.length >= 1) {
+      this.value = this.value.slice(0, 1);
+      document.getElementById("tpin").focus();
+    }
+  });
+  document.getElementById("tpin").addEventListener("input", function (e) {
+    if (this.value.length >= 1) {
+      this.value = this.value.slice(0, 1);
+      document.getElementById("fopin").focus();
+    }
+  });
+  document.getElementById("fopin").addEventListener("input", function (e) {
+    if (this.value.length >= 1) {
+      this.value = this.value.slice(0, 1);
+      document.getElementById("payNow").focus();
+    }
+    document.getElementById("fpin").classList.remove("border-red-500");
+    document.getElementById("spin").classList.remove("border-red-500");
+    document.getElementById("tpin").classList.remove("border-red-500");
+    document.getElementById("fopin").classList.remove("border-red-500");
+    document.getElementById("fpin").classList.add("border-green-500");
+    document.getElementById("spin").classList.add("border-green-500");
+    document.getElementById("tpin").classList.add("border-green-500");
+    document.getElementById("fopin").classList.add("border-green-500");
+    document.getElementById("pinError").classList.add("hidden");
+  });
+  document.getElementById("fpin").addEventListener("keydown", function (event) {
+    if (event.key === "Backspace") {
+      document.getElementById("fpin").classList.remove("border-green-500");
+      document.getElementById("spin").classList.remove("border-green-500");
+      document.getElementById("tpin").classList.remove("border-green-500");
+      document.getElementById("fopin").classList.remove("border-green-500");
+    }
+  });
+  document.getElementById("spin").addEventListener("keydown", function (event) {
+    if (event.key === "Backspace") {
+      document.getElementById("fpin").classList.remove("border-green-500");
+      document.getElementById("spin").classList.remove("border-green-500");
+      document.getElementById("tpin").classList.remove("border-green-500");
+      document.getElementById("fopin").classList.remove("border-green-500");
+      if (this.value.length === 0) {
+        document.getElementById("fpin").focus();
+      }
+    }
+  });
 
-      });
-      document.getElementById('spin').addEventListener('input', function (e) {
-        if (this.value.length >= 1) {
-          this.value = this.value.slice(0, 1);
-          document.getElementById('tpin').focus();
-        }
+  document.getElementById("tpin").addEventListener("keydown", function (event) {
+    if (event.key === "Backspace") {
+      document.getElementById("fpin").classList.remove("border-green-500");
+      document.getElementById("spin").classList.remove("border-green-500");
+      document.getElementById("tpin").classList.remove("border-green-500");
+      document.getElementById("fopin").classList.remove("border-green-500");
+      if (this.value.length === 0) {
+        document.getElementById("spin").focus();
+      }
+    }
+  });
 
-      });
-      document.getElementById('tpin').addEventListener('input', function (e) {
-        if (this.value.length >= 1) {
-          this.value = this.value.slice(0, 1);
-          document.getElementById('fopin').focus();
+  document
+    .getElementById("fopin")
+    .addEventListener("keydown", function (event) {
+      // if(event.key != "Backspace") {
+      //   document.getElementById("tpin").focus();
+      // }
+      if (event.key === "Backspace") {
+        document.getElementById("fpin").classList.remove("border-green-500");
+        document.getElementById("spin").classList.remove("border-green-500");
+        document.getElementById("tpin").classList.remove("border-green-500");
+        document.getElementById("fopin").classList.remove("border-green-500");
+        if (this.value.length === 0) {
+          document.getElementById("tpin").focus();
         }
-
-      });
-      document.getElementById('fopin').addEventListener('input', function (e) {
-        if (this.value.length >= 1) {
-          this.value = this.value.slice(0, 1);
-          document.getElementById('payNow').focus();
-        }
-        document.getElementById('fpin').classList.add('border-green-500');
-        document.getElementById('spin').classList.add('border-green-500');
-        document.getElementById('tpin').classList.add('border-green-500');
-        document.getElementById('fopin').classList.add('border-green-500');
-
-      });
-
-      document.getElementById('spin').addEventListener('keydown', function(event) {
-        if (event.key === 'Backspace') {
-          if (this.value.length === 0) {
-            document.getElementById('fpin').focus();
-          }
-        }
-      });
-
-      document.getElementById('tpin').addEventListener('keydown', function(event) {
-        if (event.key === 'Backspace') {
-          if (this.value.length === 0) {
-            document.getElementById('spin').focus();
-          }
-        }
-      });
-
-      document.getElementById('fopin').addEventListener('keydown', function(event) {
-        if (event.key === 'Backspace') {
-          if (this.value.length === 0) {
-            document.getElementById('tpin').focus();
-          }
-        } else if (event.key === 'Enter') {
-          // showPinModal();
-        }
-      });
+      } else if (event.key === "Enter") {
+        // showPinModal();
+      }
+    });
 
       document.getElementById('phoneNumber').addEventListener('input', function() {
         if (this.value.length == 11) {
@@ -1219,9 +1245,20 @@
                   "Content-Type": "application/json",
                   Accept: "application/json",
                 },
-                }).then((res) => {
+                }).then(async (res) => {
                   if (!res.ok){
-                    throw new Error("Failed to send message")
+                    const error = await res.json();
+                    if(error.message == "Incorrect pin"){
+                      document.getElementById("incorrectPin").classList.remove("hidden");
+                      document.getElementById("fpin").classList.add("border-red-500");
+    document.getElementById("spin").classList.add("border-red-500");
+    document.getElementById("tpin").classList.add("border-red-500");
+    document.getElementById("fopin").classList.add("border-red-500");
+    document.getElementById("fpin").classList.remove("border-green-500");
+    document.getElementById("spin").classList.remove("border-green-500");
+    document.getElementById("tpin").classList.remove("border-green-500");
+    document.getElementById("fopin").classList.remove("border-green-500");
+                    }
                   }
                   else {
                     // Hide pin modal

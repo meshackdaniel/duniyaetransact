@@ -14,6 +14,7 @@ const jwt = require("jsonwebtoken");
 app.set("view engine", "ejs");
 
 const Confirmation = require("./models/confirmation.model");
+const User = require("./models/user.model");
 
 const nodemailer = require("nodemailer");
 const myEmail = process.env.NODEMAILER_EMAIL;
@@ -154,7 +155,6 @@ app.post("/api/send-confirmation-email", async (req, res) => {
   }
 });
 
-
 app.post("/api/resend-confirmation-email", async (req, res) => {
   const { email } = req.body;
   const code = generateRandomString(6);
@@ -177,6 +177,65 @@ app.post("/api/resend-confirmation-email", async (req, res) => {
   } catch (error) {
     console.log(error);
   }
+});
+
+app.post("/api/edit-profile", async (req, res) => {
+  const {
+    firstName,
+    lastName,
+    email,
+    newEmail,
+    phoneNumber,
+    dateOfBirth,
+    gender,
+    address,
+    city,
+    state,
+  } = req.body;
+  const getUser = await User.findOne({ email: email });
+  if (getUser) {
+    const updatedUser = await User.updateOne(
+      { email: email },
+      { firstName: firstName },
+      { secondName: lastName },
+      { dateOfBirth: dateOfBirth },
+      { gender: gender },
+      { address: address },
+      { city: city },
+      { state: state }
+    );
+    if (updatedUser) {
+      return res.status(200).send("Profile Updated Successfully");
+    }
+  } else return res.status(400).send("Unauthorized");
+});
+
+app.post("/api/check-email", async (req, res) => {
+  console.log("in check email");
+  const { email, phone } = req.body;
+  const getUser = await User.findOne({ email: email });
+  const getPhone = await User.findOne({ phone: phone });
+  if (getUser) {
+    return res
+      .status(400)
+      .json({ message: "This email has been used by anorther user" });
+  }
+  if (getPhone) {
+    return res
+      .status(400)
+      .json({ message: "This phone number has been used by anorther user" });
+  }
+  return res.status(200).send();
+});
+
+app.post("/api/delete-action", async (req, res) => {
+  const { email } = req.body;
+  const deletedUser = User.findByIdAndDelete({ email: email });
+  if (deletedUser) {
+    res.status(200).send("User Deleted");
+    res.clearCookie("refreshToken");
+    res.redirect("/");
+  } else return res.status(400).send("unautorized");
 });
 
 app.get("/logout", (req, res) => {

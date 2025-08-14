@@ -29,20 +29,21 @@ const otPayApiSecret = process.env.OTPAY_API_SECRET;
 const otPayBusinessCode = process.env.OTPAY_BUSINESS_CODE;
 
 router.post("/", async (req, res) => {
-  const name = req.body.fullname;
-  const phone = req.body.phone;
+  const firstName = req.body.firstName;
+  const lastName = req.body.lastName;
+  const phone = Number(req.body.phone);
   const email = req.body.email;
   const countryCode = req.body.countryCode;
   const hashedPassword = await bcrypt.hash(req.body.password, 10);
-  const pin = req.body.pin;
+  const hashedPin = await bcrypt.hash(req.body.pin, 10);
   // const hashedPin = await bcrypt.hash(req.body.pin, 10);
   const confirmationCode = req.body.confirmationCode;
   const otPayBody = {
     business_code: otPayBusinessCode,
-    phone: phone,
+    phone: "0" + String(phone),
     email: email,
     bank_code: [100033],
-    name: name,
+    name: firstName + " " + lastName,
   };
   const confirmation = await Confirmation.findOne({
     email: email,
@@ -58,18 +59,19 @@ router.post("/", async (req, res) => {
         "secret-key": otPayApiSecret,
       },
     }).then(async (data) => {
+      console.log(data);
       if (!data.ok) {
         throw new Error("Internal server error");
       } else {
         try {
           const newAccount = await data.json();
           console.log("value of account is", newAccount);
-
           const user = {
-            name: name,
+            firstName: firstName,
+            lastName: lastName,
             password: hashedPassword,
             email: email,
-            phone: phone,
+            phone: String(phone),
             countryCode: countryCode,
             profile: "",
             notifications: [
@@ -85,7 +87,7 @@ router.post("/", async (req, res) => {
               accountName: newAccount.accounts[0].name,
               accountBalance: 0,
             },
-            pin: pin, // Default pin, should be changed by user
+            pin: hashedPin, // Default pin, should be changed by user
           };
           console.log("user", user);
           const createdUser = await User.create(user);

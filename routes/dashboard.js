@@ -11,7 +11,8 @@ router.get("/", async (req, res) => {
     return res.status(404).send("User not found");
   }
   const user = {
-    name: getUser.name,
+    firstName: getUser.firstName,
+    lastName: getUser.lastName,
     email: getUser.email,
     phone: getUser.phone,
     countryCode: getUser.countryCode,

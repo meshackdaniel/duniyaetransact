@@ -2,6 +2,9 @@ GET http://localhost:3000/dashboard
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoibWVzaGFja2RhbmllbDIyNUBnbWFpbC5jb20iLCJpYXQiOjE3NTQzMTU0ODl9.bFx9z8W1mHe3wHQH3-LqNVunzGBoA327RDSRcQH1Kgw
 ###
 
-POST http://localhost:3000/test
+POST http://localhost:3000/api/check-email
 Content-Type: application/json
 
+{
+    "email": "shedrackdaniel225@gmail.com"
+}
