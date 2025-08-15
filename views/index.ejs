@@ -169,8 +169,8 @@
               all in one place.
             </p>
             <div class="flex flex-wrap gap-4">
-              <button
-                id="fundWalletHero"
+              <a
+                href="fund-account"
                 class="bg-white text-indigo-600 hover:bg-indigo-50 px-6 py-3 rounded-lg font-medium text-lg transition-colors flex items-center"
               >
                 <svg
@@ -186,9 +186,10 @@
                     clip-rule="evenodd"
                   />
                 </svg>
-                Fund Wallet
-              </button>
-              <button
+                Fund Account
+              </a>
+              <a
+                href="/about"
                 class="bg-transparent border-2 border-white hover:bg-white hover:text-indigo-600 px-6 py-3 rounded-lg font-medium text-lg transition-colors flex items-center"
               >
                 <svg
@@ -204,9 +205,9 @@
                   />
                 </svg>
                 Learn More
-              </button>
+              </a>
             </div>
-            <div class="mt-8 flex items-center space-x-4">
+            <!-- <div class="mt-8 flex items-center space-x-4">
               <div class="flex -space-x-2">
                 <div
                   class="h-8 w-8 rounded-full bg-indigo-300 border-2 border-white flex items-center justify-center text-xs text-indigo-800 font-bold"
@@ -233,7 +234,7 @@
                 Trusted by <span class="font-semibold">10,000+</span> users
                 worldwide
               </div>
-            </div>
+            </div> -->
           </div>
           <div class="flex justify-center">
             <div class="relative">
@@ -247,7 +248,7 @@
               <div
                 class="bg-white p-6 rounded-2xl shadow-xl relative z-10 float-animation"
               >
-                <div class="flex justify-between items-center mb-6">
+                <div class="flex justify-between gap-4 items-center mb-6">
                   <div>
                     <h3 class="text-lg font-semibold text-gray-800">
                       Quick Actions
@@ -434,7 +435,7 @@
     </div>
 
     <!-- Stats Section -->
-    <div class="bg-white py-12">
+    <!-- <div class="bg-white py-12">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
           <div class="bg-indigo-50 rounded-xl p-6 text-center">
@@ -455,7 +456,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
 
     <!-- Services Section -->
     <div class="py-16 bg-gray-50">
@@ -547,7 +548,8 @@
                   <span class="text-gray-700">Scheduled recharges</span>
                 </div>
               </div>
-              <button
+              <a
+                href="/airtime"
                 class="buy-service-btn w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-xl font-medium transition-colors flex items-center justify-center"
                 data-service="airtime"
               >
@@ -564,7 +566,7 @@
                   />
                 </svg>
                 Buy Airtime
-              </button>
+              </a>
             </div>
           </div>
 
@@ -648,7 +650,8 @@
                   <span class="text-gray-700">Data rollover options</span>
                 </div>
               </div>
-              <button
+              <a
+                href="/data"
                 class="buy-service-btn w-full bg-purple-600 hover:bg-purple-700 text-white py-3 rounded-xl font-medium transition-colors flex items-center justify-center"
                 data-service="data"
               >
@@ -665,7 +668,7 @@
                   />
                 </svg>
                 Buy Data
-              </button>
+              </a>
             </div>
           </div>
 
@@ -693,7 +696,7 @@
                   />
                 </svg>
               </div>
-              <h3 class="text-2xl font-bold text-gray-900 mb-3">Fund Wallet</h3>
+              <h3 class="text-2xl font-bold text-gray-900 mb-3">Fund Account</h3>
               <p class="text-gray-600 mb-6">
                 Add money to your wallet for quick and seamless transactions
                 anytime.
@@ -745,7 +748,8 @@
                   <span class="text-gray-700">Instant crediting</span>
                 </div>
               </div>
-              <button
+              <a
+                href="fund-account"
                 id="fundWalletCard"
                 class="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-xl font-medium transition-colors flex items-center justify-center"
               >
@@ -762,7 +766,7 @@
                   />
                 </svg>
                 Fund Wallet
-              </button>
+              </a>
             </div>
           </div>
         </div>
@@ -1421,17 +1425,18 @@
                 mobile top-up needs.
               </p>
               <div class="flex flex-wrap gap-4">
-                <button
-                  id="fundWalletCTA"
+                <a
+                  href="fund-account"
                   class="bg-white text-indigo-600 hover:bg-indigo-50 px-6 py-3 rounded-lg font-medium transition-colors"
                 >
-                  Fund Your Wallet
-                </button>
-                <button
+                  Fund Your Account
+              </a>
+                <a
+                href="/about"
                   class="bg-transparent border-2 border-white hover:bg-white hover:text-indigo-600 text-white px-6 py-3 rounded-lg font-medium transition-colors"
                 >
                   Learn More
-                </button>
+            </a>
               </div>
             </div>
             <div class="md:w-1/3 flex justify-center">
@@ -1442,49 +1447,6 @@
                 <div
                   class="absolute -bottom-8 -right-8 w-32 h-32 bg-purple-500 rounded-full opacity-30 blur-xl"
                 ></div>
-                <div class="bg-white p-6 rounded-2xl shadow-xl relative z-10">
-                  <div class="flex justify-between items-center mb-6">
-                    <div class="text-lg font-semibold text-gray-800">
-                      Quick Top-Up
-                    </div>
-                  </div>
-                  <div class="space-y-4 mb-6">
-                    <div>
-                      <label
-                        class="block text-gray-700 text-sm font-medium mb-2"
-                        >Phone Number</label
-                      >
-                      <input
-                        type="tel"
-                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                        placeholder="Enter phone number"
-                      />
-                    </div>
-                    <div>
-                      <label
-                        class="block text-gray-700 text-sm font-medium mb-2"
-                        >Amount</label
-                      >
-                      <div class="relative">
-                        <span
-                          class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-600"
-                          >₦</span
-                        >
-                        <input
-                          type="number"
-                          class="w-full pl-8 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                          placeholder="0.00"
-                          min="1"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                  <button
-                    class="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-3 rounded-lg font-medium transition-colors"
-                  >
-                    Recharge Now
-                  </button>
-                </div>
               </div>
             </div>
           </div>

@@ -42,7 +42,10 @@ const authenticateToken = (req, res, next) => {
   //   console.log("Authorization header:", authHeader);
   //   const token = authHeader && authHeader.split(" ")[1];
   const token = req.cookies.refreshToken;
-  if (token == null) return res.sendStatus(401);
+  if (token == null) {
+    res.redirect("/login");
+    res.sendStatus(401);
+  }
 
   jwt.verify(token, process.env.REFRESH_TOKEN_SECRET, (err, decodedUser) => {
     if (err) return res.sendStatus(403);
@@ -73,6 +76,9 @@ app.use("/cookie-policy", cookieRouter);
 
 const loginRouter = require("./routes/login");
 app.use("/login", loginRouter);
+
+const forgotPasswordRouter = require("./routes/forgot-password");
+app.use("/forgot-password", forgotPasswordRouter);
 
 const signupRouter = require("./routes/signup");
 app.use("/signup", signupRouter);
@@ -134,7 +140,6 @@ function generateRandomString(max) {
 app.post("/api/send-confirmation-email", async (req, res) => {
   const { email } = req.body;
   const code = generateRandomString(6);
-  console.log("Email received:", email);
   const getConfirmation = await Confirmation.findOne({ email });
   if (getConfirmation) {
     const updatedConfirmation = await Confirmation.deleteOne({ email });
