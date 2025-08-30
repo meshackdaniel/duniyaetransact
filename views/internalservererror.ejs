@@ -1,0 +1,89 @@
+    <div class="max-w-2xl mx-auto my-10 w-full text-center">
+        <!-- Error Icon -->
+        <div class="mb-8">
+            <svg class="w-24 h-24 mx-auto text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"></path>
+            </svg>
+        </div>
+
+        <!-- Error Code -->
+        <h1 class="text-6xl font-bold text-red-600 mb-4">500</h1>
+        
+        <!-- Error Title -->
+        <h2 class="text-2xl font-semibold text-gray-900 mb-6">Internal Server Error</h2>
+        
+        <!-- Error Description -->
+        <div class="bg-white rounded-lg shadow-sm p-6 mb-8 border border-gray-200">
+            <p class="text-gray-700 text-lg mb-3">
+                Something went wrong on our end. Our servers are experiencing technical difficulties.
+            </p>
+            <p class="text-gray-500">
+                This is a temporary issue and our team has been automatically notified. Please try again in a few minutes.
+            </p>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="flex flex-col sm:flex-row gap-3 justify-center items-center mb-8">
+            <button onclick="window.location.reload()" class="bg-red-600 hover:bg-red-700 text-white font-medium px-6 py-2.5 rounded-md transition-colors">
+                Try Again
+            </button>
+            
+            <button onclick="window.history.back()" class="bg-white hover:bg-gray-50 text-gray-700 font-medium px-6 py-2.5 rounded-md border border-gray-300 transition-colors">
+                Go Back
+            </button>
+            
+            <button onclick="window.location.href='/'" class="bg-blue-600 hover:bg-blue-700 text-white font-medium px-6 py-2.5 rounded-md transition-colors">
+                Home Page
+            </button>
+        </div>
+
+        <!-- Additional Info -->
+        <div class="bg-white rounded-lg p-5 border border-gray-200">
+            <h3 class="font-medium text-gray-900 mb-3">What can you do?</h3>
+            <div class="space-y-2 text-sm text-gray-600">
+                <p>• Wait a few minutes and try again</p>
+                <p>• Check our status page for updates</p>
+                <p>• Contact support if the issue persists</p>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="mt-8 text-gray-400 text-sm">
+            <p>Error ID: <span class="font-mono bg-gray-100 px-2 py-1 rounded text-gray-600" id="errorId"></span></p>
+        </div>
+    </div>
+
+    <script>
+        // Generate a random error ID for tracking
+        function generateErrorId() {
+            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+            let result = '';
+            for (let i = 0; i < 8; i++) {
+                result += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            return result;
+        }
+
+        // Set the error ID
+        document.getElementById('errorId').textContent = generateErrorId();
+
+        // Auto-refresh functionality (optional)
+        let refreshTimer;
+        function startAutoRefresh() {
+            refreshTimer = setTimeout(() => {
+                if (confirm('Would you like to try refreshing the page automatically?')) {
+                    window.location.reload();
+                }
+            }, 30000); // 30 seconds
+        }
+
+        // Start auto-refresh timer
+        startAutoRefresh();
+
+        // Clear timer if user interacts with the page
+        document.addEventListener('click', () => {
+            if (refreshTimer) {
+                clearTimeout(refreshTimer);
+            }
+        });
+    </script>

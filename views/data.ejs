@@ -631,7 +631,7 @@
 
               <div class="hidden md:flex items-center">
                 <img
-                  src=<%= user.profile %>
+                  src="<%= user.profile %>"
                   alt="User"
                   class="h-8 w-8 rounded-full"
                 />
@@ -667,7 +667,6 @@
   <div class="gradient-border">
     <div class="gradient-border-inner glass- rounded-2xl p-8">
       <form id="dataForm" class="space-y-8">
-        <!-- Network Selection -->
         <div>
           <label
             class="block text-gray-800 font-bold mb-4 text-xl flex items-center"
@@ -790,8 +789,10 @@
           </div>
           <p class="mt-1 ms-1 text-red-500 hidden" id="amountError">Select a plan</p>
           <input type="text" id="bundle" class="hidden" />
+          <input type="text" id="validity" class="hidden" />
         </div>
 
+        <p id="insufficientBalance" class="text-red-500 hidden">Insufficient Balance <a href="/fund-account" class="bg-green-600 p-2 text-sm rounded text-white">+ Fund account</a></p>
         <!-- Submit Button -->
         <button
           type="submit"
@@ -859,7 +860,8 @@
           type="submit"
           class="w-full mt-5 bg-indigo-600 text-white tect-center py-3 rounded-lg font-medium hover:bg-indigo-500 transition-colors"
         >
-          Confirm
+          <span id="confirmPin">Confirm</span>
+          <span id="confirmPinSpin" class="hidden"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="animate-spin w-fit mx-auto lucide lucide-loader-circle-icon lucide-loader-circle"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg></span>
         </button>
           </form>
       </div>
@@ -867,7 +869,9 @@
 
 
 
-<div id="transactionDetails"></div>
+<div id="transactionDetails">
+  
+  </div>
                       
     <script>
       // Toggle sidebar on larger screens
@@ -1108,6 +1112,7 @@
           "amount-btn group bg-gradient-to-br from-blue-50 to-blue-100 border-2 border-blue-200 rounded-xl py-4 px-3 text-center hover:from-blue-500 hover:to-blue-600 hover:border-blue-500 hover:text-white transform hover:scale-105 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-blue-300 hover:shadow-xl";
         planButton.dataset.amount = plan.price;
         planButton.dataset.bundle = plan.bundle;
+        planButton.dataset.validity = plan.validity;
         planButton.innerHTML = `
                         <div class="font-bold text-lg group-hover:animate-pulse">${plan.bundle}</div>
                         <div class="text-sm group-hover:animate-pulse">${plan.validity} Day</div>
@@ -1118,6 +1123,7 @@
       // Amount selection
       document.querySelectorAll(".amount-btn").forEach((btn) => {
         btn.addEventListener("click", function () {
+          document.getElementById("amountError").classList.add("hidden");
           // Remove active class from all amount buttons
           document.querySelectorAll(".amount-btn").forEach((b) => {
             b.classList.remove(
@@ -1150,8 +1156,10 @@
 
           selectedAmount = this.dataset.amount;
           selectedBundle = this.dataset.bundle;
+          selectedValidity = this.dataset.validity;
           document.getElementById("amount").value = selectedAmount;
           document.getElementById("bundle").value = selectedBundle;
+          document.getElementById("validity").value = selectedValidity;
         });
       });
     });
@@ -1225,21 +1233,23 @@
       document.getElementById("fopin").value;
     // Validate pin
     if (pin.length === 4) {
+      document.getElementById("confirmPin").classList.add("hidden");
+      document.getElementById("confirmPinSpin").classList.remove("hidden");
       const network = document.getElementById("selectedNetwork").value;
-      const phoneNumber = document.getElementById("phoneNumber").value;
+      const phoneNumber = Number(document.getElementById("phoneNumber").value);
       const amount = document.getElementById("amount").value;
       const bundle = document.getElementById("bundle").value;
+      const validity = document.getElementById("validity").value;
       // const bundle = 
       dataFormData = {
       network: network,
       phoneNumber: phoneNumber,
       amount: amount,
       bundle: bundle,
+      validity: validity,
       pin: pin,
       email: "<%= user.email %>",
       }
-
-
 
       fetch("/data/", {
                 method: "POST",
@@ -1262,9 +1272,90 @@
     document.getElementById("tpin").classList.remove("border-green-500");
     document.getElementById("fopin").classList.remove("border-green-500");
                     }
-                    throw new Error("Data subscription unssucessful")
+                    if(error.message == "data purchase failed"){
+                      console.log("data purchase failed");
+                    document.getElementById("transactionDetails").innerHTML = `
+                    <div class="transactionModal fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center z-50">
+                    <div class="bg-white rounded-xl shadow-xl max-w-lg w-full mx-4 overflow-hidden">
+                        <div class="px-6 py-4 bg-indigo-600 text-white flex justify-between items-center">
+                            <h3 class="text-lg font-semibold">Transaction Details</h3>
+                            <button class="closeTransactionModal text-white hover:text-gray-200">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex justify-center mb-6">
+                                <div class="bg-red-100 p-3 rounded-full">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x-icon lucide-x w-8 h-8 text-red-800"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                                </div>
+                            </div>
+                            <div class="text-center mb-6">
+                                <h4 class="text-lg font-semibold text-gray-800 capitalize">data subscription ${error.status}</h4>
+                                <p class="text-gray-600">${error.message}</p>
+                            </div>
+                            <div class="space-y-4"> 
+                                <div class="flex justify-between">
+                                    <span class="text-sm text-gray-500">Transaction ID</span>
+                                    <span class="text-sm font-medium text-gray-800">${error.id}</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-sm text-gray-500">Service</span>
+                                    <span class="text-sm font-medium text-gray-800">${error.service}</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-sm text-gray-500">Phone Number</span>
+                                    <span class="text-sm font-medium text-gray-800">${error.phoneNumber}</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-sm text-gray-500">Amount</span>
+                                    <span class="text-sm font-medium text-gray-800">₦${error.amount.toLocaleString()}</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-sm text-gray-500">Bundle</span>
+                                    <span class="text-sm font-medium text-gray-800">${error.bundle}</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-sm text-gray-500">Validity</span>
+                                    <span class="text-sm font-medium text-gray-800">${error.validity}</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-sm text-gray-500">Date & Time</span>
+                                    <span class="text-sm font-medium text-gray-800">${error.date} ${error.time}</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-sm text-gray-500">Payment Method</span>
+                                    <span class="text-sm font-medium text-gray-800">Wallet Balance</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-sm text-gray-500">Status</span>
+                          <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
+                                        ${error.status}
+                                    </span>                                    
+                                </div>
+                            </div>
+                            <div class="mt-6 flex space-x-3">
+                                <button class="flex-1 py-2 bg-indigo-600 text-white rounded-lg font-medium hover:bg-indigo-700 transition-colors flex items-center justify-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                                    </svg>
+                                    Download Receipt
+                                </button>
+                                <button class="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg font-medium hover:bg-gray-50 transition-colors">
+                                    Close
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                    `
                   }
-                  else {                    
+                    // throw new Error("Data subscription unssucessful")
+                  }
+                  else {     
+                    document.getElementById("confirmPin").classList.remove("hidden");
+      document.getElementById("confirmPinSpin").classList.add("hidden");               
                 // Reset form
                 document.getElementById('dataForm').reset();
                 // Remove active class from all amount buttons
@@ -1285,21 +1376,20 @@
                 // Reset form
                 document.getElementById('dataForm').reset();
                 // Remove active class from all amount buttons
-                document.querySelectorAll('.amount-btn').forEach(b => {
-                    b.classList.remove('from-blue-600', 'to-indigo-600', 'text-white', 'border-blue-600', 'shadow-blue-500/25');
-                    b.classList.add('from-blue-50', 'to-blue-100', 'border-blue-200');
-                    b.querySelector('div').classList.remove('text-white');
-                    b.querySelector('div').classList.add('text-gray-800');
-                });
+                // document.querySelectorAll('.amount-btn').forEach(b => {
+                //     b.classList.remove('from-blue-600', 'to-indigo-600', 'text-white', 'border-blue-600', 'shadow-blue-500/25');
+                //     b.classList.add('from-blue-50', 'to-blue-100', 'border-blue-200');
+                //     b.querySelector('div').classList.remove('text-white');
+                //     b.querySelector('div').classList.add('text-gray-800');
+                // });
                 // Remove active class from all network buttons
-                document.querySelectorAll('.network-btn').forEach(b => {
-                b.classList.remove('from-blue-600', 'to-indigo-600', 'text-white', 'border-blue-600', 'shadow-blue-500/25');
-                b.classList.add('from-blue-50', 'to-blue-100', 'border-blue-200');
-                });
+                // document.querySelectorAll('.network-btn').forEach(b => {
+                // b.classList.remove('from-blue-600', 'to-indigo-600', 'text-white', 'border-blue-600', 'shadow-blue-500/25');
+                // b.classList.add('from-blue-50', 'to-blue-100', 'border-blue-200');
+                // });
                 const response = await res.json();
                  const transactionDetails = document.getElementById("transactionDetails");
                   if (response.status = "successful"){
-                    console.log("transaction successful");
                       transactionDetails.innerHTML = `
                         <div class="transactionModal fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center z-50">
                     <div class="bg-white rounded-xl shadow-xl max-w-lg w-full mx-4 overflow-hidden">
@@ -1379,6 +1469,84 @@
                 </div>
                       `
                     }
+                  else if(response.status == "pending"){
+                    transactionDetails.innerHTML = `
+                        <div class="transactionModal fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center z-50">
+                    <div class="bg-white rounded-xl shadow-xl max-w-lg w-full mx-4 overflow-hidden">
+                        <div class="px-6 py-4 bg-indigo-600 text-white flex justify-between items-center">
+                            <h3 class="text-lg font-semibold">Transaction Details</h3>
+                            <button class="closeTransactionModal text-white hover:text-gray-200">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex justify-center mb-6">
+                                <div class="bg-yellow-100 p-3 rounded-full">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-dashed-icon lucide-circle-dashed h-8 w-8 text-yellow-800"><path d="M10.1 2.182a10 10 0 0 1 3.8 0"/><path d="M13.9 21.818a10 10 0 0 1-3.8 0"/><path d="M17.609 3.721a10 10 0 0 1 2.69 2.7"/><path d="M2.182 13.9a10 10 0 0 1 0-3.8"/><path d="M20.279 17.609a10 10 0 0 1-2.7 2.69"/><path d="M21.818 10.1a10 10 0 0 1 0 3.8"/><path d="M3.721 6.391a10 10 0 0 1 2.7-2.69"/><path d="M6.391 20.279a10 10 0 0 1-2.69-2.7"/></svg>
+                                </div>
+                            </div>
+                            <div class="text-center mb-6">
+                                <h4 class="text-lg font-semibold text-gray-800 capitalize">data subscription ${response.status}</h4>
+                                <p class="text-gray-600">${response.message}</p>
+                            </div>
+                            <div class="space-y-4"> 
+                                <div class="flex justify-between">
+                                    <span class="text-sm text-gray-500">Transaction ID</span>
+                                    <span class="text-sm font-medium text-gray-800">${response.id}</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-sm text-gray-500">Service</span>
+                                    <span class="text-sm font-medium text-gray-800">${response.service}</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-sm text-gray-500">Phone Number</span>
+                                    <span class="text-sm font-medium text-gray-800">${response.phoneNumber}</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-sm text-gray-500">Amount</span>
+                                    <span class="text-sm font-medium text-gray-800">₦${response.amount.toLocaleString()}</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-sm text-gray-500">Bundle</span>
+                                    <span class="text-sm font-medium text-gray-800">${response.bundle}</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-sm text-gray-500">Validity</span>
+                                    <span class="text-sm font-medium text-gray-800">${response.validity}</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-sm text-gray-500">Date & Time</span>
+                                    <span class="text-sm font-medium text-gray-800">${response.date} ${response.time}</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-sm text-gray-500">Payment Method</span>
+                                    <span class="text-sm font-medium text-gray-800">Wallet Balance</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-sm text-gray-500">Status</span>
+                          <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">
+                                        ${response.status}
+                                    </span>                                    
+                                </div>
+                            </div>
+                            <div class="mt-6 flex space-x-3">
+                                <button class="flex-1 py-2 bg-indigo-600 text-white rounded-lg font-medium hover:bg-indigo-700 transition-colors flex items-center justify-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                                    </svg>
+                                    Download Receipt
+                                </button>
+                                <button class="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg font-medium hover:bg-gray-50 transition-colors">
+                                    Close
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                      `;
+                  }
                 });
 
     } else {
@@ -1393,11 +1561,15 @@
     .getElementById("dataForm")
     .addEventListener("submit", function (e) {
       e.preventDefault();
-
       const network = document.getElementById("selectedNetwork").value;
       const phoneNumber = document.getElementById("phoneNumber").value;
       const amount = document.getElementById("amount").value;
-
+      const balance = "<%= user.account.accountBalance %>";
+      if(Number(amount) > Number(balance)){
+        console.log("balance is",balance)
+        document.getElementById("insufficientBalance").classList.remove("hidden");
+        return;
+      }
       if (!network) {
         document.querySelectorAll(".network-btn").forEach((btn) => {
           btn.classList.add("border-red-200", "text-red-500");

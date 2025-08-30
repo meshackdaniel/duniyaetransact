@@ -739,7 +739,7 @@
                             <tbody class="bg-white divide-y divide-gray-200">
                     <% user.transactions.forEach(transaction => { %>
                       <!-- Transaction Details Modal (Hidden by default) -->
-                      <% if (transaction.category === "airtime purchase" || transaction.category === "data subscription") { %>
+                      <% if (transaction.category === "airtime" || transaction.category === "data") { %>
                       <div id="<%= transaction._id %>Modal" class="transactionModal fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center z-50 hidden">
                     <div class="bg-white rounded-xl shadow-xl max-w-lg w-full mx-4 overflow-hidden">
                         <div class="px-6 py-4 bg-indigo-600 text-white flex justify-between items-center">
@@ -752,14 +752,23 @@
                         </div>
                         <div class="p-6">
                             <div class="flex justify-center mb-6">
-                                <div class="bg-green-100 p-3 rounded-full">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                    </svg>
-                                </div>
+                              <% switch(transaction.network) {
+                        case 'GLO' : %>
+                                <img src="images/glo.jpg" class="w-14 h-14 mx-auto rounded-full" alt="">
+                                <% break;
+                        case 'Airtel' : %>
+                          <img src="images/airtel.jpg" class="w-14 h-14 mx-auto rounded-full" alt="">
+                        <% break;
+                        case '9mobile' : %>
+                        <img src="images/9mobile.jpg" class="w-14 h-14 mx-auto rounded-full" alt="">
+                        <% break;
+                        case 'MTN' : %>
+                        <img src="images/mtn.jpg" class="w-14 h-14 mx-auto rounded-full" alt="">
+                        <% break;
+                              } %>
                             </div>
                             <div class="text-center mb-6">
-                                <h4 class="text-lg font-semibold text-gray-800 capitalize"><%= transaction.category %> <%= transaction.status %></h4>
+                                <h4 class="text-lg font-semibold text-gray-800 capitalize"><%= transaction.category %> purchase <%= transaction.status %></h4>
                                 <% switch(transaction.status) {
                         case 'successful' : %>
                           <p class="text-gray-600">Your transaction has been completed successfully.</p>
@@ -780,12 +789,22 @@
                                 </div>
                                 <div class="flex justify-between">
                                     <span class="text-sm text-gray-500">Service</span>
-                                    <span class="text-sm font-medium text-gray-800"><%= transaction.service %></span>
+                                    <span class="text-sm font-medium text-gray-800"><%= transaction.network %> <%= transaction.category %></span>
                                 </div>
                                 <div class="flex justify-between">
                                     <span class="text-sm text-gray-500">Phone Number</span>
                                     <span class="text-sm font-medium text-gray-800"><%= transaction.phoneNumber %></span>
                                 </div>
+                                <% if ( transaction.category === "data") { %>
+                                <div class="flex justify-between">
+                                    <span class="text-sm text-gray-500">Bundle</span>
+                                    <span class="text-sm font-medium text-gray-800"><%= transaction.bundle %></span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-sm text-gray-500">Validity</span>
+                                    <span class="text-sm font-medium text-gray-800"><%= transaction.validity %></span>
+                                </div>
+                                <% } %>
                                 <div class="flex justify-between">
                                     <span class="text-sm text-gray-500">Amount</span>
                                     <span class="text-sm font-medium text-gray-800">₦<%= transaction.amount.toLocaleString() %></span>
@@ -846,9 +865,6 @@
                     </div>
                 </div>
                     <% } %>
-                
-
-
 
                       <tr class="transaction-row">
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
@@ -866,12 +882,12 @@
                         case 'transfer' : %>
                           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-dashed-icon lucide-circle-dashed h-5 w-5 text-yellow-500"><path d="M10.1 2.182a10 10 0 0 1 3.8 0"/><path d="M13.9 21.818a10 10 0 0 1-3.8 0"/><path d="M17.609 3.721a10 10 0 0 1 2.69 2.7"/><path d="M2.182 13.9a10 10 0 0 1 0-3.8"/><path d="M20.279 17.609a10 10 0 0 1-2.7 2.69"/><path d="M21.818 10.1a10 10 0 0 1 0 3.8"/><path d="M3.721 6.391a10 10 0 0 1 2.7-2.69"/><path d="M6.391 20.279a10 10 0 0 1-2.69-2.7"/></svg>
                         <% break;
-                        case 'airtime purchase' : %>
+                        case 'airtime' : %>
                           <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
                                                 </svg>
                         <% break;
-                        case 'data subscription' : %>
+                        case 'data' : %>
                           <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0" />
                                                 </svg>
@@ -886,7 +902,7 @@
                                                 
                                             </div>
                                             <div class="ml-2">
-                                                <div class="text-sm font-medium text-gray-900 capitalize"><%= transaction.category %></div>
+                                                <div class="text-sm font-medium text-gray-900 capitalize"><%= transaction.network %> <%= transaction.category %></div>
                                                 <div class="text-xs text-gray-500"><%= transaction.phoneNumber %></div>
                                             </div>
                                         </div>
@@ -947,15 +963,15 @@
                             </tbody>
                         </table>
                     </div>
-                    <% if (user.account.transactions.length === 0) { %>
+                    <% if (user.transactions.length === 0) { %>
                       <div class="mx-auto p-5 w-fit mt-5 bg-green-100 rounded-full flex items-center justify-center">
                           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-archive-x-icon h-16 w-16 text-blue-500 lucide-archive-x"><rect width="20" height="5" x="2" y="3" rx="1"/><path d="M4 8v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8"/><path d="m9.5 17 5-5"/><path d="m9.5 12 5 5"/></svg>
                         </div>
-                        <p class="mt-5 text-center text-sm font-semibold">You have not made any transaction</p>
+                        <p class="mt-5 text-center text-sm font-semibold mb-5">You have not made any transaction</p>
                     <% } %>
                     <!-- Pagination -->
-                    <% if (user.account.transactions.length > 10) { %>
-                        <button class="text-sm text-center mt-3 w-full flex items-center justify-center text-green-500">
+                    <% if (user.transactions.length > 10) { %>
+                        <button class="text-sm text-center mt-3 w-full flex items-center justify-center text-green-500 mb-5">
                       <span class="font-semibold">Load More</span>
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 lucide lucide-chevrons-down-icon lucide-chevrons-down"><path d="m7 6 5 5 5-5"/><path d="m7 13 5 5 5-5"/></svg>
                       </button>

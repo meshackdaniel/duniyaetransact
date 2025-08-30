@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= name %> - Mobile Recharge & Payment Platform</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+      :root {
+        --primary: #4f46e5;
+        --primary-dark: #4338ca;
+        --secondary: #0ea5e9;
+        --accent: #8b5cf6;
+      }
+
+      .toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #333;
+            color: white;
+            padding: 15px 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            opacity: 0;
+            transform: translateY(-20px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            z-index: 1000;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+      body {
+        font-family: "Inter", sans-serif;
+        background-color: #f9fafb;
+      }
+
+      .primary-gradient {
+        background: linear-gradient(
+          135deg,
+          var(--primary) 0%,
+          var(--secondary) 100%
+        );
+      }
+
+      .secondary-gradient {
+        background: linear-gradient(
+          135deg,
+          var(--accent) 0%,
+          var(--secondary) 100%
+        );
+      }
+
+      .card-hover {
+        transition: all 0.3s ease;
+      }
+
+      .card-hover:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+          0 10px 10px -5px rgba(0, 0, 0, 0.04);
+      }
+
+      .app-mockup {
+        position: relative;
+        width: 280px;
+        height: 560px;
+        border-radius: 40px;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        overflow: hidden;
+      }
+
+      .app-screen {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: #fff;
+        overflow: hidden;
+      }
+
+      .app-notch {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 150px;
+        height: 30px;
+        background: #000;
+        border-bottom-left-radius: 15px;
+        border-bottom-right-radius: 15px;
+        z-index: 10;
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-10px);
+        }
+      }
+
+      .float-animation {
+        animation: float 6s ease-in-out infinite;
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.7;
+        }
+      }
+
+      .pulse-animation {
+        animation: pulse 2s infinite;
+      }
+
+      .service-icon {
+        transition: all 0.3s ease;
+      }
+
+      .card-hover:hover .service-icon {
+        transform: scale(1.1);
+      }
+
+      .custom-scrollbar::-webkit-scrollbar {
+        width: 6px;
+      }
+
+      .custom-scrollbar::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 10px;
+      }
+
+      .custom-scrollbar::-webkit-scrollbar-thumb {
+        background: #c7d2fe;
+        border-radius: 10px;
+      }
+
+      .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+        background: #a5b4fc;
+      }
+
+      .feature-card {
+        transition: all 0.3s ease;
+      }
+
+      .feature-card:hover {
+        transform: translateY(-5px);
+      }
+
+      .feature-icon {
+        transition: all 0.3s ease;
+      }
+
+      .feature-card:hover .feature-icon {
+        transform: scale(1.1) rotate(10deg);
+      }
+
+      /* About */
+      .gradient-bg {
+        background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+      }
+      .gradient-text {
+        background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+      .team-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+          0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      }
+      .stat-card {
+        transition: all 0.3s ease;
+      }
+      .stat-card:hover {
+        transform: translateY(-5px);
+      }
+      .timeline-dot {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+        position: absolute;
+        left: -10px;
+        top: 0;
+      }
+      .timeline-line {
+        position: absolute;
+        left: 0;
+        top: 20px;
+        bottom: 0;
+        width: 1px;
+        background-color: #e5e7eb;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Login Section -->
+    <div id="firstSection" class="flex-grow flex items-center justify-center px-4 py-12 ">
+      <div class="w-full max-w-md">
+        <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
+          <!-- Login Header -->
+          <div class="gradient-bg px-6 py-8 text-center">
+            <div
+              class="bg-white/20 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-8 w-8 text-white"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                />
+              </svg>
+            </div>
+            <h2 class="text-2xl font-bold text-white">Reset Pin</h2>
+            <!-- <p class="text-indigo-100 mt-1">Sign in to your account</p> -->
+          </div>
+
+          <!-- Forgot Passord Form -->
+          <div class="px-6 py-8" id="firstSectionForm">
+            <form id="forgotPinForm" method="post">
+              <div class="space-y-6">
+                <div>
+                  <label
+                    for="newPin"
+                    class="block text-sm font-medium text-gray-700 mb-1"
+                    >New Pin</label
+                  >
+                  <input
+                    type="text"
+                    id="newPin"
+                    name="newPin"
+                    class="w-full px-4 py-3 rounded-lg border border-gray-300 input-focus focus:outline-none"
+                    placeholder="Enter new pin"
+                    required
+                  />
+                </div>
+                <div>
+                  <label
+                    for="confirmPin"
+                    class="block text-sm font-medium text-gray-700 mb-1"
+                    >Confirm Pin</label
+                  >
+                  <input
+                    type="text"
+                    id="confirmPin"
+                    name="confirmPin"
+                    class="w-full px-4 py-3 rounded-lg border border-gray-300 input-focus focus:outline-none"
+                    placeholder="Confirm new pin"
+                    required
+                  />
+                <p id="pinError" class="text-red-800 text-sm"></p>
+                </div>
+
+
+                <div>
+                  <button
+                    type="submit"
+                    class="w-full bg-indigo-600 text-white py-3 rounded-lg font-medium hover:bg-indigo-700 transition-colors"
+                  >
+                    Next
+                  </button>
+                </div>
+              </div>
+            </form>
+
+            <div class="mt-6 text-center">
+              <p class="text-sm text-gray-600">
+                Know your pin?
+                <a
+                  href="login"
+                  class="text-indigo-600 hover:text-indigo-800 font-medium"
+                  >Login</a
+                >
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Security Note -->
+        <div
+          class="mt-6 flex items-center justify-center text-sm text-gray-500"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-4 w-4 mr-1 text-green-500"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+            />
+          </svg>
+          <span>Secured input - Your data is protected</span>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function getTokenFromUrl() {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get('token');
+}
+      function showToast(message, type = 'info') {
+            // Create toast element
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            toast.textContent = message;
+
+            // Add specific styles based on type
+            if (type === 'success') {
+                toast.style.backgroundColor = '#28a745';
+            } else if (type === 'error') {
+                toast.style.backgroundColor = '#dc3545';
+            } else {
+                toast.style.backgroundColor = '#17a2b8';
+            }
+
+            // Append to body
+            document.body.appendChild(toast);
+
+            // Show toast
+            setTimeout(() => {
+                toast.classList.add('show');
+            }, 100);
+
+            // Remove toast after 3 seconds
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => {
+                    toast.remove();
+                }, 300);
+            }, 3000);
+        };
+      document.getElementById("forgotPinForm").addEventListener("submit", function(e){
+        e.preventDefault();
+        const newPin = document.getElementById("newPin").value;
+        const confirmPin = document.getElementById("confirmPin").value;
+
+        fetch("/reset-pin", {
+          method: "POST",
+          body: JSON.stringify({newPin, confirmPin, token: getTokenFromUrl()}),
+          headers: {"Content-Type": "application/json", Accept: "application/json"}
+        }).then(async (res) => {
+          if(res.ok){
+          document.getElementById("forgotPinForm").classList.add("hidden");
+          document.getElementById("codeSent").classList.remove("hidden");
+            return;
+          }
+        })
+      });
+
+
+      // Toggle pin visibility
+      const togglePin = document.getElementById("togglePin");
+      const pin = document.getElementById("pin");
+      const eyeIcon = document.getElementById("eyeIcon");
+
+      togglePin.addEventListener("click", function () {
+        const type =
+          pin.getAttribute("type") === "pin" ? "text" : "pin";
+        pin.setAttribute("type", type);
+
+        if (type === "text") {
+          eyeIcon.innerHTML = `
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21" />
+                `;
+        } else {
+          eyeIcon.innerHTML = `
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                `;
+        }
+      });
+
+      // Form submission
+      // const loginForm = document.getElementById("loginForm");
+
+      // loginForm.addEventListener("submit", function (e) {
+      //   e.preventDefault();
+      //   fetch("/login/", {
+      //     method: "POST",
+      //     body: JSON.stringify(values),
+      //     headers: {
+      //       "Content-Type": "application/json",
+      //       Accept: "application/json",
+      //     },
+      //   }).then((res) => {
+      //     if (!res.ok) {
+      //       document.getElementById("error").innerText = "Invalid credentials";
+      //       throw new Error("Invalid credentials");
+      //     }
+      //     window.location.href = "/dashboard";
+      //   });
+      // });
+    </script>
+  </body>
+</html>

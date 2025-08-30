@@ -1,9 +1,11 @@
 require("dotenv").config();
 const mongoose = require("mongoose");
 const User = require("../models/user.model");
-const Confirmation = require("../models/confirmation.model");
+const Reset = require("../models/reset.model");
 const express = require("express");
 const router = express.Router();
+const crypto = require("crypto");
+
 //  require jwt for authentication
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
@@ -50,61 +52,42 @@ mongoose
 
 router.post("/", async (req, res) => {
   const { email } = req.body;
-  const user = await User.findOne({ email: email });
-
-  if (!user) {
-    return res
-      .status(400)
-      .json({ message: "There is no account with this email" });
-  }
+  // Generate unique token
+  const token = crypto.randomBytes(32).toString("hex");
   try {
+    const user = await User.findOne({ email: email });
+
+    if (user) {
+      if (await Reset.findOne({ email })) {
+        const updatedReset = await Reset.deleteOne({ email });
+      }
+      await Reset.create({ email, token });
+      await transporter.sendMail({
+        from: myEmail,
+        to: email,
+        html: `
+          <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reset Password</title>
+</head>
+<body>
+    <p>Click on the link below to reset your account</p>
+    <a href=http://localhost:3000/forgot-password?token=${token}>http://localhost:3000/reset-password/token=${token}</a>
+</body>
+</html>
+        `,
+        subject: "Confirmation code for duniya comm",
+      });
+      res.status(200).json({
+        message: "successful",
+      });
+    }
+    return res.status(200).send();
   } catch (error) {
-    console.log("Error during password comparison:", error);
-    res.status(500).send();
+    return res.render("internalservererror", {title: "Server Error",name: "Duniya Comm"});
   }
 });
-
-router.post("/check-email", async (req, res) => {
-  const { email } = req.body;
-  const user = await User.findOne({ email: email });
-  if (!user) {
-    return res
-      .status(400)
-      .json({ message: "There is no account with this email" });
-  }
-  const code = generateRandomString(6);
-  const getConfirmation = await Confirmation.findOne({ email });
-  if (getConfirmation) {
-    const updatedConfirmation = await Confirmation.deleteOne({ email });
-  }
-  await Confirmation.create({ email, code });
-  try {
-    await transporter.sendMail({
-      from: myEmail,
-      to: email,
-      text: `Confirmation code to change your password is: ${code}`,
-      subject: "Confirmation code for duniya comm",
-    });
-    res.status(200).json({
-      message: "successful",
-    });
-  } catch (error) {
-    return res.status(400).send(error);
-  }
-});
-
-router.post("/check-code", async (req, res) => {
-  const { code, email } = req.body;
-  console.log(code, email);
-  const confirmation = await Confirmation.findOne({
-    email: email,
-  });
-  if (code == confirmation.code) {
-    res.status(200).json({ message: "Correct code" });
-
-    res.redirect("/login");
-  }
-  return res.status(400).json({ message: "Incorrect code" });
-});
-
 module.exports = router;

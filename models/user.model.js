@@ -1,12 +1,15 @@
 const mongoose = require("mongoose");
-const transactionSchema = new mongoose.Schema({
-  category: {
+const ReferralCode = require("./referralCode.model");
+const Transaction = require("./transaction.model");
+const { Schema } = mongoose;
+
+const referralSchema = new mongoose.Schema({
+  name: {
     type: String,
-    enum: ["deposit", "transfer", "airtime", "data"],
     required: true,
   },
-  amount: {
-    type: Number,
+  email: {
+    type: String,
     required: true,
     min: 0,
   },
@@ -14,18 +17,10 @@ const transactionSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
-  recipient: {
-    type: String,
-    required: true, // Not required for deposits
-  },
   status: {
     type: String,
-    enum: ["pending", "succesful", "reversed", "failed"],
+    enum: ["pending", "succesful"],
     required: true,
-  },
-  description: {
-    type: String,
-    trim: true,
   },
 });
 
@@ -135,6 +130,12 @@ const userSchema = new mongoose.Schema(
         min: 0,
         default: 0,
       },
+      referrerBalance: {
+        type: Number,
+        required: true,
+        min: 0,
+        default: 0,
+      },
       accountNumber: {
         type: String,
         required: true,
@@ -146,66 +147,19 @@ const userSchema = new mongoose.Schema(
         required: true,
         trim: true,
       },
-      transactions: [
-        {
-          category: {
-            type: String,
-            enum: [
-              "deposit",
-              "transfer",
-              "airtime purchase",
-              "data subscription",
-            ],
-            required: true,
-          },
-          service: {
-            type: String,
-            enum: ["Airtel", "MTN", "GLO", "9mobile"],
-            required: true,
-          },
-          phoneNumber: {
-            type: Number,
-            required: false,
-            min: 0,
-          },
-          bundle: {
-            type: String,
-            required: false,
-          },
-          validity: {
-            type: String,
-            required: false,
-          },
-          amount: {
-            type: Number,
-            required: true,
-            min: 0,
-          },
-          date: {
-            type: Date,
-            default: Date.now,
-          },
-          sender: {
-            type: String,
-            required: false,
-          },
-          recipient: {
-            type: String,
-            required: false,
-          },
-          status: {
-            type: String,
-            enum: ["pending", "succesful", "reversed", "failed"],
-            required: true,
-          },
-          description: {
-            type: String,
-            trim: true,
-            required: false,
-          },
-        },
-      ],
     },
+    transactions: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Transaction",
+      },
+    ],
+    referralCode: {
+      type: Schema.Types.ObjectId, // Reference to another document's _id
+      ref: "ReferralCode",
+      required: false, // Optional, if not every user has a referral code
+    },
+    referrals: [referralSchema],
   },
   {
     timestamps: true,

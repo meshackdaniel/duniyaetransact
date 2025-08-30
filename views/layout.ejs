@@ -156,7 +156,7 @@
   </head>
   <body>
     <!-- Navigation -->
-     <% if (title != "dashboard" && title != "Transactions" && title != "My Account" && title != "Referral" && title != "Notification Prefrences" && title != "Change Password" && title != "Change Pin" && title != "Airtime" && title != "Data" && title != "Fund Account" && title != "Notifications") { %>
+     <% if (title != "dashboard" && title != "Transactions" && title != "My Account" && title != "Referral" && title != "Notification Prefrences" && title != "Change Password" && title != "Change Pin" && title != "Airtime" && title != "Data" && title != "Fund Account" && title != "Notifications" && title != "nimc-verification" && title != "nimc-demographic-search" && title != "nimc-phone-search" && title != "nimc-nin-search") { %>
     <nav class="bg-white shadow-sm sticky top-0 z-50">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
@@ -209,7 +209,7 @@
       <p></p>
     <% } %>
     <%- body %>
-    <% if (title != "dashboard" && title != "Transactions" && title != "My Account" && title != "Referral" && title != "Notification Prefrences" && title != "Change Password" && title != "Change Pin" && title != "Airtime" && title != "Data" && title != "Fund Account" && title != "Notifications") { %>
+    <% if (title != "dashboard" && title != "Transactions" && title != "My Account" && title != "Referral" && title != "Notification Prefrences" && title != "Change Password" && title != "Change Pin" && title != "Airtime" && title != "Data" && title != "Fund Account" && title != "Notifications" && title != "nimc-verification" && title != "nimc-demographic-search" && title != "nimc-phone-search" && title != "nimc-nin-search") { %>
     <footer class="bg-gray-900 text-white pt-16 pb-8">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
@@ -671,16 +671,8 @@
 
     <script>
       // Form submission
-      const securityForm = document.getElementById("securityForm");
       const successModal = document.getElementById("successModal");
       const closeSuccessModal = document.getElementById("closeSuccessModal");
-
-      securityForm.addEventListener("submit", function (e) {
-        e.preventDefault();
-        // In a real implementation, you would send the form data to your server here
-        successModal.classList.remove("hidden");
-        securityForm.reset();
-      });
 
       
     </script>
@@ -698,14 +690,7 @@
 
       // Form submission
       const contactForm = document.getElementById("contactForm");
-      const newsletterForm = document.getElementById("newsletterForm");
 
-      newsletterForm.addEventListener("submit", function (e) {
-        e.preventDefault();
-        // In a real implementation, you would send the form data to your server here
-        alert("Thank you for subscribing to our newsletter!");
-        newsletterForm.reset();
-      });
 
       // FAQ toggles
       // const faqToggles = document.querySelectorAll(".faq-toggle");
@@ -824,11 +809,6 @@
           "Your purchase has been completed successfully!";
         setTransactionDate();
         successModal.classList.remove("hidden");
-      });
-
-      // Close Success Modal
-      closeSuccessModal.addEventListener("click", () => {
-        successModal.classList.add("hidden");
       });
 
       // Close modals when clicking outside

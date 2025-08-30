@@ -7,6 +7,7 @@ const User = require("../models/user.model");
 const Confirmation = require("../models/confirmation.model");
 const { accepts } = require("express/lib/request");
 const jwt = require("jsonwebtoken");
+const ReferralCode = require("../models/referralCode.model");
 
 router.use(express.json());
 
@@ -28,6 +29,21 @@ const otPayApiKey = process.env.OTPAY_API_KEY;
 const otPayApiSecret = process.env.OTPAY_API_SECRET;
 const otPayBusinessCode = process.env.OTPAY_BUSINESS_CODE;
 
+async function generateRefferalCode() {
+  const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+  let result = "";
+  for (let i = 0; i < 6; i++) {
+    const randomIndex = Math.floor(Math.random() * characters.length);
+    result += characters[randomIndex];
+  }
+  const checkReferrer = await ReferralCode.findOne({ code: result });
+  // Check if the generated code already exists in the database
+  if (!checkReferrer) {
+    generateRefferalCode();
+  }
+  return result;
+}
+
 router.post("/", async (req, res) => {
   const firstName = req.body.firstName;
   const lastName = req.body.lastName;
@@ -38,6 +54,7 @@ router.post("/", async (req, res) => {
   const hashedPin = await bcrypt.hash(req.body.pin, 10);
   // const hashedPin = await bcrypt.hash(req.body.pin, 10);
   const confirmationCode = req.body.confirmationCode;
+
   const otPayBody = {
     business_code: otPayBusinessCode,
     phone: "0" + String(phone),
@@ -48,70 +65,84 @@ router.post("/", async (req, res) => {
   const confirmation = await Confirmation.findOne({
     email: email,
   });
-  if (confirmationCode == confirmation.code) {
-    fetch("https://otpay.ng/api/v1/create_virtual_account", {
-      method: "POST",
-      body: JSON.stringify(otPayBody),
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        "api-key": otPayApiKey,
-        "secret-key": otPayApiSecret,
-      },
-    }).then(async (data) => {
-      console.log(data);
-      if (!data.ok) {
-        throw new Error("Internal server error");
-      } else {
-        try {
-          const newAccount = await data.json();
-          console.log("value of account is", newAccount);
-          const user = {
-            firstName: firstName,
-            lastName: lastName,
-            password: hashedPassword,
-            email: email,
-            phone: String(phone),
-            countryCode: countryCode,
-            profile: "",
-            notifications: [
-              {
-                title: "Welcome to Duniya Comm",
-                text: "Thank you for signing up! We're excited to have you on board. visit your dashboard to explore features. Visit your profile to set up your account.",
-                type: "Greetings",
+  try {
+    if (confirmationCode == confirmation.code) {
+      fetch("https://otpay.ng/api/v1/create_virtual_account", {
+        method: "POST",
+        body: JSON.stringify(otPayBody),
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          "api-key": otPayApiKey,
+          "secret-key": otPayApiSecret,
+        },
+      }).then(async (data) => {
+        if (!data.ok) {
+          throw new Error("Internal server error");
+        } else {
+          try {
+            let code = await generateRefferalCode();
+            console.log("code", code);
+
+            const refCode = await ReferralCode.create({ code });
+            const newAccount = await data.json();
+            console.log("new acccount", newAccount);
+
+            const user = {
+              firstName: firstName,
+              lastName: lastName,
+              password: hashedPassword,
+              email: email,
+              phone: String(phone),
+              countryCode: countryCode,
+              profile: "",
+              notifications: [
+                {
+                  title: "Welcome to Duniya Comm",
+                  text: "Thank you for signing up! We're excited to have you on board. visit your dashboard to explore features. Visit your profile to set up your account.",
+                  type: "Greetings",
+                },
+              ],
+              account: {
+                accountNumber: newAccount.accounts[0].number,
+                bankName: newAccount.accounts[0].bank,
+                accountName: newAccount.accounts[0].name,
+                accountBalance: 0,
+                referrerBalance: 0,
               },
-            ],
-            account: {
-              accountNumber: newAccount.accounts[0].number,
-              bankName: newAccount.accounts[0].bank,
-              accountName: newAccount.accounts[0].name,
-              accountBalance: 0,
-            },
-            pin: hashedPin, // Default pin, should be changed by user
-          };
-          console.log("user", user);
-          const createdUser = await User.create(user);
-          console.log("createduser", createdUser);
-          const username = email;
-          const refreshToken = jwt.sign(
-            { username },
-            process.env.REFRESH_TOKEN_SECRET,
-            { expiresIn: "1d" }
-          );
-          res.cookie("refreshToken", refreshToken, {
-            httpOnly: true,
-            maxAge: 24 * 60 * 60 * 1000, // 1 day
-          });
-          console.log("Account created successfully");
-          return res.status(201).send("Account created successfully");
-        } catch (e) {
-          return res.status(500).send(e);
+              pin: hashedPin, // Default pin, should be changed by user
+              referralCode: refCode,
+            };
+            console.log("user", user);
+            try {
+              await User.create(user);
+            } catch (error) {
+              console.log(error);
+            }
+            const username = email;
+            const refreshToken = jwt.sign(
+              { username },
+              process.env.REFRESH_TOKEN_SECRET,
+              { expiresIn: "1d" }
+            );
+            res.cookie("refreshToken", refreshToken, {
+              httpOnly: true,
+              maxAge: 24 * 60 * 60 * 1000, // 1 day
+            });
+            console.log("Account created successfully");
+            return res.status(201).send("Account created successfully");
+          } catch (e) {
+            return res.status(500).send(e);
+          }
         }
-      }
-    });
-  } else {
-    console.log("Confirmation code is in valid");
-    return res.status(400).send("Invalid confirmation code");
+      });
+    } else {
+      console.log("Confirmation code is in valid");
+      return res.status(400).send("Invalid confirmation code");
+    }
+  } catch (error) {
+    console.error("Error during signup:", error);
+    return res.render("internalservererror", {title: "Server Error",name: "Duniya Comm"});
   }
 });
 

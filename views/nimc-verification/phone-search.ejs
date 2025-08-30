@@ -1,0 +1,1840 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= name %> - Mobile Recharge & Payment Platform</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+      :root {
+        --primary: #4f46e5;
+        --primary-dark: #4338ca;
+        --secondary: #0ea5e9;
+        --accent: #8b5cf6;
+      }
+
+      body {
+        font-family: "Inter", sans-serif;
+        background-color: #f9fafb;
+        max-width: 100vw;
+        overflow-x: hidden;
+      }
+
+      .primary-gradient {
+        background: linear-gradient(
+          135deg,
+          var(--primary) 0%,
+          var(--secondary) 100%
+        );
+      }
+
+      .secondary-gradient {
+        background: linear-gradient(
+          135deg,
+          var(--accent) 0%,
+          var(--secondary) 100%
+        );
+      }
+
+      .card-hover {
+        transition: all 0.3s ease;
+      }
+
+      .card-hover:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+          0 10px 10px -5px rgba(0, 0, 0, 0.04);
+      }
+
+      .app-mockup {
+        position: relative;
+        width: 280px;
+        height: 560px;
+        border-radius: 40px;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        overflow: hidden;
+      }
+
+      .app-screen {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: #fff;
+        overflow: hidden;
+      }
+
+      .app-notch {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 150px;
+        height: 30px;
+        background: #000;
+        border-bottom-left-radius: 15px;
+        border-bottom-right-radius: 15px;
+        z-index: 10;
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-10px);
+        }
+      }
+
+      .float-animation {
+        animation: float 6s ease-in-out infinite;
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.7;
+        }
+      }
+
+      .pulse-animation {
+        animation: pulse 2s infinite;
+      }
+
+      .service-icon {
+        transition: all 0.3s ease;
+      }
+
+      .card-hover:hover .service-icon {
+        transform: scale(1.1);
+      }
+
+      .custom-scrollbar::-webkit-scrollbar {
+        width: 6px;
+      }
+
+      .custom-scrollbar::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 10px;
+      }
+
+      .custom-scrollbar::-webkit-scrollbar-thumb {
+        background: #c7d2fe;
+        border-radius: 10px;
+      }
+
+      .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+        background: #a5b4fc;
+      }
+
+      .feature-card {
+        transition: all 0.3s ease;
+      }
+
+      .feature-card:hover {
+        transform: translateY(-5px);
+      }
+
+      .feature-icon {
+        transition: all 0.3s ease;
+      }
+
+      .feature-card:hover .feature-icon {
+        transform: scale(1.1) rotate(10deg);
+      }
+
+      /* About */
+      .gradient-bg {
+        background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+      }
+      .gradient-text {
+        background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+      .team-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+          0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      }
+      .stat-card {
+        transition: all 0.3s ease;
+      }
+      .stat-card:hover {
+        transform: translateY(-5px);
+      }
+      .timeline-dot {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+        position: absolute;
+        left: -10px;
+        top: 0;
+      }
+      .timeline-line {
+        position: absolute;
+        left: 0;
+        top: 20px;
+        bottom: 0;
+        width: 1px;
+        background-color: #e5e7eb;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="flex min-h-screen">
+      <!-- Sidebar -->
+      <aside
+        id="sidebar"
+        class="sidebar fixed inset-y-0 left-0 z-40 w-screen md:w-64 bg-white shadow-lg pt-5 hidden pb-4 lg:flex flex-col"
+      >
+        <nav class="flex-grow px-2 mt-20">
+          <div class="space-y-1">
+            <a
+              href="#"
+              class="sidebar-link active flex items-center px-4 py-3 text-gray-700 rounded-lg"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5 mr-3 text-indigo-600"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+                />
+              </svg>
+              Dashboard
+            </a>
+            <a
+              href="/transactions"
+              class="sidebar-link flex items-center px-4 py-3 text-gray-700 rounded-lg"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5 mr-3 text-gray-500"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
+              </svg>
+              Transactions
+            </a>
+            <a
+              href="/my-account"
+              class="sidebar-link flex items-center px-4 py-3 text-gray-700 rounded-lg"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5 mr-3 text-gray-500"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                />
+              </svg>
+              My Account
+            </a>
+            <a
+              href="/help-and-support"
+              class="sidebar-link flex items-center px-4 py-3 text-gray-700 rounded-lg"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5 mr-3 text-gray-500"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
+              </svg>
+              Help & Support
+            </a>
+          </div>
+
+          <div class="mt-8 pt-4 border-t border-gray-200">
+            <h3
+              class="px-4 text-xs font-semibold text-gray-500 uppercase tracking-wider"
+            >
+              Quick Links
+            </h3>
+            <div class="mt-2 space-y-1">
+              <a
+                href="#"
+                class="sidebar-link flex items-center px-4 py-2 text-sm text-gray-700 rounded-lg"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-4 w-4 mr-3 text-gray-500"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"
+                  />
+                </svg>
+                Add Payment Method
+              </a>
+              <a
+                href="/transactions"
+                class="sidebar-link flex items-center px-4 py-2 text-sm text-gray-700 rounded-lg"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-4 w-4 mr-3 text-gray-500"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                  />
+                </svg>
+                Transaction History
+              </a>
+              <a
+                href="/change-password"
+                class="sidebar-link flex items-center px-4 py-2 text-sm text-gray-700 rounded-lg"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-4 w-4 mr-3 text-gray-500"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
+                  />
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                  />
+                </svg>
+                Change Password
+              </a>
+              <a
+                href="/referral"
+                class="sidebar-link flex items-center px-4 py-2 text-sm text-gray-700 rounded-lg"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-4 w-4 mr-3 text-gray-500"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
+                  />
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                  />
+                </svg>
+                Referral
+              </a>
+              <a
+                href="/logout"
+                class="sidebar-link flex items-center px-4 py-2 text-sm text-red-700 rounded-lg"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="currentColor"
+                  class="bi bi-box-arrow-left h-4 w-4 mr-3 text-red-700"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M6 12.5a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v2a.5.5 0 0 1-1 0v-2A1.5 1.5 0 0 1 6.5 2h8A1.5 1.5 0 0 1 16 3.5v9a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 5 12.5v-2a.5.5 0 0 1 1 0z"
+                  />
+                  <path
+                    fill-rule="evenodd"
+                    d="M.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L1.707 7.5H10.5a.5.5 0 0 1 0 1H1.707l2.147 2.146a.5.5 0 0 1-.708.708z"
+                  />
+                </svg>
+                Logout
+              </a>
+            </div>
+          </div>
+        </nav>
+
+        <div class="px-4 mt-6 absolute w-full bottom-0">
+          <div class="flex items-center p-4 bg-indigo-50 rounded-lg">
+            <img
+              src="<%= user.profile %>"
+              alt="User"
+              class="h-10 w-10 rounded-full border-2 border-indigo-200"
+            />
+            <div class="ml-3">
+              <p class="text-sm font-medium text-gray-800"><%= user.name %></p>
+              <p class="text-xs text-gray-500"><%= user.email %></p>
+            </div>
+            <button class="ml-auto text-gray-500 hover:text-gray-700">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
+                />
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Sidebar Mobile -->
+
+      <!-- Main Content -->
+      <div class="flex-1 lg:ml-64 pt-20 pb-4" id="mainContent">
+        <!-- Top Navigation -->
+        <header class="fixed top-0 right-0 left-0 z-50 bg-white shadow-sm z-30">
+          <div class="md:px-8 py-4 flex items-center justify-between">
+            <div class="flex px-4 md:px-0 items-center">
+              <div class="hidden lg:flex items-center" id="logoContainer">
+                <div class="gradient-bg rounded-lg p-2 mr-2">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-6 w-6 text-white"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M13 10V3L4 14h7v7l9-11h-7z"
+                    />
+                  </svg>
+                </div>
+                <h1 class="text-xl font-bold text-gray-800"><%= name %></h1>
+              </div>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                id="sidemenuLarge"
+                fill="currentColor"
+                class="bi bi-list lg:ms-16 w-10 h-10 text-blue-600 hidden md:block"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"
+                />
+              </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                id="sidemenu"
+                fill="currentColor"
+                class="bi bi-list w-10 h-10 text-blue-600 md:hidden"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"
+                />
+              </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="currentColor"
+                id="cancelSideMenu"
+                class="bi bi-x-lg w-10 h-10 text-blue-600 hidden"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"
+                />
+              </svg>
+              <h1 class="text-2xl ms-4 font-bold text-gray-800">
+                NIMC Phone Search
+              </h1>
+            </div>
+
+            <div class="flex items-center space-x-4 me-2">
+              <div class="relative">
+                <button
+                  id="notificationButton"
+                  class="p-1 rounded-full text-gray-500 relative hover:text-gray-700 hover:bg-gray-100 focus:outline-none"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-8 w-8"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
+                    />
+                  </svg>
+                  <span
+                    class="absolute bottom-0 right-0 notification-badge flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-xs font-medium text-white"
+                    >3</span
+                  >
+                </button>
+
+                <!-- Notification Dropdown -->
+                <div
+                  id="notificationDropdown"
+                  class="notification-dropdown hidden w-screen md:w-96 absolute right-0 mt-2 bg-white rounded-lg shadow-lg overflow-hidden z-50"
+                >
+                  <div class="px-4 py-3 border-b border-gray-200">
+                    <h3 class="text-sm font-semibold text-gray-800">
+                      Notifications
+                    </h3>
+                  </div>
+                  <div class="divide-y divide-gray-200">
+                    <% user.notifications.forEach(notification => { %>
+                    <a href="#" class="block px-4 py-3 hover:bg-gray-50">
+                      <div class="flex items-start">
+                        <div
+                          class="flex-shrink-0 bg-green-100 rounded-full p-1"
+                        >
+                          <% switch(notification.type) { case 'Greetings' : %>
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="currentColor"
+                            class="bi text-green-500 h-5 w-5 bi-balloon"
+                            viewBox="0 0 16 16"
+                          >
+                            <path
+                              fill-rule="evenodd"
+                              d="M8 9.984C10.403 9.506 12 7.48 12 5a4 4 0 0 0-8 0c0 2.48 1.597 4.506 4 4.984M13 5c0 2.837-1.789 5.227-4.52 5.901l.244.487a.25.25 0 1 1-.448.224l-.008-.017c.008.11.02.202.037.29.054.27.161.488.419 1.003.288.578.235 1.15.076 1.629-.157.469-.422.867-.588 1.115l-.004.007a.25.25 0 1 1-.416-.278c.168-.252.4-.6.533-1.003.133-.396.163-.824-.049-1.246l-.013-.028c-.24-.48-.38-.758-.448-1.102a3 3 0 0 1-.052-.45l-.04.08a.25.25 0 1 1-.447-.224l.244-.487C4.789 10.227 3 7.837 3 5a5 5 0 0 1 10 0m-6.938-.495a2 2 0 0 1 1.443-1.443C7.773 2.994 8 2.776 8 2.5s-.226-.504-.498-.459a3 3 0 0 0-2.46 2.461c-.046.272.182.498.458.498s.494-.227.562-.495"
+                            />
+                          </svg>
+                          <% break; case 'Pending' : %>
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            class="lucide lucide-circle-dashed-icon lucide-circle-dashed h-5 w-5 text-yellow-500"
+                          >
+                            <path d="M10.1 2.182a10 10 0 0 1 3.8 0" />
+                            <path d="M13.9 21.818a10 10 0 0 1-3.8 0" />
+                            <path d="M17.609 3.721a10 10 0 0 1 2.69 2.7" />
+                            <path d="M2.182 13.9a10 10 0 0 1 0-3.8" />
+                            <path d="M20.279 17.609a10 10 0 0 1-2.7 2.69" />
+                            <path d="M21.818 10.1a10 10 0 0 1 0 3.8" />
+                            <path d="M3.721 6.391a10 10 0 0 1 2.7-2.69" />
+                            <path d="M6.391 20.279a10 10 0 0 1-2.69-2.7" />
+                          </svg>
+                          <% break; case 'Security' : %>
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            class="lucide lucide-circle-dashed-icon lucide-circle-dashed h-5 w-5 text-yellow-500"
+                          >
+                            <path d="M10.1 2.182a10 10 0 0 1 3.8 0" />
+                            <path d="M13.9 21.818a10 10 0 0 1-3.8 0" />
+                            <path d="M17.609 3.721a10 10 0 0 1 2.69 2.7" />
+                            <path d="M2.182 13.9a10 10 0 0 1 0-3.8" />
+                            <path d="M20.279 17.609a10 10 0 0 1-2.7 2.69" />
+                            <path d="M21.818 10.1a10 10 0 0 1 0 3.8" />
+                            <path d="M3.721 6.391a10 10 0 0 1 2.7-2.69" />
+                            <path d="M6.391 20.279a10 10 0 0 1-2.69-2.7" />
+                          </svg>
+                          <% break; case 'Succesful' : %>
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            class="h-5 w-5 text-green-500"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                          >
+                            <path
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="2"
+                              d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                            />
+                          </svg>
+                          <% break; case 'Profile' : %>
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            class="h-5 w-5 text-blue-500"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                          >
+                            <path
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="2"
+                              d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                            />
+                          </svg>
+                          <% break; case 'Failed' : %>
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            class="h-5 w-5 text-red-500"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                          >
+                            <path
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="2"
+                              d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                            />
+                          </svg>
+                          <% break; } %>
+                        </div>
+                        <div class="ml-3">
+                          <p class="text-sm font-medium text-gray-800">
+                            <%= notification.title %>
+                          </p>
+                          <p class="text-xs text-gray-500 mt-1">
+                            <%= notification.text %>
+                          </p>
+                          <p class="text-xs text-gray-400 mt-1">
+                            <%= notification.time %>
+                          </p>
+                        </div>
+                      </div>
+                    </a>
+                    <% }); %>
+                  </div>
+                  <div class="px-4 py-2 border-t border-gray-200 text-center">
+                    <a
+                      href="/notifications"
+                      class="text-sm font-medium text-indigo-600 hover:text-indigo-800"
+                      >View all notifications</a
+                    >
+                  </div>
+                </div>
+              </div>
+
+              <div class="hidden md:flex items-center">
+                <img
+                  src="<%= user.profile %>"
+                  alt="User"
+                  class="h-8 w-8 rounded-full"
+                />
+                <span class="ml-2 text-sm font-medium text-gray-700"
+                  ><%= user.name %></span
+                >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-4 w-4 ml-1 text-gray-500"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M19 9l-7 7-7-7"
+                  />
+                </svg>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <main class="px-4 sm:px-6 lg:px-8 py-8">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div
+              class="feature-card bg-white rounded-xl shadow-md p-6 hover:-translate-y-2 transition-all flex flex-col"
+            >
+              <div>
+                <img
+                  src="../images/premiumninslip.png"
+                  class="w-full border-2 rounded-lg border-indigo-200"
+                />
+              </div>
+              <div class="flex justify-between items-center mb-2">
+                <span class="font-semibold text-lg text-gray-800 mr-2 mt-2"
+                  >Premium NIN slip</span
+                >
+                <button
+                  class="px-2 py-1 text-base rounded bg-red-100 text-red-700 font-bold"
+                >
+                  Price: ₦320
+                </button>
+              </div>
+              <p class="text-gray-500 text-sm mb-4">
+                <span class="font-bold">NOTE:</span> You will be charged
+                <span class="text-red-700 font-bold">₦50</span> if no record is
+                found
+              </p>
+              <div class="flex items-center mt-auto">
+                <button
+                  id="premiumNinSlipBtn"
+                  class="bg-indigo-600 text-white w-full text-center px-4 py-2 rounded-lg font-medium hover:bg-indigo-700 items-center"
+                >
+                  Use Service
+                </button>
+              </div>
+            </div>
+
+            <div
+              class="feature-card bg-white rounded-xl shadow-md p-6 hover:-translate-y-2 transition-all flex flex-col"
+            >
+              <div>
+                <img
+                  src="../images/improvedninslip.png"
+                  class="w-full border-2 rounded-lg border-indigo-200"
+                />
+              </div>
+              <div class="flex justify-between items-center mb-2">
+                <span class="font-semibold text-lg text-gray-800 mr-2 mt-2"
+                  >Improved NIN slip</span
+                >
+                <button
+                  class="px-2 py-1 text-base rounded bg-red-100 text-red-700 font-bold"
+                >
+                  Price: ₦250
+                </button>
+              </div>
+              <p class="text-gray-500 text-sm mb-4">
+                <span class="font-bold">NOTE:</span> You will be charged
+                <span class="text-red-700 font-bold">₦50</span> if no record is
+                found
+              </p>
+              <div class="flex items-center mt-auto">
+                <button
+                  id="improvedNinSlipBtn"
+                  class="bg-indigo-600 text-white w-full text-center px-4 py-2 rounded-lg font-medium hover:bg-indigo-700 items-center"
+                >
+                  Use Service
+                </button>
+              </div>
+            </div>
+
+            <div
+              class="feature-card bg-white rounded-xl shadow-md p-6 hover:-translate-y-2 transition-all flex flex-col"
+            >
+              <div>
+                <img
+                  src="../images/regularninslip.jpg"
+                  class="w-full border-2 rounded-lg border-indigo-200"
+                />
+              </div>
+              <div class="flex justify-between items-center mb-2">
+                <span class="font-semibold text-lg text-gray-800 mr-2 mt-2"
+                  >Regular NIN slip</span
+                >
+                <button
+                  class="px-2 py-1 text-base rounded bg-red-100 text-red-700 font-bold"
+                >
+                  Price: ₦200
+                </button>
+              </div>
+              <p class="text-gray-500 text-sm mb-4">
+                <span class="font-bold">NOTE:</span> You will be charged
+                <span class="text-red-700 font-bold">₦50</span> if no record is
+                found
+              </p>
+              <div class="flex items-center mt-auto">
+                <button
+                  id="regularNinSlipBtn"
+                  class="bg-indigo-600 text-white w-full text-center px-4 py-2 rounded-lg font-medium hover:bg-indigo-700 items-center"
+                >
+                  Use Service
+                </button>
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+
+    <div
+      id="improvedNinModal"
+      class="ninModal fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center z-50 hidden"
+    >
+      <div
+        class="bg-white rounded-xl shadow-xl max-w-lg w-full mx-4 overflow-hidden"
+      >
+        <div
+          class="px-6 py-4 bg-indigo-700 text-white flex justify-between items-center"
+        >
+          <h3 class="text-lg font-semibold">Improved NIN Slip</h3>
+          <button class="closeNinModal text-white hover:text-gray-200">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
+          </button>
+        </div>
+        <div class="px-6 py-4">
+          <form id="getImprovedNinSlip" method="post">
+            <div class="space-t-6">
+              <div>
+                <label
+                  for="improvedNin"
+                  class="block text-sm font-medium text-gray-700 mb-2"
+                  >Phone Number</label
+                >
+                <input
+                  type="number"
+                  id="improvedNin"
+                  name="improvedNin"
+                  class="w-full px-4 py-3 rounded-lg border border-gray-300 input-focus focus:outline-none"
+                  placeholder="Enter your Phone number"
+                  required
+                />
+              </div>
+
+              <p id="improvedNinError" class="text-red-800 hidden">
+                Invalid phone number
+              </p>
+              <button
+                class="flex-1 mt-3 w-full py-2 bg-indigo-700 text-white rounded-lg font-medium hover:bg-indigo-600 transition-colors flex items-center justify-center"
+              >
+                <div class="flex items-center" id="improvedNinDownload">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-5 w-5 mr-2"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
+                    />
+                  </svg>
+                  Download NIN
+                </div>
+                <span class="animate-spin hidden" id="improvedNinSpin">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="lucide lucide-loader-circle-icon lucide-loader-circle"
+                  >
+                    <path d="M21 12a9 9 0 1 1-6.219-8.56" />
+                  </svg>
+                </span>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div
+      id="premiumNinModal"
+      class="ninModal fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center z-50 hidden"
+    >
+      <div
+        class="bg-white rounded-xl shadow-xl max-w-lg w-full mx-4 overflow-hidden"
+      >
+        <div
+          class="px-6 py-4 bg-indigo-700 text-white flex justify-between items-center"
+        >
+          <h3 class="text-lg font-semibold">Premium NIN Slip</h3>
+          <button class="closeNinModal text-white hover:text-gray-200">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
+          </button>
+        </div>
+        <div class="px-6 py-4">
+          <form id="getPremiumNinSlip" method="post">
+            <div class="space-t-6">
+              <div>
+                <label
+                  for="premiumNin"
+                  class="block text-sm font-medium text-gray-700 mb-2"
+                  >Phone Number</label
+                >
+                <input
+                  type="number"
+                  id="premiumNin"
+                  name="premiumNin"
+                  class="w-full px-4 py-3 rounded-lg border border-gray-300 input-focus focus:outline-none"
+                  placeholder="Enter your Phone number"
+                  required
+                />
+              </div>
+              <p id="premiumNinError" class="text-red-800 hidden">
+                Invalid phone number
+              </p>
+              <button
+                class="flex-1 mt-3 w-full py-2 bg-indigo-700 text-white rounded-lg font-medium hover:bg-indigo-600 transition-colors flex items-center justify-center"
+              >
+                <div class="flex items-center" id="premiumNinDownload">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-5 w-5 mr-2"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
+                    />
+                  </svg>
+                  Download NIN
+                </div>
+                <span class="animate-spin hidden" id="premiumNinSpin">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="lucide lucide-loader-circle-icon lucide-loader-circle"
+                  >
+                    <path d="M21 12a9 9 0 1 1-6.219-8.56" />
+                  </svg>
+                </span>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div
+      id="regularNinModal"
+      class="ninModal fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center z-50 hidden"
+    >
+      <div
+        class="bg-white rounded-xl shadow-xl max-w-lg w-full mx-4 overflow-hidden"
+      >
+        <div
+          class="px-6 py-4 bg-indigo-700 text-white flex justify-between items-center"
+        >
+          <h3 class="text-lg font-semibold">Regular NIN Slip</h3>
+          <button class="closeNinModal text-white hover:text-gray-200">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
+          </button>
+        </div>
+        <div class="px-6 py-4">
+          <form id="getRegularNinSlip" method="post">
+            <div class="space-t-6">
+              <div>
+                <label
+                  for="regularNin"
+                  class="block text-sm font-medium text-gray-700 mb-2"
+                  >Phone Number</label
+                >
+                <input
+                  type="number"
+                  id="regularNin"
+                  name="regularNin"
+                  class="w-full px-4 py-3 rounded-lg border border-gray-300 input-focus focus:outline-none"
+                  placeholder="Enter your Phone number"
+                  required
+                />
+              </div>
+
+              <p id="regularNinError" class="text-red-800 hidden">
+                Invalid phone number
+              </p>
+            </div>
+            <button
+              class="flex-1 mt-3 w-full py-2 bg-indigo-700 text-white rounded-lg font-medium hover:bg-indigo-600 transition-colors flex items-center justify-center"
+            >
+              <div class="flex items-center" id="regularNinDownload">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-5 w-5 mr-2"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
+                  />
+                </svg>
+                Download NIN
+              </div>
+              <span class="animate-spin hidden" id="regularNinSpin">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="lucide lucide-loader-circle-icon lucide-loader-circle"
+                >
+                  <path d="M21 12a9 9 0 1 1-6.219-8.56" />
+                </svg>
+              </span>
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div
+      id="ninDetails"
+      class="ninModal fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center z-50 hidden"
+    >
+      <div
+        class="bg-white max-h-[80vh] rounded-xl shadow-xl max-w-lg w-full mx-4 overflow-y-scroll"
+      >
+        <div
+          class="px-6 py-4 bg-indigo-700 text-white flex justify-between items-center"
+        >
+          <h3 class="text-lg font-semibold">User Data</h3>
+          <button class="closeNinModal text-white hover:text-gray-200">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
+          </button>
+        </div>
+        <div class="px-6 py-4">
+          <form id="premiumninslipform" method="post">
+            <div class="space-y-3">
+              <div>
+                <img
+                  src="/images/passport.jpg"
+                  class="w-40 block mx-auto mb-4"
+                  alt=""
+                />
+              </div>
+              <div>
+                <label
+                  for="ninData"
+                  class="block text-sm font-medium text-gray-700 mb-2"
+                  >NIN Number</label
+                >
+                <input
+                  type="text"
+                  id="ninData"
+                  name="ninData"
+                  class="w-full px-4 py-3 rounded-lg border border-gray-300 input-focus focus:outline-none"
+                  value=""
+                  disabled
+                />
+              </div>
+              <div>
+                <label
+                  for="dobData"
+                  class="block text-sm font-medium text-gray-700 mb-2"
+                  >Date of Birth</label
+                >
+                <input
+                  type="text"
+                  id="dobData"
+                  name="dobData"
+                  class="w-full px-4 py-3 rounded-lg border border-gray-300 input-focus focus:outline-none"
+                  value=""
+                  disabled
+                />
+              </div>
+              <div>
+                <label
+                  for="titleData"
+                  class="block text-sm font-medium text-gray-700 mb-2"
+                  >Title</label
+                >
+                <input
+                  type="text"
+                  id="titleData"
+                  name="titleData"
+                  class="w-full px-4 py-3 rounded-lg border border-gray-300 input-focus focus:outline-none"
+                  value=""
+                  disabled
+                />
+              </div>
+              <div>
+                <label
+                  for="firstNameData"
+                  class="block text-sm font-medium text-gray-700 mb-2"
+                  >First Name</label
+                >
+                <input
+                  type="text"
+                  id="firstNameData"
+                  name="firstNameData"
+                  class="w-full px-4 py-3 rounded-lg border border-gray-300 input-focus focus:outline-none"
+                  value=""
+                  disabled
+                />
+              </div>
+              <div>
+                <label
+                  for="middleNameData"
+                  class="block text-sm font-medium text-gray-700 mb-2"
+                  >Middle Name</label
+                >
+                <input
+                  type="text"
+                  id="middleNameData"
+                  name="middleNameData"
+                  class="w-full px-4 py-3 rounded-lg border border-gray-300 input-focus focus:outline-none"
+                  value=""
+                  disabled
+                />
+              </div>
+
+              <div>
+                <label
+                  for="surnameData"
+                  class="block text-sm font-medium text-gray-700 mb-2"
+                  >Surname</label
+                >
+                <input
+                  type="text"
+                  id="surnameData"
+                  name="surnameData"
+                  class="w-full px-4 py-3 rounded-lg border border-gray-300 input-focus focus:outline-none"
+                  value=""
+                  disabled
+                />
+              </div>
+
+              <div>
+                <label
+                  for="genderData"
+                  class="block text-sm font-medium text-gray-700 mb-2"
+                  >Gender</label
+                >
+                <input
+                  type="text"
+                  id="genderData"
+                  name="genderData"
+                  class="w-full px-4 py-3 rounded-lg border border-gray-300 input-focus focus:outline-none"
+                  value=""
+                  disabled
+                />
+              </div>
+
+              <div class="hidden">
+                <label
+                  for="typeData"
+                  class="block text-sm font-medium text-gray-700 mb-2"
+                  >Type</label
+                >
+                <input
+                  type="text"
+                  id="typeData"
+                  name="typeData"
+                  class="w-full px-4 py-3 rounded-lg border border-gray-300 input-focus focus:outline-none"
+                  value=""
+                  disabled
+                />
+              </div>
+
+              <div>
+                <label
+                  for="phoneData"
+                  class="block text-sm font-medium text-gray-700 mb-2"
+                  >Phone Number</label
+                >
+                <input
+                  type="text"
+                  id="phoneData"
+                  name="phoneData"
+                  class="w-full px-4 py-3 rounded-lg border border-gray-300 input-focus focus:outline-none"
+                  value=""
+                  disabled
+                />
+              </div>
+
+              <div>
+                <label
+                  for="trackingIdData"
+                  class="block text-sm font-medium text-gray-700 mb-2"
+                  >Traking ID</label
+                >
+                <input
+                  type="text"
+                  id="trackingIdData"
+                  name="trackingIdData"
+                  class="w-full px-4 py-3 rounded-lg border border-gray-300 input-focus focus:outline-none"
+                  value=""
+                  disabled
+                />
+              </div>
+
+              <div>
+                <label
+                  for="residenceAddressData"
+                  class="block text-sm font-medium text-gray-700 mb-2"
+                  >Residence Address</label
+                >
+                <input
+                  type="text"
+                  id="residenceAddressData"
+                  name="residenceAddressData"
+                  class="w-full px-4 py-3 rounded-lg border border-gray-300 input-focus focus:outline-none"
+                  value=""
+                  disabled
+                />
+              </div>
+
+              <div>
+                <label
+                  for="residenceTownData"
+                  class="block text-sm font-medium text-gray-700 mb-2"
+                  >Residence Town</label
+                >
+                <input
+                  type="text"
+                  id="residenceTownData"
+                  name="residenceTownData"
+                  class="w-full px-4 py-3 rounded-lg border border-gray-300 input-focus focus:outline-none"
+                  value=""
+                  disabled
+                />
+              </div>
+
+              <div>
+                <label
+                  for="residenceLgaData"
+                  class="block text-sm font-medium text-gray-700 mb-2"
+                  >Residence LGA</label
+                >
+                <input
+                  type="text"
+                  id="residenceLgaData"
+                  name="residenceLgaData"
+                  class="w-full px-4 py-3 rounded-lg border border-gray-300 input-focus focus:outline-none"
+                  value=""
+                  disabled
+                />
+              </div>
+
+              <div>
+                <label
+                  for="residenceStateData"
+                  class="block text-sm font-medium text-gray-700 mb-2"
+                  >Residence State</label
+                >
+                <input
+                  type="text"
+                  id="residenceStateData"
+                  name="residenceStateData"
+                  class="w-full px-4 py-3 rounded-lg border border-gray-300 input-focus focus:outline-none"
+                  value=""
+                  disabled
+                />
+              </div>
+
+              <div>
+                <label
+                  for="religionData"
+                  class="block text-sm font-medium text-gray-700 mb-2"
+                  >Religion</label
+                >
+                <input
+                  type="text"
+                  id="religionData"
+                  name="religionData"
+                  class="w-full px-4 py-3 rounded-lg border border-gray-300 input-focus focus:outline-none"
+                  value=""
+                  disabled
+                />
+              </div>
+
+              <div>
+                <label
+                  for="employmentStatusData"
+                  class="block text-sm font-medium text-gray-700 mb-2"
+                  >Employment Status</label
+                >
+                <input
+                  type="text"
+                  id="employmentStatusData"
+                  name="employmentStatusData"
+                  class="w-full px-4 py-3 rounded-lg border border-gray-300 input-focus focus:outline-none"
+                  value=""
+                  disabled
+                />
+              </div>
+
+              <div>
+                <label
+                  for="professionData"
+                  class="block text-sm font-medium text-gray-700 mb-2"
+                  >Profession</label
+                >
+                <input
+                  type="text"
+                  id="professionData"
+                  name="professionData"
+                  class="w-full px-4 py-3 rounded-lg border border-gray-300 input-focus focus:outline-none"
+                  value=""
+                  disabled
+                />
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="px-6 pb-6">
+          <div class="flex space-x-3">
+            <button
+              id="downloadNinAgain"
+              class="flex-1 py-2 bg-indigo-700 text-white rounded-lg font-medium hover:bg-indigo-600 transition-colors flex items-center justify-center"
+            >
+              <div class="flex items-center" id="downloadAgain">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-5 w-5 mr-2"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
+                  />
+                </svg>
+                Download NIN
+              </div>
+              <span class="animate-spin hidden" id="downloadAgainSpin">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="lucide lucide-loader-circle-icon lucide-loader-circle"
+                >
+                  <path d="M21 12a9 9 0 1 1-6.219-8.56" />
+                </svg>
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      document
+        .getElementById("premiumNinSlipBtn")
+        .addEventListener("click", () => {
+          document.getElementById("premiumNinModal").classList.remove("hidden");
+        });
+      document
+        .getElementById("improvedNinSlipBtn")
+        .addEventListener("click", () => {
+          document
+            .getElementById("improvedNinModal")
+            .classList.remove("hidden");
+        });
+
+      document
+        .getElementById("regularNinSlipBtn")
+        .addEventListener("click", () => {
+          document.getElementById("regularNinModal").classList.remove("hidden");
+        });
+
+      document.querySelectorAll(".closeNinModal").forEach((button) => {
+        button.addEventListener("click", () => {
+          document.querySelectorAll(".ninModal").forEach((element) => {
+            element.classList.add("hidden");
+          });
+        });
+      });
+
+      async function getNin(nin, type) {
+        if (nin) {
+          fetch("/api/get-nin/", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Accept: "application/json",
+            },
+            body: JSON.stringify({ phone: nin, type, email: "<%= user.email %>" }),
+          }).then(async (res) => {
+            const response = await res.json();
+            if (response.status === true) {
+              document.querySelectorAll(".closeNinModal").forEach((button) => {
+                button.addEventListener("click", () => {
+                  document.querySelectorAll(".ninModal").forEach((element) => {
+                    element.classList.add("hidden");
+                  });
+                });
+              });
+              document.getElementById("ninDetails").classList.remove("hidden");
+              document.getElementById("ninData").value = response.data.nin;
+              document.getElementById("dobData").value =
+                response.data.birthdate;
+              document.getElementById("titleData").value = response.data.title;
+              document.getElementById("firstNameData").value =
+                response.data.firstname;
+              document.getElementById("middleNameData").value =
+                response.data.middlename;
+              document.getElementById("surnameData").value =
+                response.data.surname;
+              if (response.data.gender == "m") {
+                document.getElementById("genderData").value = "Male";
+              } else if (response.data.gender == "f") {
+                document.getElementById("genderData").value = "Female";
+              }
+              document.getElementById("phoneData").value =
+                response.data.telephoneno;
+              document.getElementById("trackingIdData").value =
+                response.data.trackingId;
+              document.getElementById("residenceAddressData").value =
+                response.data.residence_AdressLine1;
+              document.getElementById("residenceTownData").value =
+                response.data.residence_Town;
+              document.getElementById("residenceLgaData").value =
+                response.data.residence_lga;
+              document.getElementById("residenceStateData").value =
+                response.data.residence_state;
+              document.getElementById("religionData").value =
+                response.data.religion;
+              document.getElementById("employmentStatusData").value =
+                response.data.emplymentstatus;
+              document.getElementById("professionData").value =
+                response.data.profession;
+              document.getElementById("typeData").value = response.type;
+
+              try {
+                const createNin = await fetch("/api/create-nin/", {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                  body: JSON.stringify({
+                    type: response.type,
+                    nin: response.data.nin,
+                    firstname: response.data.firstname.toUpperCase(),
+                    surname: response.data.surname.toUpperCase(),
+                    middlename: response.data.middlename.toUpperCase(),
+                    dateOfBirth: response.data.birthdate,
+                    issueDate: response.data.issueDate,
+                    gender: response.data.gender.toUpperCase(),
+                    address: response.data.residence_AdressLine1.toUpperCase(),
+                    state: response.data.residence_state.toUpperCase(),
+                  }),
+                });
+
+                // Check if response is OK
+                if (!createNin.ok) {
+                  // Try to parse error as JSON
+                  const contentType = response.headers.get("content-type");
+                  if (contentType && contentType.includes("application/json")) {
+                    const errorData = await response.json();
+                    throw new Error(
+                      errorData.message ||
+                        `Request failed with status ${response.status}`
+                    );
+                  }
+                  throw new Error(
+                    `Request failed with status ${response.status}`
+                  );
+                }
+
+                // Verify response is a PDF
+                const contentType = createNin.headers.get("content-type");
+                if (!contentType || !contentType.includes("application/pdf")) {
+                  throw new Error("Unexpected response type. Expected PDF.");
+                }
+
+                // Get the filename from Content-Disposition or fallback
+                let downloadFilename = "premium_nin.pdf";
+                const disposition = createNin.headers.get(
+                  "content-disposition"
+                );
+                if (disposition && disposition.includes("filename=")) {
+                  const matches = disposition.match(/filename="([^"]+)"/);
+                  if (matches && matches[1]) {
+                    downloadFilename = matches[1];
+                  }
+                }
+
+                // Get the response as a Blob
+                const blob = await createNin.blob();
+
+                // Create a temporary URL for the Blob
+                const url = window.URL.createObjectURL(blob);
+
+                // Create a link element to trigger the download
+                const link = document.createElement("a");
+                link.href = url;
+                link.download = downloadFilename;
+                document.body.appendChild(link);
+                link.click();
+
+                // Clean up
+                document.body.removeChild(link);
+                window.URL.revokeObjectURL(url);
+
+                console.log("PDF downloaded successfully");
+              } catch (error) {
+                console.error("Error downloading PDF:", error.message);
+                alert("Failed to download PDF: " + error.message);
+              }
+            }
+          });
+        }
+      }
+
+      async function getNinAgain() {
+        const nin = document.getElementById("ninData").value;
+        const firstname = document.getElementById("firstNameData").value;
+        const surname = document.getElementById("surnameData").value;
+        const middlename = document.getElementById("middleNameData").value;
+        const dateOfBirth = document.getElementById("dobData").value;
+        const gender = document.getElementById("genderData").value;
+        const ninType = document.getElementById("typeData").value;
+        const address = document.getElementById("residenceAddressData").value;
+        const state = document.getElementById("residenceStateData").value;
+
+        try {
+          const createNin = await fetch("/api/create-nin/", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              type: ninType,
+              nin: nin,
+              firstname: firstname.toUpperCase(),
+              surname: surname.toUpperCase(),
+              middlename: middlename.toUpperCase(),
+              dateOfBirth: dateOfBirth,
+              gender: gender.toUpperCase(),
+              address: address.toUpperCase(),
+              state: state.toUpperCase(),
+            }),
+          });
+
+          // Check if response is OK
+          if (!createNin.ok) {
+            // Try to parse error as JSON
+            const contentType = response.headers.get("content-type");
+            if (contentType && contentType.includes("application/json")) {
+              const errorData = await response.json();
+              throw new Error(
+                errorData.message ||
+                  `Request failed with status ${response.status}`
+              );
+            }
+            throw new Error(`Request failed with status ${response.status}`);
+          }
+
+          // Verify response is a PDF
+          const contentType = createNin.headers.get("content-type");
+          if (!contentType || !contentType.includes("application/pdf")) {
+            throw new Error("Unexpected response type. Expected PDF.");
+          }
+
+          // Get the filename from Content-Disposition or fallback
+          let downloadFilename = "premium_nin.pdf";
+          const disposition = createNin.headers.get("content-disposition");
+          if (disposition && disposition.includes("filename=")) {
+            const matches = disposition.match(/filename="([^"]+)"/);
+            if (matches && matches[1]) {
+              downloadFilename = matches[1];
+            }
+          }
+
+          // Get the response as a Blob
+          const blob = await createNin.blob();
+
+          // Create a temporary URL for the Blob
+          const url = window.URL.createObjectURL(blob);
+
+          // Create a link element to trigger the download
+          const link = document.createElement("a");
+          link.href = url;
+          link.download = downloadFilename;
+          document.body.appendChild(link);
+          link.click();
+
+          // Clean up
+          document.body.removeChild(link);
+          window.URL.revokeObjectURL(url);
+
+          console.log("PDF downloaded successfully");
+        } catch (error) {
+          console.error("Error downloading PDF:", error.message);
+          alert("Failed to download PDF: " + error.message);
+        }
+      }
+
+      document
+        .getElementById("downloadNinAgain")
+        .addEventListener("click", function () {
+          document.getElementById("downloadAgain").classList.add("hidden");
+          document
+            .getElementById("downloadAgainSpin")
+            .classList.remove("hidden");
+          getNinAgain();
+          document.getElementById("downloadAgain").classList.remove("hidden");
+          document.getElementById("downloadAgainSpin").classList.add("hidden");
+        });
+
+      document
+        .getElementById("getPremiumNinSlip")
+        .addEventListener("submit", async function (e) {
+          e.preventDefault();
+          document.getElementById("premiumNinError").classList.add("hidden");
+          document.getElementById("premiumNinDownload").classList.add("hidden");
+          document.getElementById("premiumNinSpin").classList.remove("hidden");
+          let nin = document.getElementById("premiumNin").value;
+          // Remove the first leading zero
+          if (nin.startsWith("0")) {
+            nin = nin.replace(/^0/, "");
+          }
+          if (nin.length !== 10) {
+            document
+              .getElementById("premiumNinError")
+              .classList.remove("hidden");
+            document
+              .getElementById("premiumNinDownload")
+              .classList.remove("hidden");
+            document.getElementById("premiumNinSpin").classList.add("hidden");
+            return;
+          }
+          
+          await getNin(nin, "premium");
+          document
+            .getElementById("premiumNinDownload")
+            .classList.remove("hidden");
+          document.getElementById("premiumNinSpin").classList.add("hidden");
+        });
+
+      document
+        .getElementById("getRegularNinSlip")
+        .addEventListener("submit", async function (e) {
+          e.preventDefault();
+          document.getElementById("regularNinError").classList.add("hidden");
+          document.getElementById("regularNinDownload").classList.add("hidden");
+          document.getElementById("regularNinSpin").classList.remove("hidden");
+          let nin = document.getElementById("regularNin").value;
+          if (nin.startsWith("0")) {
+            nin = nin.replace(/^0/, "");
+          }
+          if (nin.length !== 10) {
+            document
+              .getElementById("regularNinError")
+              .classList.remove("hidden");
+            document
+              .getElementById("regularNinDownload")
+              .classList.remove("hidden");
+            document.getElementById("regularNinSpin").classList.add("hidden");
+            return;
+          }
+          await getNin(nin, "regular");
+          document
+            .getElementById("regularNinDownload")
+            .classList.remove("hidden");
+          document.getElementById("regularNinSpin").classList.add("hidden");
+        });
+
+      document
+        .getElementById("getImprovedNinSlip")
+        .addEventListener("submit", async function (e) {
+          e.preventDefault();
+          document.getElementById("improvedNinError").classList.add("hidden");
+          document
+            .getElementById("improvedNinDownload")
+            .classList.add("hidden");
+          document.getElementById("improvedNinSpin").classList.remove("hidden");
+          let nin = document.getElementById("improvedNin").value;
+          if (nin.startsWith("0")) {
+            nin = nin.replace(/^0/, "");
+          }
+          if (nin.length !== 10) {
+            document
+              .getElementById("improvedNinError")
+              .classList.remove("hidden");
+            document
+              .getElementById("improvedNinDownload")
+              .classList.remove("hidden");
+            document.getElementById("improvedNinSpin").classList.add("hidden");
+            return;
+          }
+          await getNin(nin, "improved");
+          document
+            .getElementById("improvedNinDownload")
+            .classList.remove("hidden");
+          document.getElementById("improvedNinSpin").classList.add("hidden");
+        });
+    </script>
+    <script>
+      // Toggle sidebar on larger screens
+      const sidebar = document.getElementById("sidemenu");
+      const sidebarClose = document.getElementById("cancelSideMenu");
+      const sidebarLarge = document.getElementById("sidemenuLarge");
+      sidebarLarge.addEventListener("click", function (event) {
+        document.getElementById("sidebar").classList.toggle("lg:flex");
+        document.getElementById("logoContainer").classList.toggle("lg:flex");
+        document.getElementById("mainContent").classList.toggle("lg:ml-64");
+        document.getElementById("sidemenuLarge").classList.toggle("lg:ms-16");
+      });
+      sidebar.addEventListener("click", function (event) {
+        document.getElementById("sidebar").classList.toggle("hidden");
+        document.getElementById("sidemenu").classList.toggle("hidden");
+        document.getElementById("cancelSideMenu").classList.toggle("hidden");
+      });
+      sidebarClose.addEventListener("click", function (event) {
+        document.getElementById("sidebar").classList.toggle("hidden");
+        document.getElementById("sidemenu").classList.toggle("hidden");
+        document.getElementById("cancelSideMenu").classList.toggle("hidden");
+      });
+
+      // Toggle notification dropdown
+      const notificationButton = document.getElementById("notificationButton");
+      const notificationDropdown = document.getElementById(
+        "notificationDropdown"
+      );
+
+      notificationButton.addEventListener("click", function (event) {
+        event.stopPropagation();
+        notificationDropdown.classList.toggle("hidden");
+      });
+
+      // Close notification dropdown when clicking outside
+      document.addEventListener("click", function (event) {
+        const isClickInsideNotification =
+          notificationButton.contains(event.target) ||
+          notificationDropdown.contains(event.target);
+
+        if (!isClickInsideNotification) {
+          notificationDropdown.classList.add("hidden");
+        }
+      });
+    </script>
+  </body>
+</html>

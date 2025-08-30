@@ -7,23 +7,27 @@ const bcrypt = require("bcrypt");
 // Import the home route
 router.get("/", async (req, res) => {
   const username = req.user ? req.user.username : "";
-  const getUser = await User.findOne({ email: username });
-  if (!getUser) {
-    return res.status(404).send("User not found");
+  try {
+    const getUser = await User.findOne({ email: username });
+    if (!getUser) {
+      return res.status(404).send("User not found");
+    }
+    const user = {
+      name: getUser.name,
+      email: getUser.email,
+      phone: getUser.phone,
+      countryCode: getUser.countryCode,
+      profile: getUser.profile || "images/profile.png", // Default profile image if not set
+      notifications: getUser.notifications.slice(0, 3) || [],
+    };
+    res.render("change-pin", {
+      title: "Change Pin",
+      user: user,
+      name: "Duniya Comm",
+    });
+  } catch (error) {
+    return res.render("internalservererror", {title: "Server Error",name: "Duniya Comm"});
   }
-  const user = {
-    name: getUser.name,
-    email: getUser.email,
-    phone: getUser.phone,
-    countryCode: getUser.countryCode,
-    profile: getUser.profile || "images/profile.png", // Default profile image if not set
-    notifications: getUser.notifications.slice(0, 3) || [],
-  };
-  res.render("change-pin", {
-    title: "Change Pin",
-    user: user,
-    name: "Duniya Comm",
-  });
 });
 
 router.post("/", async (req, res) => {
@@ -45,33 +49,33 @@ router.post("/", async (req, res) => {
       .send("New pin must be at least 6 characters long");
   }
 
-  const getUser = await User.findOne({ email: email });
-  if (!getUser) {
-    console.log("user not found");
-    return res.status(404).send("User not found");
-  }
-
-  const pinMatch = await bcrypt.compare(
-    currentPin,
-    getUser.pin,
-    async (err, result) => {
-      if (result) {
-        const newHashedPin = await bcrypt.hash(newPin, 10);
-        const updatedUser = await User.findOneAndUpdate(
-          { email: email },
-          { pin: newHashedPin },
-          { new: true }
-        );
-        return res
-          .status(200)
-          .json({ message: "Pin updated successfully" });
-      } else {
-        return res
-          .status(404)
-          .json({ message: "Current pin is incorrect" });
-      }
+  try {
+    const getUser = await User.findOne({ email: email });
+    if (!getUser) {
+      console.log("user not found");
+      return res.status(404).send("User not found");
     }
-  );
+
+    const pinMatch = await bcrypt.compare(
+      currentPin,
+      getUser.pin,
+      async (err, result) => {
+        if (result) {
+          const newHashedPin = await bcrypt.hash(newPin, 10);
+          const updatedUser = await User.findOneAndUpdate(
+            { email: email },
+            { pin: newHashedPin },
+            { new: true }
+          );
+          return res.status(200).json({ message: "Pin updated successfully" });
+        } else {
+          return res.status(404).json({ message: "Current pin is incorrect" });
+        }
+      }
+    );
+  } catch (error) {
+    return res.render("internalservererror", {title: "Server Error",name: "Duniya Comm"});
+  }
 });
 
 module.exports = router;
