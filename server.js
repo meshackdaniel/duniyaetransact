@@ -168,6 +168,13 @@ app.use(
   nimcPhoneSearchRouter
 );
 
+const nimcTrackingIdSearchRouter = require("./routes/nimc-verification/tracking-id-search");
+app.use(
+  "/nimc-verification/tracking-id-search",
+  authenticateToken,
+  nimcTrackingIdSearchRouter
+);
+
 function generateRandomString(max) {
   const characters =
     "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -297,9 +304,18 @@ app.get("/logout", (req, res) => {
 });
 
 app.post("/api/get-nin", async (req, res) => {
-  const { nin, type, email, phone } = req.body;
+  const {
+    nin,
+    type,
+    email,
+    phone,
+    trackingid,
+    firstname,
+    lastname,
+    dob,
+    gender,
+  } = req.body;
   const getUser = await User.findOne({ email: email });
-  console.log(phone.length);
   let amount;
   if (nin) {
     if (type == "premium") {
@@ -374,7 +390,7 @@ app.post("/api/get-nin", async (req, res) => {
       }
     }
   }
-  if (phone.length == 10) {
+  if (phone) {
     if (type == "premium") {
       amount = 350;
     } else if (type == "improved") {
@@ -406,7 +422,6 @@ app.post("/api/get-nin", async (req, res) => {
         .json({ message: "Phone must be 11 characters long" });
     }
     if (phone === "9070807080") {
-      console.log(phone);
       const feedback = {
         status: true,
         data: {
@@ -441,7 +456,191 @@ app.post("/api/get-nin", async (req, res) => {
           issueDate: new Date().toLocaleDateString(),
           type,
         });
+      } else if (feedback.status == false && feedback.response_code == "01") {
+        await User.updateOne(
+          { email: email },
+          { $inc: { "account.accountBalance": amount - 50 } },
+          { new: true }
+        );
+        return res.status(400).json({
+          message: "Record not found - ₦50 was deducted from your balance.",
+        });
+      } else {
+        await User.updateOne(
+          { email: email },
+          { $inc: { "account.accountBalance": amount } },
+          { new: true }
+        );
+        return res
+          .status(400)
+          .json({ message: "Unable to fetch data; Try again later" });
       }
+    }
+  }
+  if (trackingid) {
+    if (type == "premium") {
+      amount = 350;
+    } else if (type == "improved") {
+      amount = 240;
+    } else {
+      amount = 200;
+    }
+    if (!getUser) {
+      return res.status(400).send("user not found");
+    }
+    if (amount > getUser.account.accountBalance) {
+      return res.status(400).json({ message: "Insufficient Balance" });
+    } else {
+      const updatedUser = await User.updateOne(
+        { email: email },
+        { $inc: { "account.accountBalance": -amount } },
+        { new: true }
+      );
+      if (!updatedUser) {
+        return res.status(500).json({ message: "Failed to update balance" });
+      }
+    }
+    if (!trackingid) {
+      return res.status(400).json({ message: "Tracking ID is required" });
+    }
+    const feedback = {
+      status: true,
+      data: {
+        birthdate: "10-12-1994",
+        email: "email@yahoo.com",
+        emplymentstatus: "self employed",
+        firstname: "Meshack",
+        gender: "f",
+        maritalstatus: "single",
+        middlename: "Ariwola",
+        nin: "12345678901",
+        photo:
+          "/9j/4AAQSkZJRgABAgAAAQABAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0a\nHBwgJC4...",
+        profession: "BUSINESS",
+        religion: "christianity",
+        residence_AdressLine1: "11 TUNAKIA STREET BARUWA",
+        residence_Town: "Abuna",
+        residence_lga: "Ananbis",
+        residence_state: "Abuja",
+        residencestatus: "birth",
+        signature:
+          "/9j/4AAQSkZJRgABAgAAAQABAAD/2wBDA\nRRRRRRRRRRRRRRRRRRRRkdfgdknfgdfksdf\nRRRRRRRRXdfs...",
+        surname: "AHMED",
+        telephoneno: "12345678901",
+        title: "miss",
+        trackingId: "123456789",
+      },
+    };
+    if (feedback.status == true) {
+      res.status(200).json({
+        ...feedback,
+        issueDate: new Date().toLocaleDateString(),
+        type,
+      });
+    } else if (feedback.status == false && feedback.response_code == "01") {
+      await User.updateOne(
+        { email: email },
+        { $inc: { "account.accountBalance": amount - 50 } },
+        { new: true }
+      );
+      return res.status(400).json({
+        message: "Record not found - ₦50 was deducted from your balance.",
+      });
+    } else {
+      await User.updateOne(
+        { email: email },
+        { $inc: { "account.accountBalance": amount } },
+        { new: true }
+      );
+      return res
+        .status(400)
+        .json({ message: "Unable to fetch data; Try again later" });
+    }
+  }
+  if (firstname) {
+    const dateOfBirth =
+      dob.substring(8, 10) +
+      "-" +
+      dob.substring(5, 7) +
+      "-" +
+      dob.substring(0, 4);
+    if (type == "premium") {
+      amount = 350;
+    } else if (type == "improved") {
+      amount = 240;
+    } else {
+      amount = 200;
+    }
+    if (!getUser) {
+      return res.status(400).send("user not found");
+    }
+    if (amount > getUser.account.accountBalance) {
+      return res.status(400).json({ message: "Insufficient Balance" });
+    } else {
+      const updatedUser = await User.updateOne(
+        { email: email },
+        { $inc: { "account.accountBalance": -amount } },
+        { new: true }
+      );
+      if (!updatedUser) {
+        return res.status(500).json({ message: "Failed to update balance" });
+      }
+    }
+    // if (!trackingid) {
+    //   return res.status(400).json({ message: "Tracking ID is required" });
+    // }
+    const feedback = {
+      status: true,
+      data: {
+        birthdate: "10-12-1994",
+        email: "email@yahoo.com",
+        emplymentstatus: "self employed",
+        firstname: "Meshack",
+        gender: "f",
+        maritalstatus: "single",
+        middlename: "Ariwola",
+        nin: "12345678901",
+        photo:
+          "/9j/4AAQSkZJRgABAgAAAQABAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0a\nHBwgJC4...",
+        profession: "BUSINESS",
+        religion: "christianity",
+        residence_AdressLine1: "11 TUNAKIA STREET BARUWA",
+        residence_Town: "Abuna",
+        residence_lga: "Ananbis",
+        residence_state: "Abuja",
+        residencestatus: "birth",
+        signature:
+          "/9j/4AAQSkZJRgABAgAAAQABAAD/2wBDA\nRRRRRRRRRRRRRRRRRRRRkdfgdknfgdfksdf\nRRRRRRRRXdfs...",
+        surname: "AHMED",
+        telephoneno: "12345678901",
+        title: "miss",
+        trackingId: "123456789",
+      },
+    };
+    if (feedback.status == true) {
+      res.status(200).json({
+        ...feedback,
+        issueDate: new Date().toLocaleDateString(),
+        type,
+      });
+    } else if (feedback.status == false && feedback.response_code == "01") {
+      await User.updateOne(
+        { email: email },
+        { $inc: { "account.accountBalance": amount - 50 } },
+        { new: true }
+      );
+      return res.status(400).json({
+        message: "Record not found - ₦50 was deducted from your balance.",
+      });
+    } else {
+      await User.updateOne(
+        { email: email },
+        { $inc: { "account.accountBalance": amount } },
+        { new: true }
+      );
+      return res
+        .status(400)
+        .json({ message: "Unable to fetch data; Try again later" });
     }
   }
 });

@@ -507,7 +507,7 @@
                 />
               </svg>
               <h1 class="text-2xl ms-4 font-bold text-gray-800">
-                NIMC Phone Search
+                NIMC Tracking ID Search
               </h1>
             </div>
 
@@ -849,20 +849,20 @@
                 <label
                   for="improvedNin"
                   class="block text-sm font-medium text-gray-700 mb-2"
-                  >Phone Number</label
+                  >Tracking ID</label
                 >
                 <input
                   type="number"
                   id="improvedNin"
                   name="improvedNin"
                   class="w-full px-4 py-3 rounded-lg border border-gray-300 input-focus focus:outline-none"
-                  placeholder="Enter your Phone number"
+                  placeholder="Enter your tracking ID"
                   required
                 />
               </div>
 
               <p id="improvedNinError" class="text-red-800 hidden">
-                Invalid phone number
+                invalid Tracking ID
               </p>
               <p id="improvedErrorResponse" class="text-red-800"></p>
               <button
@@ -943,19 +943,19 @@
                 <label
                   for="premiumNin"
                   class="block text-sm font-medium text-gray-700 mb-2"
-                  >Phone Number</label
+                  >Tracking ID</label
                 >
                 <input
                   type="number"
                   id="premiumNin"
                   name="premiumNin"
                   class="w-full px-4 py-3 rounded-lg border border-gray-300 input-focus focus:outline-none"
-                  placeholder="Enter your Phone number"
+                  placeholder="Enter your tracking ID"
                   required
                 />
               </div>
               <p id="premiumNinError" class="text-red-800 hidden">
-                Invalid phone number
+                invalid Tracking ID
               </p>
               <p id="premiumErrorResponse" class="text-red-800"></p>
               <button
@@ -1036,20 +1036,20 @@
                 <label
                   for="regularNin"
                   class="block text-sm font-medium text-gray-700 mb-2"
-                  >Phone Number</label
+                  >Tracking ID</label
                 >
                 <input
                   type="number"
                   id="regularNin"
                   name="regularNin"
                   class="w-full px-4 py-3 rounded-lg border border-gray-300 input-focus focus:outline-none"
-                  placeholder="Enter your Phone number"
+                  placeholder="Enter your tracking ID"
                   required
                 />
               </div>
 
               <p id="regularNinError" class="text-red-800 hidden">
-                Invalid phone number
+                invalid Tracking ID
               </p>
               <p id="regularErrorResponse" class="text-red-800"></p>
             </div>
@@ -1261,7 +1261,7 @@
                 <label
                   for="phoneData"
                   class="block text-sm font-medium text-gray-700 mb-2"
-                  >Phone Number</label
+                  >Tracking ID</label
                 >
                 <input
                   type="text"
@@ -1508,7 +1508,7 @@
               Accept: "application/json",
             },
             body: JSON.stringify({
-              phone: nin,
+              trackingid: nin,
               type,
               email: "<%= user.email %>",
             }),

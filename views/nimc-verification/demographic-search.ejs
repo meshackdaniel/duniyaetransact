@@ -847,39 +847,106 @@
             <div class="space-t-6">
               <div>
                 <label
-                  for="improvedNin"
+                  for="improvedNinFirstname"
                   class="block text-sm font-medium text-gray-700 mb-2"
-                  >NIN Number</label
+                  >First Name</label
                 >
                 <input
-                  type="number"
-                  id="improvedNin"
-                  name="improvedNin"
+                  type="text"
+                  id="improvedNinFirstname"
+                  name="improvedNinFirstname"
                   class="w-full px-4 py-3 rounded-lg border border-gray-300 input-focus focus:outline-none"
-                  placeholder="Enter your NIN number"
+                  placeholder="Enter your first name"
+                  required
+                />
+              </div>
+              <div class="mt-2">
+                <label
+                  for="improvedNinLastname"
+                  class="block text-sm font-medium text-gray-700 mb-2"
+                  >Last Name</label
+                >
+                <input
+                  type="text"
+                  id="improvedNinLastname"
+                  name="improvedNinLastname"
+                  class="w-full px-4 py-3 rounded-lg border border-gray-300 input-focus focus:outline-none"
+                  placeholder="Enter your last name"
+                  required
+                />
+              </div>
+              <div class="mt-2">
+                <label
+                  for="improvedNinGender"
+                  class="block text-sm font-medium text-gray-700 mb-2"
+                  >Gender</label
+                >
+                <select
+                  id="improvedNinGender"
+                  name="improvedNinGender"
+                  class="w-full px-4 py-3 rounded-lg border border-gray-300 input-focus focus:outline-none"
+                  id=""
+                >
+                  <option value="">Select gender</option>
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
+                </select>
+              </div>
+              <div class="mt-2">
+                <label
+                  for="improvedNinDob"
+                  class="block text-sm font-medium text-gray-700 mb-2"
+                  >Date of birth</label
+                >
+                <input
+                  type="date"
+                  id="improvedNinDob"
+                  name="improvedNinDob"
+                  class="w-full px-4 py-3 rounded-lg border border-gray-300 input-focus focus:outline-none"
                   required
                 />
               </div>
 
-              <p id="error" class="text-red-800"></p>
+              <p id="improvedNinError" class="text-red-800 hidden">
+                
+              </p>
+              <p id="improvedErrorResponse" class="text-red-800"></p>
               <button
-                class="flex-1 w-full mt-3 py-2 bg-indigo-700 text-white rounded-lg font-medium hover:bg-indigo-600 transition-colors flex items-center justify-center"
+                class="flex-1 mt-3 w-full py-2 bg-indigo-700 text-white rounded-lg font-medium hover:bg-indigo-600 transition-colors flex items-center justify-center"
               >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  class="h-5 w-5 mr-2"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
+                <div class="flex items-center" id="improvedNinDownload">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-5 w-5 mr-2"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
+                    />
+                  </svg>
+                  Download NIN
+                </div>
+                <span class="animate-spin hidden" id="improvedNinSpin">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
                     stroke-linecap="round"
                     stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
-                  />
-                </svg>
-                Download NIN
+                    class="lucide lucide-loader-circle-icon lucide-loader-circle"
+                  >
+                    <path d="M21 12a9 9 0 1 1-6.219-8.56" />
+                  </svg>
+                </span>
               </button>
             </div>
           </form>
@@ -920,22 +987,68 @@
             <div class="space-t-6">
               <div>
                 <label
-                  for="premiumNin"
+                  for="premiumNinFirstname"
                   class="block text-sm font-medium text-gray-700 mb-2"
-                  >NIN Number</label
+                  >First Name</label
                 >
                 <input
-                  type="number"
-                  id="premiumNin"
-                  name="premiumNin"
+                  type="text"
+                  id="premiumNinFirstname"
+                  name="premiumNinFirstname"
                   class="w-full px-4 py-3 rounded-lg border border-gray-300 input-focus focus:outline-none"
-                  placeholder="Enter your NIN number"
+                  placeholder="Enter your first name"
+                  required
+                />
+              </div>
+              <div class="mt-2">
+                <label
+                  for="premiumNinLastname"
+                  class="block text-sm font-medium text-gray-700 mb-2"
+                  >Last Name</label
+                >
+                <input
+                  type="text"
+                  id="premiumNinLastname"
+                  name="premiumNinLastname"
+                  class="w-full px-4 py-3 rounded-lg border border-gray-300 input-focus focus:outline-none"
+                  placeholder="Enter your last name"
+                  required
+                />
+              </div>
+              <div class="mt-2">
+                <label
+                  for="premiumNinGender"
+                  class="block text-sm font-medium text-gray-700 mb-2"
+                  >Gender</label
+                >
+                <select
+                  id="premiumNinGender"
+                  name="premiumNinGender"
+                  class="w-full px-4 py-3 rounded-lg border border-gray-300 input-focus focus:outline-none"
+                  id=""
+                >
+                  <option value="">Select gender</option>
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
+                </select>
+              </div>
+              <div class="mt-2">
+                <label
+                  for="premiumNinDob"
+                  class="block text-sm font-medium text-gray-700 mb-2"
+                  >Date of birth</label
+                >
+                <input
+                  type="date"
+                  id="premiumNinDob"
+                  name="premiumNinDob"
+                  class="w-full px-4 py-3 rounded-lg border border-gray-300 input-focus focus:outline-none"
                   required
                 />
               </div>
               <p id="premiumNinError" class="text-red-800 hidden">
-                Minimum digit for NIN is 11
               </p>
+              <p id="premiumErrorResponse" class="text-red-800"></p>
               <button
                 class="flex-1 mt-3 w-full py-2 bg-indigo-700 text-white rounded-lg font-medium hover:bg-indigo-600 transition-colors flex items-center justify-center"
               >
@@ -1012,196 +1125,108 @@
             <div class="space-t-6">
               <div>
                 <label
-                  for="regularNin"
+                  for="improvedNinFirstname"
                   class="block text-sm font-medium text-gray-700 mb-2"
-                  >NIN Number</label
+                  >First Name</label
                 >
                 <input
-                  type="number"
-                  id="regularNin"
-                  name="regularNin"
+                  type="text"
+                  id="regularNinFirstname"
+                  name="regularNinFirstname"
                   class="w-full px-4 py-3 rounded-lg border border-gray-300 input-focus focus:outline-none"
-                  placeholder="Enter your NIN number"
+                  placeholder="Enter your first name"
                   required
                 />
               </div>
-
-              <p id="error" class="text-red-800"></p>
-            </div>
-            <button
-              class="flex-1 w-full mt-3 py-2 bg-indigo-700 text-white rounded-lg font-medium hover:bg-indigo-600 transition-colors flex items-center justify-center"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                class="h-5 w-5 mr-2"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
-                />
-              </svg>
-              Download NIN
-            </button>
-          </form>
-        </div>
-      </div>
-    </div>
-
-    <div
-      id="vNinModal"
-      class="ninModal fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center z-50 hidden"
-    >
-      <div
-        class="bg-white rounded-xl shadow-xl max-w-lg w-full mx-4 overflow-hidden"
-      >
-        <div
-          class="px-6 py-4 bg-indigo-700 text-white flex justify-between items-center"
-        >
-          <h3 class="text-lg font-semibold">Virtual NIN Slip</h3>
-          <button class="closeNinModal text-white hover:text-gray-200">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="h-6 w-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M6 18L18 6M6 6l12 12"
-              />
-            </svg>
-          </button>
-        </div>
-        <div class="px-6 py-4">
-          <form id="virtualninslip" method="post">
-            <div class="space-t-6">
-              <div>
+              <div class="mt-2">
                 <label
-                  for="virtualnin"
+                  for="regularNinLastname"
                   class="block text-sm font-medium text-gray-700 mb-2"
-                  >NIN Number</label
+                  >Last Name</label
                 >
                 <input
-                  type="number"
-                  id="virtualnin"
-                  name="virtualnin"
+                  type="text"
+                  id="regularNinLastname"
+                  name="regularNinLastname"
                   class="w-full px-4 py-3 rounded-lg border border-gray-300 input-focus focus:outline-none"
-                  placeholder="Enter your NIN number"
+                  placeholder="Enter your last name"
                   required
                 />
               </div>
-
-              <p id="error" class="text-red-800"></p>
-            </div>
-          </form>
-        </div>
-        <div class="px-6 pb-6">
-          <div class="flex space-x-3">
-            <button
-              class="flex-1 py-2 bg-indigo-700 text-white rounded-lg font-medium hover:bg-indigo-600 transition-colors flex items-center justify-center"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                class="h-5 w-5 mr-2"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
-                />
-              </svg>
-              Download NIN
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div
-      id="basicNinModal"
-      class="ninModal fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center z-50 hidden"
-    >
-      <div
-        class="bg-white rounded-xl shadow-xl max-w-lg w-full mx-4 overflow-hidden"
-      >
-        <div
-          class="px-6 py-4 bg-indigo-700 text-white flex justify-between items-center"
-        >
-          <h3 class="text-lg font-semibold">Basic NIN Slip</h3>
-          <button class="closeNinModal text-white hover:text-gray-200">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="h-6 w-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M6 18L18 6M6 6l12 12"
-              />
-            </svg>
-          </button>
-        </div>
-        <div class="px-6 py-4">
-          <form id="basicninslip" method="post">
-            <div class="space-t-6">
-              <div>
+              <div class="mt-2">
                 <label
-                  for="basicnin"
+                  for="regularNinGender"
                   class="block text-sm font-medium text-gray-700 mb-2"
-                  >NIN Number</label
+                  >Gender</label
+                >
+                <select
+                  id="regularNinGender"
+                  name="regularNinGender"
+                  class="w-full px-4 py-3 rounded-lg border border-gray-300 input-focus focus:outline-none"
+                  id=""
+                >
+                  <option value="">Select gender</option>
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
+                </select>
+              </div>
+              <div class="mt-2">
+                <label
+                  for="regularNinDob"
+                  class="block text-sm font-medium text-gray-700 mb-2"
+                  >Date of birth</label
                 >
                 <input
-                  type="number"
-                  id="basicnin"
-                  name="basicnin"
+                  type="date"
+                  id="regularNinDob"
+                  name="regularNinDob"
                   class="w-full px-4 py-3 rounded-lg border border-gray-300 input-focus focus:outline-none"
-                  placeholder="Enter your NIN number"
                   required
                 />
               </div>
 
-              <p id="error" class="text-red-800"></p>
+              <p id="regularNinError" class="text-red-800 hidden">
+              </p>
+              <p id="regularErrorResponse" class="text-red-800"></p>
             </div>
-          </form>
-        </div>
-        <div class="px-6 pb-6">
-          <div class="flex space-x-3">
             <button
-              class="flex-1 py-2 bg-indigo-700 text-white rounded-lg font-medium hover:bg-indigo-600 transition-colors flex items-center justify-center"
+              class="flex-1 mt-3 w-full py-2 bg-indigo-700 text-white rounded-lg font-medium hover:bg-indigo-600 transition-colors flex items-center justify-center"
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                class="h-5 w-5 mr-2"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
+              <div class="flex items-center" id="regularNinDownload">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-5 w-5 mr-2"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
+                  />
+                </svg>
+                Download NIN
+              </div>
+              <span class="animate-spin hidden" id="regularNinSpin">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
                   stroke-linecap="round"
                   stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
-                />
-              </svg>
-              Download NIN
+                  class="lucide lucide-loader-circle-icon lucide-loader-circle"
+                >
+                  <path d="M21 12a9 9 0 1 1-6.219-8.56" />
+                </svg>
+              </span>
             </button>
-          </div>
+          </form>
         </div>
       </div>
     </div>
@@ -1520,31 +1545,54 @@
               id="downloadNinAgain"
               class="flex-1 py-2 bg-indigo-700 text-white rounded-lg font-medium hover:bg-indigo-600 transition-colors flex items-center justify-center"
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                class="h-5 w-5 mr-2"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
+              <div class="flex items-center" id="downloadAgain">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-5 w-5 mr-2"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
+                  />
+                </svg>
+                Download NIN
+              </div>
+              <span class="animate-spin hidden" id="downloadAgainSpin">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
                   stroke-linecap="round"
                   stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
-                />
-              </svg>
-              Download NIN
+                  class="lucide lucide-loader-circle-icon lucide-loader-circle"
+                >
+                  <path d="M21 12a9 9 0 1 1-6.219-8.56" />
+                </svg>
+              </span>
             </button>
           </div>
         </div>
       </div>
     </div>
     <script>
+      let premiumModalOpen = false;
+      let improvedModalOpen = false;
+      let regularModalOpen = false;
       document
         .getElementById("premiumNinSlipBtn")
         .addEventListener("click", () => {
           document.getElementById("premiumNinModal").classList.remove("hidden");
+          document.getElementById("premiumNinFirstname").focus();
+          premiumModalOpen = true;
         });
       document
         .getElementById("improvedNinSlipBtn")
@@ -1552,35 +1600,79 @@
           document
             .getElementById("improvedNinModal")
             .classList.remove("hidden");
+          document.getElementById("improvedNinFirstname").focus();
+          improvedModalOpen = true;
         });
 
       document
         .getElementById("regularNinSlipBtn")
         .addEventListener("click", () => {
           document.getElementById("regularNinModal").classList.remove("hidden");
+          document.getElementById("regularNinFirstname").focus();
+          regularModalOpen = true;
         });
-
 
       document.querySelectorAll(".closeNinModal").forEach((button) => {
         button.addEventListener("click", () => {
           document.querySelectorAll(".ninModal").forEach((element) => {
             element.classList.add("hidden");
+            premiumModalOpen = false;
+            improvedModalOpen = false;
+            regularModalOpen = false;
+            document.getElementById("premiumErrorResponse").textContent = "";
+            document.getElementById("improvedErrorResponse").textContent = "";
+            document.getElementById("regularErrorResponse").textContent = "";
+            document.getElementById("premiumNinError").classList.add("hidden");
+            document.getElementById("improvedNinError").classList.add("hidden");
+            document.getElementById("regularNinError").classList.add("hidden");
+            document.getElementById("getPremiumNinSlip").reset();
+            document.getElementById("getImprovedNinSlip").reset();
+            document.getElementById("getRegularNinSlip").reset();
           });
         });
       });
 
-      async function getNin(nin, type) {
-        if (nin) {
+      async function getNin(firstname, lastname, dob, gender, type) {
+        document.getElementById("premiumErrorResponse").textContent = "";
+        document.getElementById("improvedErrorResponse").textContent = "";
+        document.getElementById("regularErrorResponse").textContent = "";
+        console.log("In getnin with data:", firstname, lastname, dob, gender, type);
+        if (firstname && lastname && dob && gender && type) {
           fetch("/api/get-nin/", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
               Accept: "application/json",
             },
-            body: JSON.stringify({ nin, type }),
+            body: JSON.stringify({
+              firstname,
+              lastname,
+              dob,
+              gender,
+              type,
+              email: "<%= user.email %>",
+            }),
           }).then(async (res) => {
             const response = await res.json();
+            if (!res.ok) {
+              if (premiumModalOpen == true) {
+                document.getElementById("premiumErrorResponse").textContent =
+                  response.message;
+                return;
+              }
+              if (improvedModalOpen == true) {
+                document.getElementById("improvedErrorResponse").textContent =
+                  response.message;
+                return;
+              }
+              if (regularModalOpen == true) {
+                document.getElementById("regularErrorResponse").textContent =
+                  response.message;
+                return;
+              }
+            }
             if (response.status === true) {
+              console.log("good response");
               document.querySelectorAll(".closeNinModal").forEach((button) => {
                 button.addEventListener("click", () => {
                   document.querySelectorAll(".ninModal").forEach((element) => {
@@ -1792,28 +1884,30 @@
       document
         .getElementById("downloadNinAgain")
         .addEventListener("click", function () {
+          document.getElementById("downloadAgain").classList.add("hidden");
+          document
+            .getElementById("downloadAgainSpin")
+            .classList.remove("hidden");
           getNinAgain();
+          document.getElementById("downloadAgain").classList.remove("hidden");
+          document.getElementById("downloadAgainSpin").classList.add("hidden");
         });
 
       document
         .getElementById("getPremiumNinSlip")
         .addEventListener("submit", async function (e) {
           e.preventDefault();
-          document.getElementById("premiumNinDownload").classList.add("hidden");
+          document.getElementById("premiumNinError").classList.add("hidden");
+          document
+            .getElementById("premiumNinDownload")
+            .classList.add("hidden");
           document.getElementById("premiumNinSpin").classList.remove("hidden");
-          document.getElementById("premiumNinError").classList.remove("hidden");
-          const nin = document.getElementById("premiumNin").value;
-          if (nin.length !== 11) {
-            document
-              .getElementById("premiumNinError")
-              .classList.remove("hidden");
-            document
-              .getElementById("premiumNinDownload")
-              .classList.remove("hidden");
-            document.getElementById("premiumNinSpin").classList.add("hidden");
-            return;
-          }
-          await getNin(nin, "premium");
+          let firstname = document.getElementById("premiumNinFirstname").value;
+          let lastname = document.getElementById("premiumNinLastname").value;
+          let dob = document.getElementById("premiumNinDob").value;
+          let gender = document.getElementById("premiumNinGender").value;
+
+          await getNin(firstname, lastname, dob, gender, "premium");
           document
             .getElementById("premiumNinDownload")
             .classList.remove("hidden");
@@ -1824,14 +1918,42 @@
         .getElementById("getRegularNinSlip")
         .addEventListener("submit", async function (e) {
           e.preventDefault();
-          getNin(document.getElementById("regularNin").value, "regular");
+          document.getElementById("regularNinError").classList.add("hidden");
+          document
+            .getElementById("regularNinDownload")
+            .classList.add("hidden");
+          document.getElementById("regularNinSpin").classList.remove("hidden");
+          let firstname = document.getElementById("regularNinFirstname").value;
+          let lastname = document.getElementById("regularNinLastname").value;
+          let dob = document.getElementById("regularNinDob").value;
+          let gender = document.getElementById("regularNinGender").value;
+
+          await getNin(firstname, lastname, dob, gender, "regular");
+          document
+            .getElementById("regularNinDownload")
+            .classList.remove("hidden");
+          document.getElementById("regularNinSpin").classList.add("hidden");
         });
 
       document
         .getElementById("getImprovedNinSlip")
         .addEventListener("submit", async function (e) {
           e.preventDefault();
-          getNin(document.getElementById("improvedNin").value, "improved");
+          document.getElementById("improvedNinError").classList.add("hidden");
+          document
+            .getElementById("improvedNinDownload")
+            .classList.add("hidden");
+          document.getElementById("improvedNinSpin").classList.remove("hidden");
+          let firstname = document.getElementById("improvedNinFirstname").value;
+          let lastname = document.getElementById("improvedNinLastname").value;
+          let dob = document.getElementById("improvedNinDob").value;
+          let gender = document.getElementById("improvedNinGender").value;
+
+          await getNin(firstname, lastname, dob, gender, "improved");
+          document
+            .getElementById("improvedNinDownload")
+            .classList.remove("hidden");
+          document.getElementById("improvedNinSpin").classList.add("hidden");
         });
     </script>
     <script>
